@@ -1,0 +1,103 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+.btn{
+width:70%;
+}
+</style>
+
+{%endblock%}
+
+{%block title%}CREAR CLIENTE{%endblock%}
+{%block jumbo%}CREAR CLIENTE{%endblock%}
+
+{%block content%}
+
+<div class="container-fluid">
+
+<div class="row ">
+    <div class="col">
+        <div class="col-md">
+            
+        </div>
+    </div>
+
+
+
+    <div class="col m-2 text-center bg-light border rounded-lg">
+        <div class="col-md">
+        	<form method="post">
+				{% csrf_token %}
+
+            <label for="rut" class="mt-2"><h5><strong>Rut:</strong></h5></label>
+            {{form.rut|add_class:"form-control text-center"}}
+
+            <label for="nombre_organizacion"  class="mt-2"><h5><strong>Nombre Organización:</strong></h5></label>
+			{{form.nombre_organizacion|add_class:"form-control text-center"}}
+
+			<label for="nombre"  class="mt-2"><h5><strong>Nombre:</strong></h5></label>
+			{{form.nombre|add_class:"form-control text-center"}}
+
+			<label for="apellido"  class="mt-2"><h5><strong>Apellido:</strong></h5></label>
+			{{form.apellido|add_class:"form-control text-center"}}
+
+			<label for="direccion1"  class="mt-2"><h5><strong>Dirección 1:</strong></h5></label>
+			{{form.direccion1|add_class:"form-control text-center"}}
+
+			<label for="direccion2"  class="mt-2"><h5><strong>Direccion 2:</strong></h5></label>
+		  	{{form.direccion2|add_class:"form-control text-center"}}
+
+		  	<label for="ciudad"  class="mt-2"><h5><strong>Ciudad:</strong></h5></label>
+		   	{{form.ciudad|add_class:"form-control text-center"}}
+
+		   	<label for="telefono" class="mt-2"><h5><strong>Teléfono:</strong></h5></label>
+		   	{{form.telefono|add_class:"form-control text-center"}}
+
+		   	<label for="celular"  class="mt-2"><h5><strong>Celular:</strong></h5></label>
+		 	{{form.celular|add_class:"form-control text-center"}}
+
+		   	<label for="email"  class="mt-2"><h5><strong>Email:</strong></h5></label>
+		 	{{form.email|add_class:"form-control text-center"}}
+
+		   	<label for="tipo_cliente"  class="mt-2"><h5><strong>Tipo de cliente:</strong></h5tipo_cliente</label>
+		 	{{form.tipo_cliente|add_class:"form-control text-center"}}
+
+
+   			<button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>ENVIAR</strong></button>
+   			<a href="javascript:history.back(-1);" class="btn btn-secondary m-3 rounded-pill border"><strong>VOLVER</strong></a>
+
+		</div>
+
+    </div>
+
+
+
+
+    <div class="col">
+        <div class="col-md">
+            
+        </div>
+    </div>
+
+</div>
+{%endblock%}

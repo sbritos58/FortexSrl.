@@ -1,0 +1,97 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+
+{%block head%}
+<style>
+</style>
+{%endblock%}
+
+{%block jumbo%}LISTA DE USUARIOS{%endblock%}
+
+
+
+{%block content%}
+
+<div class="container-fluid">
+
+<div class="row ">
+    <div class="col">
+        <div class="col-md">
+            
+        </div>
+    </div>
+
+<div class="list-group">
+	<table class="table table-striped table-hover rounded border  m-3 table-sm">
+
+		<thead class="thead-dark text-center">
+			<th>id</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Nombre Usuario</th>
+			<th>Telefono</th>
+			<th>Email</th>
+			<th>Grupo</th>
+			<th>Acciones</th>
+		</thead>
+		<tbody class="thead-light text-center">
+
+		 {% for user in object_list %}
+
+        <form method="POST" action="/Registro/delete/{{user.id}}">
+        {% csrf_token %}
+
+        	
+			<tr>
+				<td>{{user.id}}</td>
+				<td>{{user.first_name}}</td>
+				<td>{{user.last_name}}</td>
+				<td>{{user.username}}</td>
+				<td>{{user.telefono}}</td>
+				<td>{{user.email}}</td>
+				<td>{%for group in user.groups.all%}
+				{{group}}{%endfor%}</td>
+
+				<td>
+					<a href="/Registro/detail/{{user.id}}" class="btn btn-success rounded-pill border"><strong>Ver</strong></a>
+					{%if perms.object.can_change_user%}
+					<a href="/Registro/update/{{user.id}}" class="btn btn-warning rounded-pill border"><strong>Editar</strong></a>
+					{%endif%}
+					{%if perms.object.can_delete_user%}
+					<button class="btn btn-danger rounded-pill border" onclick="return eliminar()" type="submit"><strong>Eliminar</strong></button>
+					{%endif%}
+					
+				</td>
+			</tr>
+			{%endfor%}
+
+		</tbody>
+	</table>
+</div>
+
+
+
+
+    <div class="col">
+        <div class="col-md">
+            
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript">
+
+      function eliminar() {
+        var x = confirm("¿ Seguro de eliminar este Usuario ?");
+        if (x)
+
+            return true;
+        else
+            return false;
+      }
+</script>
+
+
+{%endblock%}

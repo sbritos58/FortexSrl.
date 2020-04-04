@@ -1,0 +1,101 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+.btn{
+width:50%;
+}
+</style>
+{%endblock%}
+{%block jumbo%}ACTUALIZAR PRODUCTO{%endblock%}
+
+{%block content%}
+
+<div class="container-fluid">
+
+<div class="row ">
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+
+
+
+    <div class="col m-2 text-center bg-light border rounded">
+        <div class="col-md">
+        	<form method="post">
+				{% csrf_token %}
+
+            <label for="nombre" class="mt-2"><h5><strong>Nombre</strong></h5></label>
+            {{form.nombre|add_class:"form-control text-center"}}
+
+            <label for="rut"  class="mt-2"><h5><strong>Rut</strong></h5></label>
+			{{form.rut|add_class:"form-control text-center"}}
+
+			<label for="material"  class="mt-2"><h5><strong>Material</strong></h5></label>
+			{{form.material|add_class:"form-control text-center"}}
+
+			<label for="preTratamiento"  class="mt-2"><h5><strong>Pre Tratamiento</strong></h5></label>
+			{{form.preTratamiento|add_class:"form-control text-center"}}
+
+			<label for="plasma"  class="mt-2"><h5><strong>Plasma: </strong></h5></label>
+			{{form.plasma|add_class:"form-control text-center"}}
+
+			<label for="fondo"  class="mt-2"><h5><strong>Fondo</strong></h5></label>
+		  	{{form.fondo|add_class:"form-control text-center"}}
+
+		  	<label for="deposito"  class="mt-2"><h5><strong>Depósito</strong></h5></label>
+		   	{{form.deposito|add_class:"form-control text-center"}}
+
+		   	<label for="finitura"  class="mt-2"><h5><strong>Finitura</strong></h5></label>
+		   	{{form.finitura|add_class:"form-control text-center"}}
+
+		   	<label for="controlCalidad"  class="mt-2"><h5><strong>Control de calidad</strong></h5></label>
+		   	{{form.controlCalidad|add_class:"form-control text-center"}}
+		   	<label for="embalaje"  class="mt-2"><h5><strong>Embalaje</strong></h5></label>
+		   	{{form.embalaje|add_class:"form-control text-center"}}
+		   	<label for="consideraciones"  class="mt-2"><h5><strong>Consideraciones</strong></h5></label>
+		   	{{form.consideraciones|add_class:"form-control text-center"}}
+		   	<label for="fotos"  class="mt-2"><h5><strong>fotos</strong></h5></label>
+		   	{{form.fotos|add_class:"form-control text-center"}}
+
+
+
+   			<button type="submit" class="btn btn-primary m-2 border rounded-pill"><strong>ENVIAR</strong></button>
+				<a href="javascript:history.back(-1);" class="btn btn-secondary rounded-pill border m-2" ><strong>VOLVER</strong></a>
+
+		</div>
+
+    </div>
+
+
+
+
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+
+</div>y
+{%endblock%}

@@ -1,0 +1,52 @@
+{%load static%}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+{% load widget_tweaks %}
+{%block head%}{%endblock%}
+<title>Fortex S.R.L. - {%block title%}{%endblock%}</title>
+
+  <style>
+    body{background-color:#f7f7f7;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+{% include 'register/navbar.html'%}
+
+<div class="jumbotron border rounded">
+  <h1 class="display-5 text-center">{%block jumbo%}{%endblock%}</h1>
+</div>
+
+
+
+{% if messages %}
+  <ul class="messages list-group mb-3">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} rounded list-group-item text-center list-group-item-success mr-1"{% endif %} id='Mensaje'>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+{%block content%}
+{%endblock content%}
+
+</body>
+
+</html>
+
+

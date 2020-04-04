@@ -1,0 +1,69 @@
+ <nav class="navbar navbar-expand-sm bg-secondary rounded navbar-dark mr-1 sticky-top">
+  <!-- Brand -->
+<img class="navbar-brand" width="10%" src="http://www.fortexsrl.it/wp-content/uploads/2013/05/logo1.png">
+  <!-- Links -->
+
+  <ul class="navbar-nav">
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <strong>USUARIOS</strong>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{%url 'listViewUsuario'%}">Ver Usuarios</a>
+                    {%if perms.object.can_add_user%}
+        <a class="dropdown-item" href="{%url 'createUsuario'%}">Crear Usuario</a>
+                              {%endif%}
+      
+      </div>
+    </li>
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <STRONG>CLIENTES</STRONG>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{%url 'ListClientes'%}">Ver Clientes</a>
+        <a class="dropdown-item" href="{%url 'createClientes'%}">Crear Cliente</a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <STRONG>PRODUCTOS</STRONG>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{%url 'listProductos'%}">Ver Productos</a>
+        <a class="dropdown-item" href="{%url 'createProductos'%}">Crear Producto</a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown ">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <STRONG>ORDENES TRABAJO</STRONG>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{%url 'listarOrden'%}">Ver Ordenes</a>
+        <a class="dropdown-item" href="{%url 'crearOrden'%}">Crear Orden</a>
+      </div>
+    </li>
+  </ul>
+
+<ul class="navbar-nav ml-auto">
+
+    <li class="nav-item dropdown ">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <strong><span style="text-transform:uppercase"> {{user}}</span></strong>
+      </a>
+       <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Ver Perfil</a>
+        
+        <a class="dropdown-item" href="{%url 'logout'%}">Cerrar Sesión</a>
+      </div>
+    </li>
+  </ul>
+
+</nav>
+
+

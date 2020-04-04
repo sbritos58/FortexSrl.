@@ -1,0 +1,124 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+
+
+{%block head%}
+
+<style>
+	.btn{
+	width:70%}
+</style>
+{%endblock%}
+
+{%block title%}Detalle{%endblock%}
+
+{%block jumbo%}DETALLE DE PRODUCTO{%endblock%}
+
+{%block content%}
+
+<div class="container-fluid">
+
+<div class="row ">
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+¡<div class="list-group m-3 bg-white border">
+	<table class="table table-striped table-hover rounded border table-sm">
+
+		<thead class="thead-dark text-center ">
+			<th>id</th>
+			<th>Nombre</th>
+			<th>Rut</th>
+			<th>Material</th>
+			<th>Pre Tratamiento</th>
+			<th>Plasma</th>
+			<th>Fondo</th>
+			<th>Deposito</th>
+			<th>Finitura</th>
+			<th>Control de calidad</th>
+			<th>Embalaje</th>
+            <th>Consideraciones</th>
+            <th>Fotos</th>
+            <th>Creado por</th>
+            <th>Modificado</th>
+            <th>Creado</th>
+
+
+
+
+		</thead>
+		<tbody class="thead-light text-center">
+
+		<form method="POST" action="/Productos/delete/{{object.id}}">
+        				{% csrf_token %}
+			<tr>
+				<td>{{object.id}}</td>
+				<td>{{object.nombre}}</td>
+				<td>{{object.rut}}</td>
+				<td>{{object.material}}</td>
+				<td>{{object.preTratamiento}}</td>
+				<td>{{object.plasma}}</td>
+                <td>{{object.fondo}}</td>
+                <td>{{object.deposito}}</td>
+                <td>{{object.finitura}}</td>
+                <td>{{object.controlCalidad}}</td>
+                <td>{{object.embalaje}}</td>
+                <td>{{object.consideraciones}}</td>
+                <td>{{object.fotos}}</td>
+                <td>{{object.usuarios}}</td>
+                <td>{{object.updated}}</td>
+                <td>{{object.created}}</td>
+
+			</tr>
+
+
+		</tbody>
+
+	</table>
+
+	<div class="row">
+		<div class="col">
+			<div class="col-md text-center mb-3">
+				<a href="/Productos/update/{{object.id}}" class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
+			</div>
+		</div>
+		<div class="col">
+			<div class="col-md text-center mb-3">
+			<button class="btn btn-danger btn-xs rounded-pill border  m-3" onclick="return eliminar()" type="submit"><strong>ELIMINAR</strong></button>
+			</div>
+		</div>
+
+		<div class="col">
+			<div class="col-md text-center mb-3">
+			<a href="javascript:history.back(-1);" class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+      function eliminar() {
+        var x = confirm("¿ Seguro de eliminar este Usuario ?");
+        if (x)
+
+            return true;
+        else
+            return false;
+      }
+</script>
+
+</div>
+
+{%endblock%}

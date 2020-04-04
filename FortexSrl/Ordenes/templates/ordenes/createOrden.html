@@ -1,0 +1,107 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+
+
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+
+.btn{
+width:50%;
+}
+
+</style>
+{%endblock%}
+
+
+{%block title%}CREAR ORDEN{%endblock%}
+{%block jumbo%}CREAR ORDEN{%endblock%}
+
+{%block content%}
+
+<div class="container-fluid">
+
+<div class="row ">
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+
+
+
+    <div class="col m-2 text-center bg-light border rounded">
+        <div class="col-md">
+        	<form method="post">
+				{% csrf_token %}
+
+            <label for="descripcion" class="mt-2"><h5><strong>Descripción</strong></h5></label>
+            {{form.descripcion|add_class:"form-control text-center"}}
+
+            <label for="producto"  class="mt-2"><h5><strong>Producto</strong></h5></label>
+			{{form.producto|add_class:"form-control text-center"}}
+
+			<label for="estado"  class="mt-2"><h5><strong>Estado</strong></h5></label>
+			{{form.estado|add_class:"form-control text-center"}}
+
+			<label for="ubicacion"  class="mt-2"><h5><strong>Ubicación</strong></h5></label>
+			{{form.ubicacion|add_class:"form-control text-center"}}
+
+			<label for="fecha_entrega_estimada"  class="mt-2"><h5><strong>Fecha de Entrega Estimada</strong></h5></label>
+			{{form.fecha_entrega_estimada|add_class:"form-control text-center"}}
+
+			<label for="asignado"  class="mt-2"><h5><strong>Asignado a</strong></h5></label>
+		  	{{form.asignado|add_class:"form-control text-center"}}
+
+   			<button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>ENVIAR</strong></button>
+				<a href="javascript:history.back(-1);" class="btn btn-secondary rounded-pill border m-2" ><strong>VOLVER</strong></a>
+
+		</div>
+
+    </div>
+
+
+
+
+    <div class="col">
+        <div class="col-md">
+
+        </div>
+    </div>
+</div>
+
+
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+    <script>
+  $(function () {
+
+   $("#id_fecha_entrega_estimada").datetimepicker({
+  format:'Y-m-d ',
+         timepicker: false
+   });
+  });
+ </script>
+
+    {%endblock%}
