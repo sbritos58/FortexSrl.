@@ -34,18 +34,45 @@ input[type=number] {
     </div>
     <hr>
 </div>
-
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h4>Filtri</h4>
+    </div>
 
 <form method="get">
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-sm">
+        <label for="orden" class="text-center container">Nº de Orden</label>
+    {{myFilter.form.orden|add_class:"form-control mb-4 text-center"}}
+    </div>
+    <div class="col-sm">
+        <label for="producto" class="text-center container">Prodotto</label>
+    {{myFilter.form.producto|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold   container text-center"}}
+    </div>
+    <div class="col-sm">
+        <label for="estado" class="text-center container">Stato</label>
+    {{myFilter.form.estado|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold  container text-center"}}
+    </div>
+      <div class="col-sm">
+          <label for="ubicacion" class="text-center container">Ubicazione</label>
+    {{myFilter.form.ubicacion|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold  container text-center"}}
+    </div>
+      <div class="col-sm">
+          <label for="asignado" class="text-center container">Assegnato a</label>
+    {{myFilter.form.asignado|attr:"placeholder:Nombre de producto"|add_class:"form-control mb-4 font-weight-bold  container text-center"}}
+    </div>
+      <div class="col-sm">
+          <label for="usuarios" class="text-center container">Creato per</label>
+    {{myFilter.form.usuarios|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold  container text-center"}}
+    </div>
+            <div class="col-sm">
+    <button class="btn mt-2 rounded-pill border" style="color:#fff ;background-color:#138496;" type="submit"><STRONG> CERCHI</STRONG></button>
+    </div>
 
-    {{myFilter.form.orden|attr:"placeholder:Nº de Orden"|add_class:"form-control font-weight-bold rounded-pill w-75    container text-center"}}
-    {{myFilter.form.producto|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
-    {{myFilter.form.estado|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
-    {{myFilter.form.ubicacion|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold    rounded-pill w-75 container text-center"}}
-    {{myFilter.form.asignado|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
-    {{myFilter.form.usuarios|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
+  </div>
+</div>
 
-    <button class="btn btn-primary mt-2 rounded-pill border" type="submit"><STRONG> BUSCAR</STRONG></button>
 </form>
 
 
@@ -151,9 +178,42 @@ input[type=number] {
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="modalaviso2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">HAY ENTREGAS PROXIMAS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        tienes varias entregas por hacer
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade in" id="myModal" role="dialog" style="display: block; padding-right: 17px;"><div class="modal-dialog"><!-- Modal content-->
+    <div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal" type="button">×</button>
+        <h4 class="modal-title">Modal de ejemplo</h4></div><div class="modal-body">Este modal se abre al momento de la carga de la pagina web
+</div><div class="modal-footer"><button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+      </div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>
+
+
 
 
 <script type="text/javascript">
+
         var cells = Array.prototype.slice.call(document.getElementById("tabla").getElementsByTagName("td"))
         console.log(cells[0])
         var fila = Array.prototype.slice.call(document.getElementById("tabla").getElementsByTagName("tr"))
@@ -611,8 +671,9 @@ if(fechita9){    var comparar9 = new Date(campo9ms).getTime();}
     var hola9 = diff9/(1000*60*60*24);
 
             if (hola < 3 && hola > 0 ){
-
+        var loco = 1;
         fila[1].style.backgroundColor = 'orange'
+
 
             }else if(hola < 5 && hola >2){
             fila[1].style.backgroundColor = 'yellow';
@@ -675,6 +736,7 @@ if (hola7 < 3 && hola7 > 0 ){
 
         fila[7].style.backgroundColor = 'orange'
 
+
             }else if(hola7 < 5 && hola7 >2){
             fila[7].style.backgroundColor = 'yellow';
             }else if(hola7 <= 0){
@@ -700,6 +762,10 @@ if (hola9 < 3 && hola9 > 0 ){
             }else if(hola9 <= 0){
             fila[9].style.backgroundColor = 'red';
             }
+
+$(function(){
+  $("#myModal").modal();
+ });
 
 </script>
 
