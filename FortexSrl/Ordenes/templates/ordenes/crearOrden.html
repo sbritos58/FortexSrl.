@@ -1,0 +1,109 @@
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+ .select { overflow:hidden; }
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+
+</style>
+{%endblock%}
+{%block content%}
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h3>CREARE ORDINI</h3>
+            </div>
+            <hr>
+        </div>
+
+
+<form method="POST">
+    {%csrf_token%}
+
+    <div class="row">
+
+        <div class="col">
+            {{form.producto|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+        </div>
+        <div class="col">
+            {{form.descripcion|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{form.cantidad_recibida|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold            rounded-pill text-center"}}
+        </div>
+
+        <div class="col">
+            {{form.estado|attr:"placeholder:Stato"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+
+        </div>
+        <div class="col">
+            {{form.ubicacion|attr:"placeholder:Email"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{form.fecha_entrega_estimada|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+
+        </div>
+
+        <div class="col">
+            {{form.asignado|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+        </div>
+
+    </div>
+
+
+    <div class="d-flex justify-content-center">
+
+        <button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>INVIARE</strong></button>
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill"><strong>RITORNARE</strong></a>.
+    </div>
+
+</form>
+
+
+<script>
+document.getElementById("producto").options[0].innerText = "Selezionare un producto...";
+document.getElementById("producto").options[0].disabled = 'true';
+
+document.getElementById("asignado").options[0].innerText = "Selezionare chi assegnare...";
+document.getElementById("asignado").options[0].disabled = 'true';
+
+document.getElementById("estado").options[0].innerText = "Selezionare uno stato...";
+document.getElementById("estado").options[0].disabled = 'true';
+
+document.getElementById("ubicacion").options[0].innerText = "Selezionare una ubicazione..";
+document.getElementById("ubicacion").options[0].disabled = 'true';
+
+
+	console.log(hola)
+
+</script>
+
+
+{%endblock%}

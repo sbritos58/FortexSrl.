@@ -1,0 +1,707 @@
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+<style>
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+ .select { overflow:hidden; }
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+
+</style>
+{%endblock%}
+
+{%block content%}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>LISTA DEGLI ORDINI</h3>
+    </div>
+    <hr>
+</div>
+
+
+<form method="get">
+
+    {{myFilter.form.orden|attr:"placeholder:Nº de Orden"|add_class:"form-control font-weight-bold rounded-pill w-75    container text-center"}}
+    {{myFilter.form.producto|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
+    {{myFilter.form.estado|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
+    {{myFilter.form.ubicacion|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold    rounded-pill w-75 container text-center"}}
+    {{myFilter.form.asignado|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
+    {{myFilter.form.usuarios|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold rounded-pill    w-75 container text-center"}}
+
+    <button class="btn btn-primary mt-2 rounded-pill border" type="submit"><STRONG> BUSCAR</STRONG></button>
+</form>
+
+
+<table id="tabla" class="table table-responsive border table-striped table-bordered" style="box-shadow:2px 2px 2px;">
+
+
+    <thead style="background-color:#138496;color:#fff">
+    <th class="col-md text-center" style="width:5rem;">Nº Ordine</th>
+    <th class="col-md text-center" style="width:15rem;">Prodotto</th>
+    <th class="col-md text-center" style="width:5rem;">Quantità</th>
+    <th class="col-md text-center" style="width:5rem;">Quantità di telai</th>
+    <th class="col-md text-center" style="width:15rem;">Stato</th>
+    <th class="col-md text-center" style="width:15rem;">Ubicazione</th>
+    <th class="col-md text-center" style="width:25rem;">Consegna prevista</th>
+    <th class="col-md text-center" style="width:25rem;">Assegnato a</th>
+    <th class="col-md text-center" style="width:50rem;">Azione</th>
+    </thead>
+
+
+    <form method="POST" action="/Ordenes/delete/{{producto.orden}}">
+        {% csrf_token %}
+        {%for producto in pub%}
+
+{%if producto.estado != "Completato" and producto.ubicacion != "Cliente"%}
+        <tr>
+            <td class="col-md text-center" style="width:5rem;">{{producto.orden}}</td>
+            <td class="col-md text-center" style="width:15rem;"><a href="/Productos/detail/{{producto.producto.id}} ">{{producto.producto}}</a>
+            </td>
+            <td class="col-md text-center" style="width:5rem;">{{producto.cantidad_recibida}}</td>
+            <td class="col-md text-center" style="width:5rem;">{{producto.telaio}}</td>
+
+            <td class="col-md text-center" style="width:15rem;">{{producto.estado}}</td>
+            <td class="col-md text-center" style="width:15rem;">{{producto.ubicacion}}</td>
+            <td class="col-md text-center" style="width:25rem;">{{producto.fecha_entrega_estimada}}</td>
+
+            <td class="col-md text-center" style="width:25rem;">{{producto.asignado}}</td>
+            <td class="col-md text-center" style="width:50rem;">
+                <a href="/Ordenes/detail/{{producto.orden}}"
+                   class="btn btn-secondary btn-sm rounded-pill border" style="margin-bottom:2px;"><strong>Dettaglio</strong></a>
+                <a href="/Ordenes/update/{{producto.orden}}"
+                   class="btn btn-secondary btn-sm rounded-pill border"><strong>Modifica</strong></a>
+                {% if perms.Register.Administrador %}
+
+                <button class="btn btn-danger btn-sm  rounded-pill border" style="margin-bottom:2px;" data-toggle="modal"
+                        data-target="#exampleModal1"
+                        type="button"><strong>Rimuovere</strong></button>
+                {%endif%}
+
+            {%endif%}
+
+
+            </td>
+        </tr>
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">RIMUOVERE</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sicuro di rimuovere la ordine {{producto.orden}}?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                        Chiudere
+                    </button>
+                    <button type="submit" class="btn btn-danger rounded-pill">Si, avanti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+
+    </form>
+
+
+
+    {%endfor%}
+
+
+
+</table>
+
+<div class="container">
+    <div class="d-flex justify-content-center mt-2" >
+{%if pub.has_previous%}
+
+<a href="?{{ request.get_full_path }}&page1={{pub.previous_page_number}}"
+   style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black mr-1 btn-sm rounded-pill border" type="submit">
+    <strong>Atras</strong></a>{%endif%}
+{%if pub.has_next%}
+<a href="?{{ request.get_full_path }}&page1={{pub.next_page_number}}&page=Myfilter"
+  style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+    <strong>Siguiente</strong></a>
+{%endif%}    </div>
+    <hr>
+</div>
+
+
+
+
+<script type="text/javascript">
+        var cells = Array.prototype.slice.call(document.getElementById("tabla").getElementsByTagName("td"))
+        console.log(cells[0])
+        var fila = Array.prototype.slice.call(document.getElementById("tabla").getElementsByTagName("tr"))
+            if (cells[6]){
+            var fecha1 = cells[6].innerHTML
+            var fechita1 = fecha1.split(" ",3)}
+            if (cells[15]){
+            var fecha2 = cells[15].innerHTML
+            var fechita2 = fecha2.split(" ",3)}
+            if (cells[24]){
+            var fecha3 =cells[24].innerHTML
+            var fechita3 = fecha3.split(" ",3)}
+            if (cells[33]){
+            var fecha4 =cells[33].innerHTML
+            var fechita4 = fecha4.split(" ",3)}
+            if (cells[42]){
+            var fecha5 =cells[42].innerHTML
+            var fechita5 = fecha5.split(" ",3)}
+            if (cells[51]){
+            var fecha6 =cells[51].innerHTML
+            var fechita6 = fecha6.split(" ",3)}
+            if (cells[60]){
+            var fecha7 =cells[60].innerHTML
+            var fechita7 = fecha7.split(" ",3)}
+            if (cells[69]){
+            var fecha8 =cells[69].innerHTML
+            var fechita8 = fecha8.split(" ",3)}
+            if (cells[78]){
+            var fecha9 =cells[78].innerHTML
+            var fechita9 = fecha9.split(" ",3)}
+
+
+console.log(fechita9)
+
+    var f = new Date();
+    var u = (f.getFullYear() + "/" + (f.getMonth()+1) + "/" + f.getDate())
+
+    switch(fechita1[1])
+    {
+    case "Aprile":
+        fechita1[1] = 4
+        break;
+    case "Gennaio":
+        fechita1[1] = 1
+        break;
+    case "Febbraio":
+        fechita1[1]= 2
+        break;
+    case "Marzo":
+        fechita1[1] = 3
+        break;
+    case "Maggio":
+        fechita1[1] = 5
+        break;
+    case "Giugno":
+        fechita1[1] = 6
+        break;
+    case "Luglio":
+        fechita1[1] = 7
+        break;
+    case "Agosto":
+        fechita1[1] = 8
+        break;
+    case "Settembre":
+        fechita1[1] = 9
+        break;
+    case "Ottobre":
+        fechita1[1] = 10
+        break;
+    case "Novembre":
+        fechita1[1] = 11
+        break;
+    case "Dicembre":
+        fechita1[1] = 12
+        break;
+    }
+    if(fechita2){
+    switch(fechita2[1])
+    {
+    case "Aprile":
+        fechita2[1] = 4
+        break;
+    case "Gennaio":
+        fechita2[1] = 1
+        break;
+    case "Febbraio":
+        fechita2[1]= 2
+        break;
+    case "Marzo":
+        fechita2[1] = 3
+        break;
+    case "Maggio":
+        fechita2[1] = 5
+        break;
+    case "Giugno":
+        fechita2[1] = 6
+        break;
+    case "Luglio":
+        fechita2[1] = 7
+        break;
+    case "Agosto":
+        fechita2[1] = 8
+        break;
+    case "Settembre":
+        fechita2[1] = 9
+        break;
+    case "Ottobre":
+        fechita2[1] = 10
+        break;
+    case "Novembre":
+        fechita2[1] = 11
+        break;
+    case "Dicembre":
+        fechita2[1] = 12
+        break;
+    }}
+
+    if(fechita5){
+    switch(fechita5[1])
+    {
+    case "Aprile":
+        fechita5[1] = 4
+        break;
+    case "Gennaio":
+        fechita5[1] = 1
+        break;
+    case "Febbraio":
+        fechita5[1]= 2
+        break;
+    case "Marzo":
+        fechita5[1] = 3
+        break;
+    case "Maggio":
+        fechita5[1] = 5
+        break;
+    case "Giugno":
+        fechita5[1] = 6
+        break;
+    case "Luglio":
+        fechita5[1] = 7
+        break;
+    case "Agosto":
+        fechita5[1] = 8
+        break;
+    case "Settembre":
+        fechita5[1] = 9
+        break;
+    case "Ottobre":
+        fechita5[1] = 10
+        break;
+    case "Novembre":
+        fechita5[1] = 11
+        break;
+    case "Dicembre":
+        fechita5[1] = 12
+        break;
+    }}
+
+    if(fechita4){
+    switch(fechita4[1])
+    {
+    case "Aprile":
+        fechita4[1] = 4
+        break;
+    case "Gennaio":
+        fechita4[1] = 1
+        break;
+    case "Febbraio":
+        fechita4[1]= 2
+        break;
+    case "Marzo":
+        fechita4[1] = 3
+        break;
+    case "Maggio":
+        fechita4[1] = 5
+        break;
+    case "Giugno":
+        fechita4[1] = 6
+        break;
+    case "Luglio":
+        fechita4[1] = 7
+        break;
+    case "Agosto":
+        fechita4[1] = 8
+        break;
+    case "Settembre":
+        fechita4[1] = 9
+        break;
+    case "Ottobre":
+        fechita4[1] = 10
+        break;
+    case "Novembre":
+        fechita4[1] = 11
+        break;
+    case "Dicembre":
+        fechita4[1] = 12
+        break;
+    }}
+
+    if(fechita3){
+    switch(fechita3[1])
+    {
+    case "Aprile":
+        fechita3[1] = 4
+        break;
+    case "Gennaio":
+        fechita3[1] = 1
+        break;
+    case "Febbraio":
+        fechita3[1]= 2
+        break;
+    case "Marzo":
+        fechita3[1] = 3
+        break;
+    case "Maggio":
+        fechita3[1] = 5
+        break;
+    case "Giugno":
+        fechita3[1] = 6
+        break;
+    case "Luglio":
+        fechita3[1] = 7
+        break;
+    case "Agosto":
+        fechita3[1] = 8
+        break;
+    case "Settembre":
+        fechita3[1] = 9
+        break;
+    case "Ottobre":
+        fechita3[1] = 10
+        break;
+    case "Novembre":
+        fechita3[1] = 11
+        break;
+    case "Dicembre":
+        fechita3[1] = 12
+        break;
+    }}
+    if(fechita6){
+    switch(fechita6[1])
+    {
+    case "Aprile":
+        fechita6[1] = 4
+        break;
+    case "Gennaio":
+        fechita6[1] = 1
+        break;
+    case "Febbraio":
+        fechita6[1]= 2
+        break;
+    case "Marzo":
+        fechita6[1] = 3
+        break;
+    case "Maggio":
+        fechita6[1] = 5
+        break;
+    case "Giugno":
+        fechita6[1] = 6
+        break;
+    case "Luglio":
+        fechita6[1] = 7
+        break;
+    case "Agosto":
+        fechita6[1] = 8
+        break;
+    case "Settembre":
+        fechita6[1] = 9
+        break;
+    case "Ottobre":
+        fechita6[1] = 10
+        break;
+    case "Novembre":
+        fechita6[1] = 11
+        break;
+    case "Dicembre":
+        fechita6[1] = 12
+        break;
+    }}
+
+if(fechita7){
+    switch(fechita7[1])
+    {
+    case "Aprile":
+        fechita7[1] = 4
+        break;
+    case "Gennaio":
+        fechita7[1] = 1
+        break;
+    case "Febbraio":
+        fechita7[1]= 2
+        break;
+    case "Marzo":
+        fechita7[1] = 3
+        break;
+    case "Maggio":
+        fechita7[1] = 5
+        break;
+    case "Giugno":
+        fechita7[1] = 6
+        break;
+    case "Luglio":
+        fechita7[1] = 7
+        break;
+    case "Agosto":
+        fechita7[1] = 8
+        break;
+    case "Settembre":
+        fechita7[1] = 9
+        break;
+    case "Ottobre":
+        fechita7[1] = 10
+        break;
+    case "Novembre":
+        fechita7[1] = 11
+        break;
+    case "Dicembre":
+        fechita7[1] = 12
+        break;
+    }}
+if(fechita8){
+    switch(fechita8[1])
+    {
+    case "Aprile":
+        fechita8[1] = 4
+        break;
+    case "Gennaio":
+        fechita8[1] = 1
+        break;
+    case "Febbraio":
+        fechita8[1]= 2
+        break;
+    case "Marzo":
+        fechita8[1] = 3
+        break;
+    case "Maggio":
+        fechita8[1] = 5
+        break;
+    case "Giugno":
+        fechita8[1] = 6
+        break;
+    case "Luglio":
+        fechita8[1] = 7
+        break;
+    case "Agosto":
+        fechita8[1] = 8
+        break;
+    case "Settembre":
+        fechita8[1] = 9
+        break;
+    case "Ottobre":
+        fechita8[1] = 10
+        break;
+    case "Novembre":
+        fechita8[1] = 11
+        break;
+    case "Dicembre":
+        fechita8[1] = 12
+        break;
+    }}
+
+    if(fechita9){
+    switch(fechita9[1])
+    {
+    case "Aprile":
+        fechita9[1] = 4
+        break;
+    case "Gennaio":
+        fechita9[1] = 1
+        break;
+    case "Febbraio":
+        fechita9[1]= 2
+        break;
+    case "Marzo":
+        fechita9[1] = 3
+        break;
+    case "Maggio":
+        fechita9[1] = 5
+        break;
+    case "Giugno":
+        fechita9[1] = 6
+        break;
+    case "Luglio":
+        fechita9[1] = 7
+        break;
+    case "Agosto":
+        fechita9[1] = 8
+        break;
+    case "Settembre":
+        fechita9[1] = 9
+        break;
+    case "Ottobre":
+        fechita9[1] = 10
+        break;
+    case "Novembre":
+        fechita9[1] = 11
+        break;
+    case "Dicembre":
+        fechita9[1] = 12
+        break;
+    }}
+
+
+
+    campo1 = fechita1[2]+"-"+fechita1[1]+"-"+fechita1[0]
+    if(fechita2){campo2 = fechita2[2]+"-"+fechita2[1]+"-"+fechita2[0]}
+if(fechita3){    campo3 = fechita3[2]+"-"+fechita3[1]+"-"+fechita3[0]}
+if(fechita4){    campo4 = fechita4[2]+"-"+fechita4[1]+"-"+fechita4[0]}
+if(fechita5){    campo5 = fechita5[2]+"-"+fechita5[1]+"-"+fechita5[0]}
+if(fechita6){    campo6 = fechita6[2]+"-"+fechita6[1]+"-"+fechita6[0]}
+if(fechita7){    campo7 = fechita7[2]+"-"+fechita7[1]+"-"+fechita7[0]}
+if(fechita8){    campo8 = fechita8[2]+"-"+fechita8[1]+"-"+fechita8[0]}
+if(fechita9){    campo9 = fechita9[2]+"-"+fechita9[1]+"-"+fechita9[0]}
+
+    campo1ms = Date.parse(campo1)
+    if(fechita2){campo2ms = Date.parse(campo2)}
+if(fechita3){    campo3ms = Date.parse(campo3)}
+if(fechita4){    campo4ms = Date.parse(campo4)}
+if(fechita5){    campo5ms = Date.parse(campo5)}
+if(fechita6){    campo6ms = Date.parse(campo6)}
+if(fechita7){    campo7ms = Date.parse(campo7)}
+if(fechita8){    campo8ms = Date.parse(campo8)}
+if(fechita9){    campo9ms = Date.parse(campo9)}
+
+    var fechaInicio = new Date(u).getTime();
+    var comparar1 = new Date(campo1ms).getTime();
+   if(fechita2){ var comparar2 = new Date(campo2ms).getTime();}
+if(fechita3){    var comparar3 = new Date(campo3ms).getTime();}
+if(fechita4){    var comparar4 = new Date(campo4ms).getTime();}
+if(fechita5){    var comparar5 = new Date(campo5ms).getTime();}
+if(fechita6){    var comparar6 = new Date(campo6ms).getTime();}
+if(fechita7){    var comparar7 = new Date(campo7ms).getTime();}
+if(fechita8){    var comparar8 = new Date(campo8ms).getTime();}
+if(fechita9){    var comparar9 = new Date(campo9ms).getTime();}
+
+    var diff = comparar1 - fechaInicio;
+    var diff2 = comparar2 - fechaInicio;
+    var diff3 = comparar3 - fechaInicio;
+    var diff4 = comparar4 - fechaInicio;
+    var diff5 = comparar5 - fechaInicio;
+    var diff6 = comparar6 - fechaInicio;
+    var diff7 = comparar7 - fechaInicio;
+    var diff8 = comparar8 - fechaInicio;
+    var diff9 = comparar9 - fechaInicio;
+
+
+    var hola = diff/(1000*60*60*24);
+    var hola2 = diff2/(1000*60*60*24);
+    var hola3 = diff3/(1000*60*60*24);
+    var hola4 = diff4/(1000*60*60*24);
+    var hola5 = diff5/(1000*60*60*24);
+    var hola6 = diff6/(1000*60*60*24);
+    var hola7 = diff7/(1000*60*60*24);
+    var hola8 = diff8/(1000*60*60*24);
+    var hola9 = diff9/(1000*60*60*24);
+
+            if (hola < 3 && hola > 0 ){
+
+        fila[1].style.backgroundColor = 'orange'
+
+            }else if(hola < 5 && hola >2){
+            fila[1].style.backgroundColor = 'yellow';
+            }else if(hola <= 0){
+            fila[1].style.backgroundColor = 'red';
+            }
+
+            if (hola2 < 3 && hola2 > 0 ){
+
+        fila[2].style.backgroundColor = 'orange'
+
+            }else if(hola2 < 5 && hola2 >2){
+            fila[2].style.backgroundColor = 'yellow';
+            }else if(hola2 <= 0){
+            fila[2].style.backgroundColor = 'red';
+            }
+
+        if (hola3 < 3 && hola3 > 0 ){
+
+        fila[3].style.backgroundColor = 'orange'
+
+            }else if(hola3 < 5 && hola3 >2){
+            fila[3].style.backgroundColor = 'yellow';
+            }else if(hola3 <= 0){
+            fila[3].style.backgroundColor = 'red';
+            }
+
+            if (hola4 < 3 && hola4 > 0 ){
+
+        fila[4].style.backgroundColor = 'orange'
+
+            }else if(hola4 < 5 && hola4 >2){
+            fila[4].style.backgroundColor = 'yellow';
+            }else if(hola4 <= 0){
+            fila[4].style.backgroundColor = 'red';
+            }
+
+        if (hola5 < 3 && hola5 > 0 ){
+
+        fila[5].style.backgroundColor = 'orange'
+
+            }else if(hola5 < 5 && hola5 >2){
+            fila[5].style.backgroundColor = 'yellow';
+            }else if(hola5 <= 0){
+            fila[5].style.backgroundColor = 'red';
+            }
+
+
+if (hola6 < 3 && hola6 > 0 ){
+
+        fila[6].style.backgroundColor = 'orange'
+
+            }else if(hola6 < 5 && hola6 >2){
+            fila[6].style.backgroundColor = 'yellow';
+            }else if(hola5 <= 0){
+            fila[6].style.backgroundColor = 'red';
+            }
+
+if (hola7 < 3 && hola7 > 0 ){
+
+        fila[7].style.backgroundColor = 'orange'
+
+            }else if(hola7 < 5 && hola7 >2){
+            fila[7].style.backgroundColor = 'yellow';
+            }else if(hola7 <= 0){
+            fila[7].style.backgroundColor = 'red';
+            }
+if (hola8 < 3 && hola8 > 0 ){
+
+        fila[8].style.backgroundColor = 'orange'
+
+            }else if(hola8 < 5 && hola8 >2){
+            fila[8].style.backgroundColor = 'yellow';
+            }else if(hola8 <= 0){
+            fila[8].style.backgroundColor = 'red';
+            }
+
+
+if (hola9 < 3 && hola9 > 0 ){
+
+        fila[9].style.backgroundColor = 'orange'
+
+            }else if(hola9 < 5 && hola9 >2){
+            fila[9].style.backgroundColor = 'yellow';
+            }else if(hola9 <= 0){
+            fila[9].style.backgroundColor = 'red';
+            }
+
+</script>
+
+
+{%endblock%}

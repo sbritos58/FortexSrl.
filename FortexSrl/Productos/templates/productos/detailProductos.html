@@ -1,4 +1,4 @@
-{%extends 'register/base.html'%}
+{%extends 'register/baseRegistro.html'%}
 {%load static%}
 {% load widget_tweaks %}
 
@@ -8,6 +8,8 @@
 <style>
 	.btn{
 	width:70%}
+
+
 </style>
 {%endblock%}
 
@@ -17,108 +19,115 @@
 
 {%block content%}
 
-<div class="container-fluid">
-
 <div class="row ">
     <div class="col">
-        <div class="col-md">
+        <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666;">
+            <div class="card-title">
+                <h1 class="card-title" style="text-shadow:2px 2px 10px #666;">
+                    DETALLE {{object.nombre}}</h1>
+            </div>
+            <div class="card-body align-self-center">
+                <table class="table-responsive table-striped table-bordered">
+                    <thead class="thead text-center ">
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Cliente</th>
+                    <th>Material</th>
+                    <th>Pre Tratamiento</th>
+                    <th>Plasma</th>
+                    <th>Fondo</th>
+                    <th>Deposito</th>
+                    <th>Finitura</th>
+                    <th>Control de calidad</th>
+                    <th>Embalaje</th>
+                    <th>Consideraciones</th>
+                    <th>Fotos</th>
+                    <th>Creado por</th>
+                    <th>Modificado</th>
+                    <th>Creado</th>
+                    </thead>
 
+
+
+                        <form method="POST" action="/Productos/delete/{{object.id}}">
+                            {% csrf_token %}
+                            <tr>
+                                <td>{{object.id}}</td>
+                                <td>{%if object.nombre%}{{object.nombre}}{%else%} No tiene Nombre{%endif%}</td>
+                                <td>{%if object.rut%}{{object.rut}}{%else%} No tiene cliente{%endif%}</td>
+                                <td>{%if object.material%}{{object.material}}{%else%} No tiene material{%endif%}</td>
+                                <td>{%for i in object.preTratamiento.all%} {{i}} {%empty%} No tiene pre tratamiento{%endfor%}</td>
+                                <td>{%if object.plasma%}{{object.plasma}}{%else%} No lleva plasma{%endif%}</td>
+                                <td>{%for i in object.fondo.all%} {{i}} {%empty%} No tiene fondo{%endfor%}</td>
+                                <td>{%if object.deposito%}{{object.deposito}}{%else%} No tiene depósito{%endif%}</td>
+                                <td>{%for i in object.finitura.all%} {{i}} {%empty%} No tiene finitura{%endfor%}</td>
+                                <td>{%if object.controlCalidad%}{{object.controlCalidad}}{%else%} No lleva control{%endif%}</td>
+                                <td>{%if object.embalaje%}{{object.embalaje}}{%else%} No lleva embalaje{%endif%}</td>
+                                <td>{%if object.consideraciones%}{{object.consideraciones}}{%else%} No tiene consideraciones{%endif%}</td>
+                                <td>{%if object.fotos%}{{object.fotos}}{%else%}No tiene fotos{%endif%}</td>
+                                <td>{{object.usuarios}}</td>
+                                <td>{{object.updated}}</td>
+                                <td>{{object.created}}</td>
+
+                            </tr>
+
+
+                        </form>
+
+                </table>
+
+                {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+
+            <div class="row">
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <a href="/Productos/update/{{object.id}}"
+                           class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
+                    </div>
+                </div>
+                {%endif%} {% if perms.Register.Administrador %}
+
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <button class="btn btn-danger btn-xs rounded-pill border  m-3" data-toggle="modal" data-target="#exampleModal"
+                                type="submit"><strong>ELIMINAR</strong></button>
+                    </div>
+                </div>
+                {%endif%}
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <a href="javascript:history.back(-1);"
+                           class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
-¡<div class="list-group m-3 bg-white border">
-	<table class="table table-striped table-hover rounded border table-sm">
-
-		<thead class="thead-dark text-center ">
-			<th>id</th>
-			<th>Nombre</th>
-			<th>Rut</th>
-			<th>Material</th>
-			<th>Pre Tratamiento</th>
-			<th>Plasma</th>
-			<th>Fondo</th>
-			<th>Deposito</th>
-			<th>Finitura</th>
-			<th>Control de calidad</th>
-			<th>Embalaje</th>
-            <th>Consideraciones</th>
-            <th>Fotos</th>
-            <th>Creado por</th>
-            <th>Modificado</th>
-            <th>Creado</th>
-
-
-
-
-		</thead>
-		<tbody class="thead-light text-center">
-
-		<form method="POST" action="/Productos/delete/{{object.id}}">
-        				{% csrf_token %}
-			<tr>
-				<td>{{object.id}}</td>
-				<td>{{object.nombre}}</td>
-				<td>{{object.rut}}</td>
-				<td>{{object.material}}</td>
-				<td>{{object.preTratamiento}}</td>
-				<td>{{object.plasma}}</td>
-                <td>{{object.fondo}}</td>
-                <td>{{object.deposito}}</td>
-                <td>{{object.finitura}}</td>
-                <td>{{object.controlCalidad}}</td>
-                <td>{{object.embalaje}}</td>
-                <td>{{object.consideraciones}}</td>
-                <td>{{object.fotos}}</td>
-                <td>{{object.usuarios}}</td>
-                <td>{{object.updated}}</td>
-                <td>{{object.created}}</td>
-
-			</tr>
-
-
-		</tbody>
-
-	</table>
-
-	<div class="row">
-		<div class="col">
-			<div class="col-md text-center mb-3">
-				<a href="/Productos/update/{{object.id}}" class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
-			</div>
-		</div>
-		<div class="col">
-			<div class="col-md text-center mb-3">
-			<button class="btn btn-danger btn-xs rounded-pill border  m-3" onclick="return eliminar()" type="submit"><strong>ELIMINAR</strong></button>
-			</div>
-		</div>
-
-		<div class="col">
-			<div class="col-md text-center mb-3">
-			<a href="javascript:history.back(-1);" class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
-			</div>
-		</div>
-	</div>
 </div>
 
-
-
-    <div class="col">
-        <div class="col-md">
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exa mpleModalLabel">ELIMINAR</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro de eliminar este producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-danger rounded-pill">Si, adelante</button>
+            </div>
         </div>
     </div>
-
-<script type="text/javascript">
-
-      function eliminar() {
-        var x = confirm("¿ Seguro de eliminar este Usuario ?");
-        if (x)
-
-            return true;
-        else
-            return false;
-      }
-</script>
-
 </div>
 
 {%endblock%}

@@ -20,31 +20,43 @@ class CreateClientesView(SuccessMessageMixin, CreateView):
 
 	form_class = ClientesForm
 	template_name = 'clientes/create.html'
-	success_message = 'Usuario creado correctamente!'
+
 
 	def form_valid(self,form):
 		formulario = form.save(commit=False)
 		formulario.usuarios =self.request.user
 		updated_event = formulario.save()
+		messages.success(self.request, '¡¡¡ Cliente %s Creado correctamente !!!' % (formulario.nombre_organizacion))
 		return super().form_valid(form)
 
 
 	def get_success_url(self):
-		return reverse_lazy('listViewUsuario')
+		return reverse_lazy('ListClientes')
 
 class UpdateClientesView(SuccessMessageMixin,UpdateView):
 	form_class = ClientesForm
 	model = Clientes
 	template_name = 'clientes/update.html'
-	success_message = '¡Cliente actualizado correctamente!'
+
+	def form_valid(self,form):
+		formulario = form.save(commit=False)
+		updated_event = formulario.save()
+		messages.success(self.request, '¡¡¡ Cliente %s modificado correctamente !!!' % (formulario.nombre_organizacion))
+		return super().form_valid(form)
 
 	def get_success_url(self):
-		return reverse_lazy('listViewUsuario')
+		return reverse_lazy('ListClientes')
 
 class ListClientesView(ListView):
 	form_class = ClientesForm
 	model = Clientes
 	template_name = 'clientes/listClientes.html'
+	paginate_by = 3
+
+	def get_context_data(self, *, object_list=None, **kwargs):
+		context = super(ListClientesView, self).get_context_data(**kwargs)
+		context["total"] = Clientes.objects.all().count
+		return context
 
 class DeleteClientesView(DeleteView):
 	form_class = ClientesForm

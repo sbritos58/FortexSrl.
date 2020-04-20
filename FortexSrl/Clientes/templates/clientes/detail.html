@@ -1,106 +1,127 @@
-{%extends 'register/base.html'%}
+{%extends 'register/baseRegistro.html'%}
 {%load static%}
 {% load widget_tweaks %}
 
-{%block title%}DETALLE DE CLIENTE{%endblock%}
-
-{%block jumbo%}DETALLE DE CLIENTE{%endblock%}
 
 {%block head%}
 
 <style>
 	.btn{
 	width:70%}
+
+
+
 </style>
 {%endblock%}
 
-{%block content%}
+{%block title%}Detalle{%endblock%}
 
-<div class="container-fluid">
+{%block jumbo%}DETALLE DE CLIENTE {{object.nombre_organizacion}}{%endblock%}
+
+{%block content%}
 
 <div class="row ">
     <div class="col">
-        <div class="col-md">
+        <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666;">
+            <div class="card-title">
+                <h1 class="card-title" style="text-transform:uppercase;text-shadow:2px 2px 10px #666;">
+                    DETALLE DE {{object.nombre}}</h1>
+            </div>
+            <div class="card-body align-self-center">
+                <table class="table table-responsive ">
+                    <thead class="thead text-center ">
 
+                    <th>Rut</th>
+                    <th>Nombre de Organización</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección 1</th>
+                    <th>Dirección 2</th>
+                    <th>Ciudad</th>
+                    <th>Teléfono</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Tipo de cliente</th>
+                    <th>Creado por</th>
+                    </thead>
+
+
+                    <form method="POST" action="/Clientes/delete/{{object.rut}}">
+                        {% csrf_token %}
+                        <tr>
+                            <td>{{object.rut}}</td>
+                            <td>{{object.nombre_organizacion}}</td>
+                            <td>{{object.nombre}}</td>
+                            <td>{{object.apellido}}</td>
+                            <td>{{object.direccion1}}</td>
+                            <td>{{object.direccion2}}</td>
+                            <td>{{object.ciudad}}</td>
+                            <td>{{object.telefono}}</td>
+                            <td>{{object.celular}}</td>
+                            <td>{{object.email}}</td>
+                            <td>{{object.tipo_cliente}}</td>
+                            <td>{{object.usuarios}}</td>
+                        </tr>
+
+
+                    </form>
+
+                </table>
+
+                {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+
+                <div class="row">
+                    <div class="col">
+                        <div class="col-md text-center mb-3">
+                            <a href="/Clientes/update/{{object.rut}}"
+                               class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
+                        </div>
+                    </div>
+                    {%endif%} {% if perms.Register.Administrador %}
+
+                    <div class="col">
+                        <div class="col-md text-center mb-3">
+                            <button class="btn btn-danger btn-xs rounded-pill border  m-3" data-toggle="modal"
+                                    data-target="#exampleModal"
+                                    type="submit"><strong>ELIMINAR</strong></button>
+                        </div>
+                    </div>
+                    {%endif%}
+                    <div class="col">
+                        <div class="col-md text-center mb-3">
+                            <a href="javascript:history.back(-1);"
+                               class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-<div class="list-group mt-3">
-	<table class="table table-striped table-hover rounded border table-sm">
-
-		<thead class="thead-dark text-center ">
-			<th>Rut</th>
-			<th>Nombre Organización</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Dirección 1</th>
-			<th>Dirección 2</th>
-			<th>Ciudad</th>
-			<th>Teléfono</th>
-			<th>Celular</th>
-			<th>Email</th>
-			<th>Tipo de cliente</th>
-            <th>Creado por</th>
-
-		</thead>
-		<tbody class="thead-light text-center">
-
-		<form method="POST" action="/Clientes/delete/{{object.rut}}">
-        				{% csrf_token %}
-			<tr>
-				<td>{{object.rut}}</td>
-				<td>{{object.nombre_organizacion}}</td>
-				<td>{{object.nombre}}</td>
-				<td>{{object.apellido}}</td>
-				<td>{{object.direccion1}}</td>
-				<td>{{object.direccion2}}</td>
-				<td>{{object.ciudad}}</td>
-				<td>{{object.telefono}}</td>
-				<td>{{object.celular}}</td>
-                <td>{{object.email}}</td>
-                <td>{{object.tipo_cliente}}</td>
-                <td>{{object.usuarios}}</td>
-			</tr>
-
-		</tbody>
-
-	</table>
-<div class="row">
-		<div class="col">
-			<div class="col-md text-center mb-3">
-			<a href="/Clientes/update/{{object.rut}}" class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
 </div>
-		</div>
-		<div class="col">
-			<div class="col-md text-center mb-3">
 
-				<button class="btn btn-danger btn-xs rounded-pill border  m-3" onclick="return eliminar()" type="submit"><strong>ELIMINAR</strong></button>
-			</div>
-		</div>
-
-		<div class="col">
-			<div class="col-md text-center mb-3">
-				<a href="javascript:history.back(-1);" class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
-		</div>
-		</div>
-	</div>
-</div>
-    <div class="col">
-        <div class="col-md">
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exa mpleModalLabel">ELIMINAR</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro de eliminar este producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-danger rounded-pill">Si, adelante</button>
+            </div>
         </div>
     </div>
-
-<script type="text/javascript">
-
-      function eliminar() {
-        var x = confirm("¿ Seguro de eliminar este Usuario ?");
-        if (x)
-
-            return true;
-        else
-            return false;
-      }
-</script>
+</div>
 
 {%endblock%}
+

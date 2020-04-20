@@ -2,82 +2,107 @@
 {%load static%}
 {% load widget_tweaks %}
 {%block title%}LISTA DE PRODUCTOS{%endblock%}
-{%block jumbo%}LISTA DE PRODUCTOS{%endblock%}
+{%block head%}
 
-{%block content%}
+{%endblock%}
 
-<div class="container-fluid">
 
-<div class="row ">
-    <div class="col">
-        <div class="col-md">
+{%block graficos%}Graficos{%endblock%}
 
+{%block total%}{{total}}{%endblock%}
+
+{%block filtros%}Productos{%endblock%}
+
+{%block tituloListado%}LISTADO PRODUCTOS{%endblock%}
+
+{%block thead%}
+<th class="col-xs"></th>
+<th class="col-xs"></th>
+<th class="col-xs"></th>
+
+<th class="col-xs">Id</th>
+<th class="col-xs">Nombre</th>
+<th class="col-xs">Cliente</th>
+<th class="col-xs">Material</th>
+<th class="col-xs">Plasma</th>
+<th class="col-xs">Fondo</th>
+<th class="col-xs">Finitura</th>
+<th class="col-xs">Fotos</th>
+<th class="col-xs">Acciones</th>
+<th class="col-xs"></th>
+<th class="col-xs"></th>
+
+{%endblock thead%}
+
+{%block formulario%}
+{%for producto in object_list%}
+<form method="POST" action="/Productos/delete/{{producto.id}}">
+    {% csrf_token %}
+
+    <tr>
+        <td class="col-xs"></td>
+        <td class="col-xs"></td>
+        <td class="col-xs"></td>
+
+        <td class="col-xs">{{producto.id}}</td>
+        <td class="col-xs">{{producto.nombre}}</td>
+        <td class="col-xs">{%if producto.rut%}{{producto.rut}}{%else%}No tiene cliente{%endif%}</td>
+        <td class="col-xs">{%if producto.material%}{{producto.material}}{%else%}No tiene material{%endif%}</td>
+        <td class="col-xs">{%if producto.plasma%}{{producto.plasma}}{%else%}No lleva plasma{%endif%}</td>
+        <td class="col-xs">{%for i in producto.fondo.all%} {{i}} {%empty%} No tiene fondo {%endfor%}</td>
+        <td class="col-xs">{%for i in producto.finitura.all%} {{i}} {%empty%} No tiene finitura {%endfor%}</td>
+        <td class="col-xs">{%if producto.fotos%}{{producto.fotos}}{%else%}No tiene fotos{%endif%}</td>
+        <td class="col-xs">
+            <a href="/Productos/detail/{{producto.id}}"
+               class="btn btn-success btn-sm rounded-pill border"><strong>Ver</strong></a>
+            <a href="/Productos/update/{{producto.id}}"
+               class="btn btn-warning btn-sm rounded-pill border"><strong>Editar</strong></a>
+                            {% if perms.Register.Administrador %}
+
+            <button class="btn btn-danger btn-sm rounded-pill border" data-toggle="modal" data-target="#exampleModal"
+                    type="button"><strong>Eliminar</strong></button>
+                                {%endif%}
+        </td>
+    </tr>
+
+
+</form>
+
+{%endfor%}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exa mpleModalLabel">ELIMINAR</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro de eliminar este producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-danger rounded-pill">Si, adelante</button>
+            </div>
         </div>
     </div>
-
-<div class="list-group">
-	<table class="table table-striped table-hover rounded border  m-3 table-sm">
-
-		<thead class="thead-dark text-center">
-			<th>id</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Nombre Usuario</th>
-			<th>Telefono</th>
-			<th>Email</th>
-			<th>Grupo</th>
-			<th>Acciones</th>
-		</thead>
-		<tbody class="thead-light text-center">
-
-		 {% for producto in object_list %}
-
-        <form method="POST" action="/Productos/delete/{{producto.id}}">
-        {% csrf_token %}
-
-
-			<tr>
-				<td>{{producto.id}}</td>
-				<td>{{producto.rut}}</td>
-				<td>{{producto.material}}</td>
-				<td>{{producto.plasma}}</td>
-				<td>{{producto.fondo}}</td>
-                <td>{{producto.finitura}}</td>
-                <td>{{producto.fotos}}</td>
-				<td>
-					<a href="/Productos/detail/{{producto.id}}" class="btn btn-success rounded-pill border"><strong>Ver</strong></a>
-					<a href="/Productos/update/{{producto.id}}" class="btn btn-warning rounded-pill border"><strong>Editar</strong></a>
-					<button class="btn btn-danger rounded-pill border" onclick="return eliminar()" type="submit"><strong>Eliminar</strong></button>
-
-				</td>
-			</tr>
-                {%endfor    %}
-		</tbody>
-	</table>
 </div>
 
-
-
-
-    <div class="col">
-        <div class="col-md">
-
-        </div>
-    </div>
-
-
-</div>
-<script type="text/javascript">
-
-      function eliminar() {
-        var x = confirm("¿ Seguro de eliminar este Usuario ?");
-        if (x)
-
-            return true;
-        else
-            return false;
-      }
-</script>
-
-
+{%endblock formulario%}
+{% block pagination %}
+{%if page_obj.has_previous%}
+<a href="?page={{page_obj.previous_page_number}}"
+   class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+    <strong>Atras</strong></a>{%endif%}
+{%if page_obj.has_next%}
+<a href="?page={{page_obj.next_page_number}}"
+   class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+    <strong>Siguiente</strong></a>
+{%endif%}
 {%endblock%}

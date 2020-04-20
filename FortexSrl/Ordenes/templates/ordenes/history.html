@@ -1,1 +1,235 @@
+{%extends 'register/base.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block title%}LISTA DE PRODUCTOS{%endblock%}
+{%block head%}
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+<style>
+
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+
+ .select { overflow:hidden; }
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+
+
+</style>
+
+{%endblock%}
+
+
+{%block graficos%}
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+<canvas id="myChart" ></canvas>
+    </div>
+      <div class="carousel-item">
+<canvas id="myChart2" ></canvas>
+    </div>
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon bg-primary" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next " href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon bg-primary" aria-hidden="true"></span>
+    <span class="sr-only ">Next</span>
+  </a>
+</div>
+{%endblock%}
+{%block total%}{{total}}{%endblock%}
+
+
+{%block tituloListado%}LISTADO ORDENES{%endblock%}
+
+{%block thead%}
+<th class="col-xs">Nº de historial</th>
+<th class="col-xs">Nº de orden</th>
+<th class="col-xs">Fecha</th>
+<th class="col-xs">Usuario que la realizo</th>
+<th class="col-xs">Tipo de cambio</th>
+{%endblock thead%}
+
+{%block formulario%}
+
+{%for producto in Model_one%}
+
+    {% csrf_token %}
+
+
+{{user.history_id}}</td>
+							<td>{{ user.history_object }}</td>
+							<td>{{ user.history_date }}</td>
+							<td>{{user.history_user}}</td>
+							<td>{{ user.get_history_type_display }}</td>
+
+    <tr>
+        <td class="col-xs">{{producto.history_id}}</td>
+        <td class="col-xs">{{producto.history_object}}</td>
+        <td class="col-xs">{{producto.history_date}}</td>
+        <td class="col-xs">{{producto.history_user}}</td>
+        <td class="col-xs">{{producto.get_history_type_display}}</td>
+
+    </tr>
+</div>
+
+
+</form>
+{%endfor%}
+<!-- Modal -->
+
+
+{%endblock formulario%}
+{% block pagination %}
+
+{%if Model_one.has_previous%}
+<a href="?page1={{Model_one.previous_page_number}}"
+   class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+    <strong>Atras</strong></a>{%endif%}
+{%if Model_one.has_next%}
+<a href="?page1={{Model_one.next_page_number}}"
+   class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+    <strong>Siguiente</strong></a>
+{%endif%}
+
+
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
+
+<script>
+	document.getElementById('Filtros').style.display = 'none';
+	document.getElementById('Carta').style.height = '90%';
+
+
+
+</script>
+
+
+<script>
+$(document).ready(function(){
+
+var ctx = document.getElementById('myChart')
+ctx.height = 95;
+
+var myChart = new Chart(ctx, {
+
+    type: 'bar',
+    data: {
+        labels: [     {%for item in etiquetas%} '{{item}}'  ,{%endfor%}],
+        datasets: [{
+            label: 'Cantidad productos enviados a realizar',
+            data: [ {%for item in productos1%}    {{item}},      {%endfor%} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+       responsive: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+});
+
+
+$(document).ready(function(){
+
+var ctx = document.getElementById('myChart2');
+ctx.height = 95;
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{%for i in historial%} '{{i}}', {%endfor%}
+],
+        datasets: [{
+            label: 'Cantidad modificaciones por orden',
+            data: [{%for i in orden%} {{i}},{%endfor%}
+ ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+       responsive: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+});
+
+
+
+</script>
+
+
+{%endblock%}

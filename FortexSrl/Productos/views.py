@@ -17,12 +17,14 @@ class CreateProductosView(SuccessMessageMixin,CreateView):
     form_class = ProductosForm
     template_name = 'productos/create.html'
 
+
     def get_success_url(self):
         return reverse_lazy('listProductos')
 
     def form_valid(self, form):
         formulario = form.save(commit=False)
         formulario.usuarios = self.request.user
+
         updated_event = formulario.save()
         messages.success(self.request,'¡¡¡ Producto %s Creado correctamente !!!' %(formulario.nombre))
         return super().form_valid(form)
@@ -33,6 +35,12 @@ class ListProductosView(ListView):
     model = Productos
     form_class = ProductosForm
     template_name = 'productos/listProductos.html'
+    paginate_by = 3
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ListProductosView,self).get_context_data(**kwargs)
+        context["total"] = Productos.objects.all().count
+        return context
 
 class UpdateProductosView(SuccessMessageMixin,UpdateView):
     form_class = ProductosForm

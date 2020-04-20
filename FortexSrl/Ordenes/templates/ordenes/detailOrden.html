@@ -1,111 +1,126 @@
-{%extends 'register/base.html'%}
+{%extends 'register/baseRegistro.html'%}
 {%load static%}
 {% load widget_tweaks %}
 
-{%block title%}Detalle{%endblock%}
+
 {%block head%}
 
 <style>
 	.btn{
 	width:70%}
+
+
 </style>
 {%endblock%}
 
-{%block jumbo%}DETALLES DE ORDEN{%endblock%}
+{%block title%}Detalle{%endblock%}
+
+{%block jumbo%}DETALLE DE PRODUCTO{%endblock%}
 
 {%block content%}
 
-<div class="container-fluid">
-
 <div class="row ">
     <div class="col">
-        <div class="col-md">
+        <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666;">
+            <div class="card-title">
+                <h1 class="card-title" style="text-shadow:2px 2px 10px #666;">
+                    DETALLE ORDEN Nº {{object.orden}}</h1>
+            </div>
+            <hr class="mr-3 ml-3">
+            <div class="card-body align-self-center">
+                <table class="table table-responsive table-striped">
+                    <thead class="thead text-center ">
+                    <th class="col-xs">Nº de orden</th>
+                    <th class="col-xs">Descripción</th>
+                    <th class="col-xs">Producto</th>
+                    <th class="col-xs">Fecha de ingreso</th>
+                    <th class="col-xs">Estado</th>
+                    <th class="col-xs">Ubicación</th>
+                    <th class="col-xs">Fecha de entrega Estimada</th>
+                    <th class="col-xs">Asignado a</th>
+                    <th class="col-xs">Cantidad de pedazos</th>
 
+                    <th class="col-xs">Cantidad de telaios</th>
+
+                    <th class="col-xs">Última Modificación por</th>
+                    <th class="col-xs" id="fecha_entrega_real1">Fecha de entrega real</th>
+
+                        <form method="POST" action="/Ordenes/delete/{{object.orden}}">
+                            {% csrf_token %}
+                            <tr>
+                                <td>{{object.orden}}</td>
+                                <td>{{object.descripcion}}</td>
+                                <td><a href="/Productos/detail/{{object.producto.id}}">{{object.producto}}</a></td>
+                                <td>{{object.fecha_ingreso}}</td>
+                                <td>{{object.estado}}</td>
+                                <td>{{object.ubicacion}}</td>
+                                <td>{{object.fecha_entrega_estimada}}</td>
+                                <td>{{object.asignado}}</td>
+                                <td>{{object.cantidad_recibida}}</td>
+                                <td>{{object.telaio}}</td>
+                                <td id="fecha_entrega_real">{{object.fecha_entrega_real}}</td>
+                                <td>{{object.usuarios}}</td>
+                            </tr>
+
+
+                        </form>
+
+                </table>
+
+            <div class="row">
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <a href="/Ordenes/update/{{object.orden}}"
+                           class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
+                    </div>
+                </div>
+                 {% if perms.Register.Administrador %}
+
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <button class="btn btn-danger btn-xs rounded-pill border  m-3" data-toggle="modal" data-target="#exampleModal"
+                                type="submit"><strong>ELIMINAR</strong></button>
+                    </div>
+                </div>
+                {%endif%}
+                <div class="col">
+                    <div class="col-md text-center mb-3">
+                        <a href="javascript:history.back(-1);"
+                           class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
-
-<div class="list-group mt-3">
-	<table class="table table-striped table-hover rounded border table-sm">
-
-		<thead class="thead-dark text-center ">
-			<th>Nº Orden</th>
-			<th>Descripción</th>
-			<th>Producto</th>
-			<th>Fecha de Ingreso</th>
-			<th>Estado</th>
-			<th>Ubicación</th>
-			<th>Fecha de Entrega Estimada</th>
-			<th>Asignado a</th>
-			<th>Modificado por</th>
-			<th id="fecha_entrega_real1">Fecha entrega real</th>
-
-		</thead>
-		<tbody class="thead-light text-center">
-
-		<form method="POST" action="/Ordenes/delete/{{object.orden}}">
-        				{% csrf_token %}
-			<tr>
-				<td>{{object.orden}}</td>
-				<td>{{object.descripcion}}</td>
-				<td>{{object.producto}}</td>
-				<td>{{object.fecha_ingreso}}</td>
-				<td>{{object.estado}}</td>
-				<td>{{object.ubicacion}}</td>
-                <td>{{object.fecha_entrega_estimada}}</td>
-                <td>{{object.asignado}}</td>
-				<td>{{object.usuarios}}</td>
-				<td id="fecha_entrega_real">{{object.fecha_entrega_real}}</td>
-
-			</tr>
-
-
-		</tbody>
-
-	</table>
-<div class="row">
-		<div class="col">
-			<div class="col-md text-center mb-3">
-			<a href="/Ordenes/update/{{object.orden}}" class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
-				</div>
-		</div>
-		<div class="col">
-			<div class="col-md text-center mb-3">
-				<button class="btn btn-danger btn-xs rounded-pill border  m-3" onclick="return eliminar()" type="submit"><strong>ELIMINAR</strong></button>
-				</div>
-		</div>
-
-		<div class="col">
-			<div class="col-md text-center mb-3">
-				<a href="javascript:history.back(-1);" class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
-</div>
-		</div>
-	</div>
 </div>
 
-
-
-
-    <div class="col">
-        <div class="col-md">
-
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exa mpleModalLabel">ELIMINAR</h5>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro de eliminar este producto?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-danger rounded-pill">Si, adelante</button>
+            </div>
         </div>
     </div>
-
 </div>
-<script type="text/javascript">
 
-      function eliminar() {
-        var x = confirm("¿ Seguro de eliminar este Usuario ?");
-        if (x)
 
-            return true;
-        else
-            return false;
-      }
-
-      	</script>
-
-	<script type="text/javascript">
+    <script type="text/javascript">
 	var ocultar = document.getElementById('fecha_entrega_real').innerHTML;
 
 	if (ocultar == 'None'){
@@ -113,7 +128,11 @@
    $("#fecha_entrega_real1").css("display", "none");
 }
 
-	</script>
 
 
-{%endblock%}
+
+
+    </script>
+
+
+    {%endblock%}

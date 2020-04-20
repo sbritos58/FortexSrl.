@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="917bacb4-d815-4de7-baed-28a8ac2535af" name="Default Changelist" comment="" />
+    <list default="true" id="917bacb4-d815-4de7-baed-28a8ac2535af" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0006_auto_20200408_1101.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0007_auto_20200408_1203.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0008_auto_20200417_2142.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0009_auto_20200420_1856.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0010_auto_20200420_1900.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/ListarOrden.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/crearOrden.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/grafico.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Productos/migrations/0007_auto_20200416_1647.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Productos/migrations/0008_auto_20200416_1649.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/templates/register/Registro.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/templates/register/baseRegistro.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/templates/register/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/templates/registration/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/templates/stock/crearStock.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/templates/stock/listView.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/listClientes.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/listClientes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FortexSrl/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FortexSrl/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FortexSrl/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/FortexSrl/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/createOrden.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/detailOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/detailOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/history.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/listOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/listOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/registrototalparacambiar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/updateOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/updateOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/detailProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/detailProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/listProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/listProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/updateProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/updateProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/listView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/listView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,24 +85,33 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1ZwGTHwYO5IXhIVZ1LytRSAw9tu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Orden" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Register/templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Orden" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\git\FortexSrl\registration" />
       <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Ordenes\templates\ordenes" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\git\FortexSrl\Register\templates" />
+      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Orden" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -50,6 +127,9 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="275" y="42" key="#Vim_Emulation" timestamp="1585742863418">
       <screen x="0" y="0" width="1366" height="768" />
@@ -59,21 +139,45 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="137" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1585742921947" />
-    <state x="402" y="187" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586024081106">
+    <state x="402" y="187" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587298523662">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="402" y="187" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1586024081106" />
-    <state x="184" y="26" key="SettingsEditor" timestamp="1585743005119">
+    <state x="402" y="187" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1587298523662" />
+    <state x="363" y="120" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587394413591">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="26" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1585743005119" />
-    <state x="379" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1585773733542">
+    <state x="363" y="120" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.768@0.0.1366.768" timestamp="1587394413591" />
+    <state x="526" y="274" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1586636539709">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="379" y="208" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1585773733542" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1585946665435">
+    <state x="526" y="274" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1586636539709" />
+    <state x="184" y="26" key="SettingsEditor" timestamp="1587237950652">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1585946665435" />
+    <state x="184" y="26" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1587237950652" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1586976584758">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1586976584758" />
+    <state x="379" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1587394376834">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="379" y="208" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1587394376834" />
+    <state x="319" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586462128643">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="319" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768@0.0.1366.768" timestamp="1586462128643" />
+    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586566572834">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1586566572834" />
+    <state x="424" y="15" key="refactoring.ChangeSignatureDialog" timestamp="1586871590600">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="424" y="15" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1586871590600" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1587297611035">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1587297611035" />
   </component>
 </project>

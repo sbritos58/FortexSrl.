@@ -2,6 +2,7 @@ from django.db import models
 from Clientes.models import Clientes
 from simple_history.models import HistoricalRecords
 from Register.models import Usuarios
+from Stock.models import Stock
 
 # Create your models here.
 
@@ -11,11 +12,16 @@ class Productos(models.Model):
     nombre = models.CharField(blank=False, max_length=50)
     rut = models.ForeignKey(Clientes, on_delete=models.CASCADE)
     material = models.CharField(blank=True, max_length=50)
-    preTratamiento = models.TextField(blank=True)
+
     plasma = models.CharField(blank=True, max_length=50)
-    fondo = models.TextField(blank=True)
+    preTratamiento = models.ManyToManyField(Stock,related_name='+',blank=True)
+
+    fondo = models.ManyToManyField(Stock,related_name="+",blank=True)
+    finitura = models.ManyToManyField(Stock,blank=True)
+
     deposito = models.CharField(blank=True, max_length=150)
-    finitura = models.TextField(blank=True)
+
+
     controlCalidad = models.CharField(blank=True, max_length=50)
     embalaje = models.CharField(blank=True, max_length=50)
     consideraciones = models.TextField(blank=True)
