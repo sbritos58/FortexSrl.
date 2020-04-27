@@ -2,17 +2,84 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917bacb4-d815-4de7-baed-28a8ac2535af" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clientes/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Clientes/migrations/0002_auto_20200424_0213.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ordenes/migrations/0002_auto_20200424_0213.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Productos/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Productos/migrations/0003_auto_20200424_0213.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Register/migrations/0002_auto_20200426_1538.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/migrations/0002_auto_20200424_0221.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/templates/stock/crearStock2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Stock/templates/stock/updateStock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/migrations/0002_auto_20200404_1959.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/listClientes.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/listClientes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/templates/clientes/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/templates/clientes/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Clientes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Clientes/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FortexSrl/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FortexSrl/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FortexSrl/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/FortexSrl/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0002_auto_20200404_1959.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0003_auto_20200404_2009.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0004_auto_20200404_2153.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0006_auto_20200408_1101.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0007_auto_20200408_1203.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0008_auto_20200417_2142.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0009_auto_20200420_1856.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/migrations/0010_auto_20200420_1900.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/ListarOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/ListarOrden.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/listOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/listOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/crearOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/crearOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/detailOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/detailOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/templates/ordenes/updateOrden.html" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/templates/ordenes/updateOrden.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ordenes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ordenes/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0002_auto_20200404_1959.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0003_auto_20200404_2001.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0004_auto_20200404_2002.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0005_auto_20200404_2147.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0006_auto_20200404_2153.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0007_auto_20200416_1647.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/migrations/0008_auto_20200416_1649.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/migrations/0002_auto_20200424_0213.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/detailProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/detailProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/listProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/listProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/templates/productos/updateProductos.html" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/templates/productos/updateProductos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Productos/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Productos/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/Registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/Registro.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/listView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/listView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/templates/register/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/Register/templates/register/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Register/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/templates/stock/crearStock.html" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/templates/stock/crearStock.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/templates/stock/listView.html" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/templates/stock/listView.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stock/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stock/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="FortexSrl" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,17 +109,24 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Register/templates" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\git\FortexSrl\registration" />
-      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Ordenes\templates\ordenes" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\git\FortexSrl\Register\templates" />
       <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Orden" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\git\FortexSrl\registration" />
+      <recent name="C:\Users\sbrit\OneDrive\Escritorio\ProyectosSantiago\FortexSrl\Ordenes\templates\ordenes" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -65,6 +139,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585742748705</updated>
+      <workItem from="1587631070670" duration="18626000" />
+      <workItem from="1587665467691" duration="19162000" />
+      <workItem from="1587709578681" duration="169000" />
+      <workItem from="1587726914776" duration="11190000" />
+      <workItem from="1587813833880" duration="82017000" />
+      <workItem from="1588006364247" duration="8135000" />
     </task>
     <task id="LOCAL-00001" summary="Arreglar filtros de ordenes y terminar otras vistas">
       <created>1587403378813</created>
@@ -73,13 +153,24 @@
       <option name="project" value="LOCAL" />
       <updated>1587403378813</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Viendo problemas de modal intentar arreglar">
+      <created>1587413389624</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587413389624</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Arreglar filtros de ordenes y terminar otras vistas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglar filtros de ordenes y terminar otras vistas" />
+    <MESSAGE value="Viendo problemas de modal intentar arreglar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Viendo problemas de modal intentar arreglar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="275" y="42" key="#Vim_Emulation" timestamp="1585742863418">
@@ -102,22 +193,22 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="526" y="274" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1586636539709" />
-    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1587403376614">
+    <state x="310" y="0" key="CommitChangelistDialog2" timestamp="1587413388841">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1587403376614" />
-    <state x="184" y="26" key="SettingsEditor" timestamp="1587237950652">
+    <state x="310" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1587413388841" />
+    <state x="136" y="58" key="SettingsEditor" timestamp="1588006424187">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="26" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1587237950652" />
+    <state x="136" y="58" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1588006424187" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1587413179514">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.768@0.0.1366.768" timestamp="1587413179514" />
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1587403383483">
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1587413392793">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1587403383483" />
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1587413392793" />
     <state x="379" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1587394376834">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -126,17 +217,21 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="319" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768@0.0.1366.768" timestamp="1586462128643" />
-    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587413175522">
+    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587498392583">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1587413175522" />
+    <state x="492" y="301" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1587498392583" />
+    <state x="92" y="92" width="1182" height="584" key="dock-window-1" timestamp="1587573930944">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="92" y="92" width="1182" height="584" key="dock-window-1/0.0.1366.768@0.0.1366.768" timestamp="1587573930944" />
     <state x="424" y="15" key="refactoring.ChangeSignatureDialog" timestamp="1586871590600">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="424" y="15" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1586871590600" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1587297611035">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1587830365811">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1587297611035" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1587830365811" />
   </component>
 </project>

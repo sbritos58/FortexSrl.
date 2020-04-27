@@ -5,7 +5,7 @@ from Stock.models import Stock
 class ProductosForm(forms.ModelForm):
     class Meta:
         model = Productos
-        fields = ('nombre','rut','material','preTratamiento','plasma','fondo','deposito','finitura','controlCalidad','embalaje','consideraciones','fotos','fotos','telaio')
+        fields = ('nombre','rut','material','preTratamiento','plasma','fondo','deposito','finitura','controlCalidad','embalaje','consideraciones','temperatura','tiempo_horno','fotos','fotos','telaio')
 
     nombre = forms.CharField()
     rut = forms.SelectMultiple()

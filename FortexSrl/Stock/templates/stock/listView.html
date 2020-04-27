@@ -1,12 +1,239 @@
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
 
-{%for i in Model_one%}
-{{i.id}}<br>
-{{i.nombre}}<br>
-{{i.descripcion}}<br>
-{{i.cantidad}}<br>
-{{i.unidades}}<br>
-{{i.tipo_de_producto}}<br>
-{{i.descripcion}}<br>
-{{i.proveedor}}<br>
-{{i.precio}}<br>
-{%endfor%}
+
+<style>
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
+
+
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
+
+</style>
+
+
+{%endblock%}
+
+{%block content%}
+
+{% if messages %}
+<ul class="messages list-group mb-3">
+    {% for message in messages %}
+    <li
+            {% if message.tags %}
+            class="{{ message.tags }} rounded list-group-item text-center list-group-item-success mr-1" {%endif %}
+            id='Mensaje'>{{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>LISTA DEGLI INVENTARIO</h3>
+    </div>
+    <hr>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h4><i class="fas fa-filter"></i> Filtri</h4>
+    </div>
+    <div class="d-flex justify-content-center">
+    <form method="get">
+        <div class="container text-center">
+            <div class="row align-items-center mb-2">
+                <div class="col">
+                    <label for="producto" class="text-center container">Vernice</label>
+                    {{myFilter.form.nombre|attr:"placeholder:Vernice"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col">
+                    <label for="estado" class="text-center container">Tipo</label>
+                    {{myFilter.form.tipo_de_producto|attr:"placeholder:Nombre de producto"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col">
+
+                    <button class="btn  rounded-pill border" style="color:#fff ;background-color:#138496;margin-top: 2rem" type="submit"><STRONG> CERCHI</STRONG></button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+    </div>
+    <hr>
+    <table id="tabla" class="table table-responsive border table-striped table-bordered" style="box-shadow:2px 2px 2px;">
+
+
+        <thead style="background-color:#138496;color:#fff">
+        <th class="col-md text-center" style="width:5rem;">Id</th>
+        <th class="col-md text-center" style="width:15rem;">Nome</th>
+        <th class="col-md text-center" style="width:5rem;">Descrizione</th>
+        <th class="col-md text-center" style="width:5rem;">Quantità</th>
+        <th class="col-md text-center" style="width:15rem;">Tipo di vernice</th>
+        <th class="col-md text-center" style="width:15rem;">Fornitore</th>
+        <th class="col-md text-center" style="width:25rem;">Prezzo/L</th>
+        <th class="col-md text-center" style="width:50rem;">Azione</th>
+        </thead>
+
+        {%for i in pub%}
+
+        <form method="POST" action="/Stock/delete/{{i.id}}">
+            {% csrf_token %}
+            <tr>
+                <td class="col-md text-center" style="width:5rem;">{{i.id}}</td>
+                <td class="col-md text-center" style="width:15rem;">{{i.nombre}}</td>
+                <td class="col-md text-center" style="width:5rem;">{{i.descripcion|truncatechars:10}}</td>
+                <td class="col-md text-center" style="width:5rem;">{{i.cantidad}} g.</td>
+
+                <td class="col-md text-center" style="width:15rem;">{{i.tipo_de_producto}}</td>
+                <td class="col-md text-center" style="width:25rem;">{{i.proveedor}}</td>
+
+                <td class="col-md text-center" style="width:25rem;">€ {{i.precio}}</td>
+                <td class="col-md text-center" style="width:50rem;">
+
+                    <div class="dropup">
+
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown">
+                            <i class="fas fa-angle-double-up"></i> Opzioni
+                        </button>
+
+                        <div class="dropdown-menu text-center" style="position: unset;">
+                            <h6 class="dropdown-header">Prodotto {{i.nombre}}</h6>
+                            <a class="dropdown-item btn-sm" href="/Stock/update/{{i.id}}"><i class="fas fa-pen-square"></i> Modifica</a>
+                            {% if perms.Register.Administrador %}
+
+                            <button class="btn btn-danger btn-sm" style="margin-bottom:2px;" data-toggle="modal"
+                                    data-target="#exampleModal1"
+                                    type="button"><strong><i class="fas fa-trash-alt"></i> Rimuovere</strong></button>
+                            {%endif%}
+                    </div>
+
+
+                </td>
+            </tr>
+            <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">RIMUOVERE</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Sicuro di rimuovere la ordine {{producto.orden}}?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                                Chiudere
+                            </button>
+                            <button type="submit" class="btn btn-danger rounded-pill"><i class="fas fa-trash-alt"></i> Si, avanti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+
+        {%endfor%}
+
+
+    </table>
+    {%if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria%}
+    <a href="{%url 'crearStock'%}" class="btn btn-secondary" id="jamaica"><i id="japon" class="fas fa-plus-circle"></i> Aggiungi vernice</a>
+    {%endif%}
+    <div class="container">
+        <div class="d-flex justify-content-center mt-2">
+            {%if pub.has_previous%}
+
+            <a href="?{{ request.get_full_path }}&page1={{pub.previous_page_number}}"
+               style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black mr-1 btn-sm rounded-pill border" type="submit">
+                <strong>Atras</strong></a>{%endif%}
+            {%if pub.has_next%}
+            <a href="?{{ request.get_full_path }}&page1={{pub.next_page_number}}&page=Myfilter"
+               style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+                <strong>Siguiente</strong></a>
+            {%endif%}
+        </div>
+        <hr>
+    </div>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+<script>
+    var hola = document.getElementById("jamaica");
+    console.log(hola)
+    if(hola) {
+        hola.addEventListener("mouseenter", function (event) {
+
+            var japon = document.getElementById("japon").className = "fas fa-plus-circle fa-spin";
+
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "fas fa-plus-circle";
+        });
+    }
+    var hola2 = document.getElementById("jamaica2");
+    if(hola2) {
+        hola2.addEventListener("mouseenter", function (event) {
+
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+        });
+        hola2.addEventListener("mouseleave", function (event) {
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+        });
+    }
+    var hola3 = document.getElementById("jamaica3");
+if(hola3) {
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+    });
+}
+   var hola4 = document.getElementById("jamaica4");
+if(hola4) {
+    hola4.addEventListener("mouseenter", function (event) {
+
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle fa-spin";
+
+    });
+    hola4.addEventListener("mouseleave", function (event) {
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle";
+    });
+}
+</script>
+
+    {%endblock%}

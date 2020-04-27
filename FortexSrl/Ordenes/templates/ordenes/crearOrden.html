@@ -3,10 +3,11 @@
 {% load widget_tweaks %}
 {%block head%}
 
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-input[type=number]::-webkit-outer-spin-button,
 
 input[type=number]::-webkit-inner-spin-button {
 
@@ -26,8 +27,12 @@ input[type=number] {
 }
 
 </style>
+
 {%endblock%}
+
 {%block content%}
+
+{%if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria%}
 
         <div class="container">
             <div class="d-flex justify-content-center">
@@ -79,14 +84,20 @@ input[type=number] {
 
     <div class="d-flex justify-content-center">
 
-        <button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>INVIARE</strong></button>
         <a href="javascript:history.back(-1);"
-           class="btn btn-secondary border m-2 rounded-pill"><strong>RITORNARE</strong></a>.
+           class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i id="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+        <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
     </div>
 
 </form>
 
 
+  <script>
+
+    $("#fecha_entrega_estimada").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+</script>
 <script>
 document.getElementById("producto").options[0].innerText = "Selezionare un producto...";
 document.getElementById("producto").options[0].disabled = 'true';
@@ -101,9 +112,50 @@ document.getElementById("ubicacion").options[0].innerText = "Selezionare una ubi
 document.getElementById("ubicacion").options[0].disabled = 'true';
 
 
-	console.log(hola)
 
 </script>
 
+{%else%}
+<div class="justify-content-center">
+    <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
+    <div class="d-flex justify-content-center">
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>
+    </div>
+</div>
 
+
+{%endif%}
+<script>
+    var hola = document.getElementById("jamaica");
+    hola.addEventListener("mouseenter", function (event) {
+
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
+    });
+    var hola2 = document.getElementById("jamaica2");
+
+    hola2.addEventListener("mouseenter", function (event) {
+
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+    });
+    hola2.addEventListener("mouseleave", function (event) {
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+    });
+
+    var hola3 = document.getElementById("jamaica3");
+
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+    });
+</script>
 {%endblock%}

@@ -1,0 +1,168 @@
+{% extends 'register/index.html' %}
+{%load widget_tweaks%}
+
+{%block head%}
+<style>
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
+
+
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
+
+</style>
+
+{%endblock%}
+
+{%block content%}
+{% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Stock%}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>CREARE STOCK DI ORDINE Nº {{orden}}</h3>
+    </div>
+    <hr>
+</div>
+
+<form id="formulario" method="POST">
+
+
+    <div class="row">
+        {%csrf_token%}
+        {{form.management_form}}
+
+        {%for f in form%}
+
+
+        <div class="col-3">
+            {{f.nombre|add_class:"font-weight-bold rounded-pill m-2 form-control text-center"}}
+
+            <div class="input-group m-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control" id="jamaican">G.</span>
+                </div>
+                {{f.cantidad|attr:"aria-describedby:jamaican"|attr:"placeholder:Quantità in g."|add_class:"form-control font-weight-bold rounded-pill text-center"}}
+            </div>
+
+
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    {{f.tipo_de_movimiento|attr:"data-size:small"|attr:"data-offstyle:info"|attr:"data-onstyle:primary"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+                </div>
+            </div>
+                <hr>
+            </div>
+
+
+            {%endfor%}
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" id="jamaica"><i id="japon" class="far fa-paper-plane"></i> Inviare</button>
+                </div>
+                <hr>
+            </div>
+
+
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+    var hola = document.getElementById("jamaica");
+    console.log(hola)
+    if(hola) {
+        hola.addEventListener("mouseenter", function (event) {
+
+            var japon = document.getElementById("japon").className = "far fa-paper-plane fa-spin";
+
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "far fa-paper-plane";
+        });
+    }
+    var hola2 = document.getElementById("jamaica2");
+    if(hola2) {
+        hola2.addEventListener("mouseenter", function (event) {
+
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+        });
+        hola2.addEventListener("mouseleave", function (event) {
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+        });
+    }
+    var hola3 = document.getElementById("jamaica3");
+if(hola3) {
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+    });
+}
+   var hola4 = document.getElementById("jamaica4");
+if(hola4) {
+    hola4.addEventListener("mouseenter", function (event) {
+
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle fa-spin";
+
+    });
+    hola4.addEventListener("mouseleave", function (event) {
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle";
+    });
+}
+</script>
+
+
+
+<script>
+
+    for (i = 0; i < 10; i++) {
+        $('#id_stockmovimientos_set-' + i + '-tipo_de_movimiento').bootstrapToggle({
+            on: 'Aggiungere',
+            off: 'Sottrare'
+        });
+
+        document.getElementById("id_stockmovimientos_set-" + i + "-nombre").options[0].innerText = "Seleziona un prodotto";
+        document.getElementById("id_stockmovimientos_set-" + i + "-nombre").options[0].style.color = "#9ca69e"
+
+
+    }
+    ;
+    for (i = 0; i < 10; i++) {
+        document.getElementById("id_stockmovimientos_set-" + i + "-medida").options[0].innerText = "Selezione una unità";
+        document.getElementById("id_stockmovimientos_set-" + i + "-medida").options[0].style.color = "#9ca69e";
+
+    }
+    ;
+
+</script>
+
+{%else%}
+
+<div class="justify-content-center">
+    <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
+    <div class="d-flex justify-content-center">
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i class="fas fa-chevron-circle-left"></i> VOLVER</strong></a>
+    </div>
+</div>
+
+{%endif%}
+{%endblock%}

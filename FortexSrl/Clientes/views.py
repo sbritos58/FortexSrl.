@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-
+from .filters import OrdenesFilter
 from .models import Clientes
 from Register.models import Usuarios
-
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -15,6 +14,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from .forms import ClientesForm
 from django.contrib.auth import get_user_model
+from django.db.models.functions import Lower
+
 
 class CreateClientesView(SuccessMessageMixin, CreateView):
 
@@ -47,16 +48,24 @@ class UpdateClientesView(SuccessMessageMixin,UpdateView):
 	def get_success_url(self):
 		return reverse_lazy('ListClientes')
 
-class ListClientesView(ListView):
-	form_class = ClientesForm
-	model = Clientes
-	template_name = 'clientes/listClientes.html'
-	paginate_by = 3
+def ListClientesView(request):
+	Model_one = Clientes.objects.all().order_by(Lower('rut'))
 
-	def get_context_data(self, *, object_list=None, **kwargs):
-		context = super(ListClientesView, self).get_context_data(**kwargs)
-		context["total"] = Clientes.objects.all().count
-		return context
+	myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+	paginator = Paginator(myFilter.qs, 10)
+	page = request.GET.get('page1')
+	try:
+		pub = paginator.page(page)
+	except PageNotAnInteger:
+		pub = paginator.page(1)
+	except EmptyPage:
+		pub = paginator.page(paginator.num_pages)
+
+	myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+
+	context = {'Model_one': Model_one, 'pub': pub, "myFilter": myFilter}
+	return render(request, 'clientes/listClientes.html', context)
+
 
 class DeleteClientesView(DeleteView):
 	form_class = ClientesForm

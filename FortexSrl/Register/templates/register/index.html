@@ -20,6 +20,8 @@
             integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
             crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
     <style>
 
@@ -306,7 +308,10 @@ a.article:hover {
                         <a href="{%url 'listarOrden'%}">Vedi gli ordini</a>
                     </li>
                     <li>
+                            {%if perms.Register.Administrador or perms.Register.Secretaria or perms.Register.Encargado %}
+
                         <a href="{%url 'crearOrden'%}">Creare ordini</a>
+{%endif%}
                     </li>
                 </ul>
             </li>
@@ -358,10 +363,10 @@ a.article:hover {
                 </a>
                 <ul class="collapse list-unstyled" id="pageInventario">
                     <li>
-                        <a href="#">visualizza l'inventario</a>
+                        <a href="{%url 'listStock'%}">visualizza l'inventario</a>
                     </li>
                     <li>
-                        <a href="#">Modificare l'inventario</a>
+                        <a href="{%url 'crearStock'%}">Creare vernice</a>
                     </li>
                 </ul>
             </li>
@@ -406,18 +411,19 @@ a.article:hover {
                             <a href="#pageInventario1" data-toggle="collapse"  style="background:None;"
                                aria-expanded="true"
                                class=" nav-link dropdown border rounded ">
+                                <i class="fas fa-user"></i>
                                 {{user|upper}}
                             </a>
                             <ul class="collapse list-unstyled" id="pageInventario1">
                 {% if perms.Register.Administrador%}
 
                                 <li>
-                                    <a href="#" style="background:None;">visualizza l'admin</a>
+                                    <a href="/administrator123" style="background:None;"><i class="fas fa-user-cog"></i> Visualizza l'admin</a>
                                 </li>
                                 <li>
             {%endif%}
                                     <a href="#" data-toggle="modal" data-target="#exampleModal"
-                                       style="background:None;">Disconnettersi?</a>
+                                       style="background:None;"><i class="fas fa-plug"></i> Disconnettersi?</a>
                                 </li>
 
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -425,7 +431,7 @@ a.article:hover {
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exa mpleModalLabel">DISCONNETTERSI</h5>
+                                                <h5 class="modal-title" id="exa mpleModalLabel"><i class="fas fa-plug"></i> DISCONNETTERSI</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -450,6 +456,7 @@ a.article:hover {
                 </div>
             </div>
         </nav>
+
 {% if messages %}
 <ul class="messages list-group mb-3">
     {% for message in messages %}
@@ -470,9 +477,7 @@ a.article:hover {
 
 
 <!-- jQuery CDN - Slim version (=without AJAX) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"

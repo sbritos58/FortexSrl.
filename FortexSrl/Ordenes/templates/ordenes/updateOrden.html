@@ -1,124 +1,224 @@
-{%extends 'register/baseRegistro.html'%}
+{%extends 'register/index.html'%}
 {%load static%}
 {% load widget_tweaks %}
 {%block head%}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-input[type=number]::-webkit-outer-spin-button,
 
-input[type=number]::-webkit-inner-spin-button {
+    input[type=number]::-webkit-inner-spin-button {
 
-    -webkit-appearance: none;
+        -webkit-appearance: none;
 
-    margin: 0;
+        margin: 0;
 
-}
+    }
 
 
- .select { overflow:hidden; }
+    .select {
+        overflow: hidden;
+    }
 
-input[type=number] {
+    input[type=number] {
 
-    -moz-appearance:textfield;
+        -moz-appearance: textfield;
 
-}
-.btn{
-width:50%;
-}
-#id_fotos{
-	height: 4rem;
-	padding-top: 1.2rem;
-}
+    }
 
 </style>
+
 {%endblock%}
-
-
 {%block content%}
 
-
-
-<div class="row justify-content-center text-center">
-    <div class="col-sm-8 align-self-center text-center">
-    <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666; text-shadow:2px 2px 10px #666;">
-        <div class="card-title">
-            <h1 class="card-title">ACTUALIZAR ORDEN</h1>
-            <hr class="mt-5 ml-2 mr-2">
-        </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                    <!-- TODO agregar todos los permisos necesarios tambien aqui entro no solo en el javascript-->
-                {{form.producto|attr:'id:producto'|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.descripcion|attr:'id:descripcion'|attr:"rows:3"|attr:"placeholder:Descripción"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
-
-                {{form.cantidad_recibida|attr:'id:cantidad_recibida'|attr:"placeholder:Cantidad recibida"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.estado|attr:"placeholder:Estado"|attr:'id:estado'|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.ubicacion|attr:'id:ubicacion'|attr:"placeholder:Ubicación"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.fecha_entrega_estimada|attr:'id:fecha_entrega_estimada'|attr:"placeholder:Fecha de entrega estimada YYYY-MM-DD"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-                {{form.asignado|attr:'id:asignado'|attr:"placeholder:Asignado a"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-				{{form.cantidadEntregada|attr:'id:CantidadEntregada'|attr:"placeholder:Cantidad entregada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-   				{{form.telaio|attr:'id:telaio'|attr:"placeholder:Pedazos por telaio"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-                <button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>ENVIAR</strong></button>
-                <a href="javascript:history.back(-1);"
-                   class="btn btn-secondary border m-2 rounded-pill"><strong>VOLVER</strong></a>
-            </form>
-        </div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>CREARE ORDINI</h3>
     </div>
-    </div>
+    <hr>
 </div>
+
+
+<form method="POST">
+    {%csrf_token%}
+
+    <div class="row">
+
+        <div class="col">
+            {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Prodotto</strong></h5></label>
+            </div>
+            {{form.producto|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+            {%else%}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Prodotto</strong></h5></label>
+            </div>
+            {{form.producto|attr:"disabled"|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+
+            {%endif%}
+
+        </div>
+        <div class="col">
+            {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Descrizione</strong></h5></label>
+            </div>
+            {{form.descripcion|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+            {%else%}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Descrizione</strong></h5></label>
+            </div>
+            {{form.descripcion|attr:"disabled"|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+            {%endif%}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Quantità ricevuta</strong></h5></label>
+            </div>
+            {{form.cantidad_recibida|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
+            {%else%}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Quantità ricevuta</strong></h5></label>
+            </div>
+            {{form.cantidad_recibida|attr:"disabled"|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
+            {%endif%}
+        </div>
+
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label for="estado" class="mt-1"><h5><strong>Stato</strong></h5></label>
+            </div>
+            {{form.estado|attr:"placeholder:Stato"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+
+        </div>
+        <div class="col">
+
+            <div class="d-flex justify-content-center">
+
+                <label for="ubicacion" class="mt-1"><h5><strong>Ubicazione</strong></h5></label>
+            </div>
+            {{form.ubicacion|attr:"placeholder:Email"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">{% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Data di consegna stimata</strong></h5></label>
+            </div>
+            {{form.fecha_entrega_estimada|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+            {%else%}
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Data di consegna stimata</strong></h5></label>
+            </div>
+            {{form.fecha_entrega_estimada|attr:"disabled"|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+
+            {%endif%}
+        </div>
+
+        <div class="col">
+            <div class="d-flex justify-content-center">
+
+                <label for="asignado" class="mt-1"><h5><strong>Assegnato a</strong></h5></label>
+            </div>
+            {{form.asignado|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+
+        </div>
+        <div class="col">
+            {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Calidad %}
+
+            <div class="d-flex justify-content-center">
+                <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
+            </div>
+            {{form.cantidadEntregada|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+        </div>
+        {%else%}
+
+        <div class="d-flex justify-content-center">
+            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
+        </div>
+        {{form.cantidadEntregada|attr:"disabled"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+    </div>
+    {%endif%}
+
+    </div>
+
+
+    <div class="d-flex justify-content-center">
+
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill"id="jamaica"><strong><i ID="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+        <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
+    </div>
+
+</form>
+
+
 <script>
-	var hola = document.getElementById("producto").options[0].innerText = "Seleccione un producto...";
-	var hola = document.getElementById("producto").options[0].disabled = 'true';
-	var hola = document.getElementById("estado").options[0].innerText = "Seleccione un estado...";
-	var hola = document.getElementById("estado").options[0].disabled = 'true';
-	var hola = document.getElementById("ubicacion").options[0].innerText = "Seleccione ubicación...";
-	var hola = document.getElementById("ubicacion").options[0].disabled = 'true';
-	var hola = document.getElementById("asignado").options[0].innerText = "Seleccione un usuario...";
-	var hola = document.getElementById("asignado").options[0].disabled = 'true';
+
+    $("#fecha_entrega_estimada").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+</script>
+<script>
+    document.getElementById("producto").options[0].innerText = "Selezionare un prodotto...";
+    document.getElementById("producto").options[0].disabled = 'true';
+
+    document.getElementById("asignado").options[0].innerText = "Selezionare chi assegnare...";
+    document.getElementById("asignado").options[0].disabled = 'true';
+            {% if  perms.Register.Pintor or perms.Register.Montaje %}
+    document.getElementById("estado").options[0].innerText = "Selezionare uno stato...";
+    document.getElementById("estado").options[0].disabled = 'true';
+    document.getElementById("estado").options[4].disabled = 'true';
+    document.getElementById("estado").options[4].style.color = 'red';
+
+    {%else%}
+    document.getElementById("estado").options[0].innerText = "Selezionare uno stato...";
+    document.getElementById("estado").options[0].disabled = 'true';
+    {%endif%}
+    document.getElementById("ubicacion").options[0].innerText = "Selezionare una ubicazione..";
+    document.getElementById("ubicacion").options[0].disabled = 'true';
 
 
 </script>
+
 <script>
-var grupo = "{{user.groups.get}}"
-        if (grupo == "Montaje"  ){
+    var hola = document.getElementById("jamaica");
+    hola.addEventListener("mouseenter", function (event) {
 
-            document.getElementById('CantidadEntregada').style.display = 'none';
-            document.getElementById('descripcion').style.display = 'none';
-            document.getElementById('producto').style.display = 'none';
-            document.getElementById('fecha_entregada_estimada').style.display = 'none';
-            document.getElementById('FechaEntregaEstimada').style.display = 'none';
-            document.getElementById('CantidadEntregada').style.display = 'none';
-        }
-        if(grupo == "Calidad"){
-            document.getElementById('cantidad_recibida').style.display = 'none';
-            document.getElementById('descripcion').style.display = 'none';
-            document.getElementById('producto').style.display = 'none';
-            document.getElementById('CantidadEntregada').style.display = 'none';
-            }
-            if(grupo == "Secretaria"){
-            document.getElementById('cantidad_recibida').style.display = 'none';
-            document.getElementById('descripcion').style.display = 'none';
-            document.getElementById('producto').style.display = 'none';
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
 
-            }
+    });
+    hola.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
+    });
+    var hola2 = document.getElementById("jamaica2");
 
-        var hola = document.getElementById('telaio').value ;
-        var hola1 = document.getElementById('telaio').innerText;
-        if (hola == "" && hola1 == ""){
-            document.getElementById('telaio').style.display = "block";
-        }else{
-         document.getElementById('telaio').style.display = "none";
-        }
+    hola2.addEventListener("mouseenter", function (event) {
 
-    </script>
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
 
+    });
+    hola2.addEventListener("mouseleave", function (event) {
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+    });
 
-    {%endblock%}
+</script>
+
+{%endblock%}

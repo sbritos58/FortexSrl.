@@ -1,5 +1,98 @@
-<form method="post">
-    {%csrf_token%}
-    {{Model_one.as_p}}
-    <button type="submit">subir</button>
-</form>
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+
+
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
+
+
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
+
+</style>
+{%endblock%}
+
+{%block content%}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>CREARE VERNICE</h3>
+    </div>
+    <hr>
+</div>
+
+
+<form id="formulario" method="POST">
+
+
+    <div class="row">
+        {%csrf_token%}
+
+
+        <div class="col">
+            {{Model_one.nombre|attr:"placeholder:Nome"|add_class:"font-weight-bold rounded-pill m-2 form-control text-center"}}
+        </div>
+        <div class="col">
+            <div class="input-group m-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control" id="jamaica">G.</span>
+                </div>
+                {{Model_one.cantidad|attr:"aria-describedby:jamaica"|attr:"placeholder:Quantità in g."|add_class:"form-control font-weight-bold rounded-pill text-center"}}
+
+            </div>
+        </div></div>
+
+        {{Model_one.descripcion|attr:"rows:2"|attr:"placeholder:Descrizione"|add_class:"font-weight-bold rounded-pill m-2 form-control text-center"}}
+        <div class="row">
+            <div class="col">
+                {{Model_one.tipo_de_producto|add_class:"font-weight-bold rounded-pill m-2 form-control text-center"}}
+            </div>
+            <div class="col">
+                {{Model_one.proveedor|attr:"placeholder:Fornitore"|add_class:"font-weight-bold rounded-pill m-2 form-control text-center"}}
+            </div>
+            <div class="col">
+                <div class="input-group m-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text form-control" id="china">€</span>
+                    </div>
+                    {{Model_one.precio|attr:"placeholder:Prezzo"|attr:"aria-describedby:jamaica"|add_class:"font-weight-bold rounded-pill form-control text-center"}}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" id="boton"><i class="far fa-paper-plane"></i> Inviare</button>
+            </div>
+            <hr>
+        </div>
+
+    <script>
+                document.getElementById("id_tipo_de_producto").options[0].innerText = "Seleziona tipo di vernice";
+
+                document.getElementById("id_tipo_de_producto").options[0].disabled = "True";
+
+    </script>
+
+        {%endblock%}

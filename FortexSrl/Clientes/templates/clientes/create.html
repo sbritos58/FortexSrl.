@@ -1,95 +1,201 @@
-{%extends 'register/baseRegistro.html'%}
+{%extends 'register/index.html'%}
 {%load static%}
 {% load widget_tweaks %}
 {%block head%}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-input[type=number]::-webkit-outer-spin-button,
 
-input[type=number]::-webkit-inner-spin-button {
+    input[type=number]::-webkit-inner-spin-button {
 
-    -webkit-appearance: none;
+        -webkit-appearance: none;
 
-    margin: 0;
+        margin: 0;
 
-}
+    }
 
 
- .select { overflow:hidden; }
+    .select {
+        overflow: hidden;
+    }
 
-input[type=number] {
+    input[type=number] {
 
-    -moz-appearance:textfield;
+        -moz-appearance: textfield;
 
-}
-.btn{
-width:50%;
-}
-#id_fotos{
-	height: 4rem;
-	padding-top: 1.2rem;
-}
+    }
 
 </style>
+
 {%endblock%}
-
-
 {%block content%}
 
+{% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
 
-{% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria  %}
-
-<div class="row justify-content-center text-center">
-    <div class="col-sm-8 align-self-center text-center">
-    <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666; text-shadow:2px 2px 10px #666;">
-        <div class="card-title">
-                <h1 class="card-title">CREAR CLIENTE</h1>
-            <hr class="mt-5 ml-2 mr-2">
-        </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-
-                {{form.rut|attr:"placeholder:Rut"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
-
-                {{form.nombre_organizacion |attr:'placeholder:Nombre de la organización'|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.nombre|attr:"placeholder:Nombre"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.apellido|attr:"placeholder:Apellido"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.direccion1|attr:"placeholder:Dirección 1"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-
-                {{form.direccion2|attr:"placeholder:Dirección 2"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-                {{form.ciudad|attr:"placeholder:Ciudad"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-				{{form.telefono|attr:"placeholder:Teléfono"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-                {{form.celular|attr:"placeholder:Celular"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-				{{form.email|attr:"placeholder:Email"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-				{{form.tipo_cliente|attr:"placeholder:Tipo de cliente"|attr:"id:tipo_cliente"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-
-                <button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>ENVIAR</strong></button>
-                <a href="javascript:history.back(-1);"
-                   class="btn btn-secondary border m-2 rounded-pill"><strong>VOLVER</strong></a>
-            </form>
-        </div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>AGGIORNA CLIENTE {{object.nombre_organizacion|upper}}</h3>
     </div>
+    <hr>
+</div>
+
+
+<form method="POST">
+    {%csrf_token%}
+
+    <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="asignado" class="mt-1"><h5><strong>P.Iva</strong></h5></label>
+            </div>
+            {{form.rut|attr:"placeholder:P.Iva"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+            <div class="container-fluid text-center"style="margin-bottom: -1rem">
+                <label for="nombre_organizacion" class="mt-1"><h5><strong>Organizzazione</strong></h5></label>
+            </div>
+            {{form.nombre_organizacion|attr:"placeholder:Nome organizzazione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
     </div>
 
+    <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="nombre" class="mt-1"><h5><strong>Nome</strong></h5></label>
+            </div>
+            {{form.nombre|attr:"placeholder:Nome"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+            <div class="container-fluid text-center"style="margin-bottom: -1rem">
+                <label for="apellido" class="mt-1"><h5><strong>Cognome</strong></h5></label>
+            </div>
+            {{form.apellido|attr:"placeholder:Cognome"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="asignado" class="mt-1"><h5><strong>Indirizzo 1</strong></h5></label>
+            </div>
+            {{form.direccion1|attr:"placeholder:Indirizzo 1"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+            <div class="container-fluid text-center"style="margin-bottom: -1rem">
+                <label for="direccion2" class="mt-1"><h5><strong>Indirizzo 2</strong></h5></label>
+            </div>
+            {{form.direccion2|attr:"placeholder:Indirizzo 2"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
+    </div>
+        <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="ciudad" class="mt-1"><h5><strong>Città</strong></h5></label>
+            </div>
+            {{form.ciudad|attr:"placeholder:Città"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+            <div class="container-fluid text-center"style="margin-bottom: -1rem">
+                <label for="telefono" class="mt-1"><h5><strong>Telefono</strong></h5></label>
+            </div>
+            {{form.telefono|attr:"placeholder:Telefono"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
+    </div>
+
+        <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="celular" class="mt-1"><h5><strong>Cellulare</strong></h5></label>
+            </div>
+            {{form.celular|attr:"placeholder:Cellulare"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+            <div class="container-fluid text-center"style="margin-bottom: -1rem">
+                <label for="email" class="mt-1"><h5><strong>Email</strong></h5></label>
+            </div>
+            {{form.email|attr:"placeholder:Email"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
+    </div>
+
+        <div class="row">
+
+        <div class="col">
+            <div class="container-fluid text-center" style="margin-bottom: -1rem">
+                <label for="tipo_cliente" class="mt-1"><h5><strong>Tipo di cliente</strong></h5></label>
+            </div>
+            {{form.tipo_cliente|attr:"placeholder:Tipo di cliente"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+
+    </div>
 
 
+
+
+    <div class="container-fluid text-center">
+
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i ID="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+        <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
+    </div>
+
+</form>
+
+
+<script>
+
+    $("#fecha_entrega_estimada").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+</script>
+<script>
+    document.getElementById("id_tipo_cliente").options[0].innerText = "Selezionare tipo cliente..";
+    document.getElementById("id_tipo_cliente").options[0].disabled = 'true';
+
+
+</script>
+
+<script>
+    var hola = document.getElementById("jamaica");
+    hola.addEventListener("mouseenter", function (event) {
+
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
+    });
+    var hola2 = document.getElementById("jamaica2");
+
+    hola2.addEventListener("mouseenter", function (event) {
+
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+    });
+    hola2.addEventListener("mouseleave", function (event) {
+        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+    });
+
+</script>
+{%else%}
+<div class="justify-content-center">
+    <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
+    <div class="d-flex justify-content-center">
+        <a href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>
+    </div>
 </div>
 
 {%endif%}
-
-<script>
-	var hola = document.getElementById("tipo_cliente").options[0].innerText = "Seleccione un tipo...";
-	var hola = document.getElementById("tipo_cliente").options[0].disabled = 'true';
-
-</script>
 {%endblock%}
-

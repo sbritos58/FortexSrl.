@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Usuarios(AbstractUser):
 
-	telefono = models.CharField(max_length=20,verbose_name='Teléfono',blank=False)
+	telefono = models.CharField(max_length=20,null=True, verbose_name='Teléfono',blank=False)
 
 	class Meta:
 		permissions = (('Administrador', 'Administrador'),
@@ -11,4 +11,6 @@ class Usuarios(AbstractUser):
 					   ('Pintor','Pintor'),
 					   ('Montaje','Montaje'),
 					   ('Calidad1','Calidad1'),
-					   ('Secretaria','Secretaria'),)
+					   ('Secretaria','Secretaria'),
+					   ('Stock','Stock'),
+					   )

@@ -1,0 +1,180 @@
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+
+
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
+
+
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
+
+</style>
+{%endblock%}
+
+{%block content%}
+{%if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Stock%}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>CREARE INVENTARIO PER PRODOTTO</h3>
+    </div>
+    <hr>
+</div>
+
+
+<form id="formulario" method="POST">
+
+
+    <div class="row">
+        {%csrf_token%}
+
+
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label for="nombre" style="margin-bottom:-.2rem">Nome</label>
+            </div>
+            {{form.nombre|attr:"placeholder:Nome"|add_class:"font-weight-bold rounded-pill m-1 form-control text-center"}}
+        </div>
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label for="cantidad" style="margin-bottom:-.2rem">Quantità</label>
+            </div>
+            <div class="input-group m-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control" id="jamaica">G.</span>
+                </div>
+                {{form.cantidad|attr:"aria-describedby:jamaica"|attr:"placeholder:Quantità in g."|add_class:"form-control font-weight-bold rounded-pill text-center"}}
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <label for="descripcion" class="mt-2" style="margin-bottom:-.2rem">Descrizione</label>
+    </div>
+    {{form.descripcion|attr:"rows:2"|attr:"placeholder:Descrizione"|add_class:"font-weight-bold rounded-pill m-1 form-control text-center"}}
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label class="mt-2" for="tipo_de_producto" style="margin-bottom:-.2rem">Tipo di prodotto</label>
+            </div>
+
+            {{form.tipo_de_producto|add_class:"font-weight-bold rounded-pill m-1 form-control text-center"}}
+
+       </div>
+
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label class="mt-2" for="proveedor" style="margin-bottom:-.2rem">Fornitore</label>
+            </div>
+            {{form.proveedor|attr:"placeholder:Fornitore"|add_class:"font-weight-bold rounded-pill m-1 form-control text-center"}}
+        </div>
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <label class="mt-2" for="precio" style="margin-bottom:-.2rem">Prezzo</label>
+            </div>
+            <div class="input-group m-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control" id="china">€</span>
+                </div>
+                {{form.precio|attr:"placeholder:Prezzo"|attr:"aria-describedby:jamaica"|add_class:"font-weight-bold rounded-pill form-control text-center"}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="d-flex justify-content-center mt-3">
+            <a href="javascript:history.back(-1);" type="submit" class="btn btn-secondary" id="jamaica8"><i id="japon" class="fas fa-chevron-circle-left"></i> Tornare</a>
+
+            <button type="submit" class="btn btn-primary ml-2" id="jamaica2"><strong><i id="japon2" class="far fa-paper-plane"></i> Inviare</strong></button>
+        </div>
+        <hr>
+    </div>
+
+    <script>
+        document.getElementById("id_tipo_de_producto").options[0].innerText = "Seleziona un prodotto";
+        document.getElementById("id_tipo_de_producto").options[0].disabled = "True";
+
+    </script>
+
+{%else%}
+    <div class="justify-content-center">
+    <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
+    <div class="d-flex justify-content-center">
+        <a href="javascript:history.back(-1);" id="jamaica3"
+           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i id="japon3" class="fas fa-chevron-circle-left"></i> VOLVER</strong></a>
+    </div>
+</div>
+    {%endif%}
+
+
+<script>
+    var hola = document.getElementById("jamaica8");
+    console.log(hola)
+    if(hola) {
+        hola.addEventListener("mouseenter", function (event) {
+
+            var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
+
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
+        });
+    }
+    var hola2 = document.getElementById("jamaica2");
+    if(hola2) {
+        hola2.addEventListener("mouseenter", function (event) {
+
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+        });
+        hola2.addEventListener("mouseleave", function (event) {
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+        });
+    }
+    var hola3 = document.getElementById("jamaica3");
+if(hola3) {
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+    });
+}
+   var hola4 = document.getElementById("jamaica4");
+if(hola4) {
+    hola4.addEventListener("mouseenter", function (event) {
+
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle fa-spin";
+
+    });
+    hola4.addEventListener("mouseleave", function (event) {
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle";
+    });
+}
+</script>
+
+
+    {%endblock%}

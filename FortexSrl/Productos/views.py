@@ -1,4 +1,6 @@
 from Register.models import Usuarios
+from django.shortcuts import render
+
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
@@ -10,8 +12,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic import DeleteView
 from .forms import ProductosForm
 from .models import Productos
+from .filters import OrdenesFilter
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-#TODO: hacer en cada template el poder registrar un tipo de campo que no exista en los foreignkey
 
 class CreateProductosView(SuccessMessageMixin,CreateView):
     form_class = ProductosForm
@@ -31,21 +34,28 @@ class CreateProductosView(SuccessMessageMixin,CreateView):
 
 
 
-class ListProductosView(ListView):
-    model = Productos
-    form_class = ProductosForm
-    template_name = 'productos/listProductos.html'
-    paginate_by = 3
+def ListProductosView(request):
+    Model_one = Productos.objects.all()
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ListProductosView,self).get_context_data(**kwargs)
-        context["total"] = Productos.objects.all().count
-        return context
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+    paginator = Paginator(myFilter.qs, 10)
+    page = request.GET.get('page1')
+    try:
+        pub = paginator.page(page)
+    except PageNotAnInteger:
+        pub = paginator.page(1)
+    except EmptyPage:
+        pub = paginator.page(paginator.num_pages)
+
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+
+    context = {'Model_one': Model_one, 'pub': pub, "myFilter": myFilter}
+    return render(request, 'productos/listProductos.html', context)
 
 class UpdateProductosView(SuccessMessageMixin,UpdateView):
     form_class = ProductosForm
     model = Productos
-    template_name = 'Productos/updateProductos.html'
+    template_name = 'Productos/listProductos.html'
 
     def get_success_url(self):
         return reverse_lazy('listProductos')

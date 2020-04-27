@@ -24,7 +24,7 @@ class CreateOrdenView(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         formulario = form.save(commit=False)
 
-        if formulario.estado == 'Entregado' and formulario.ubicacion == 'Cliente':
+        if formulario.estado == 'Entregado':
             formulario.fecha_entrega_real = date.today()
         else:
             formulario.fecha_entrega_real = None
@@ -36,14 +36,10 @@ class CreateOrdenView(SuccessMessageMixin, CreateView):
 def ListViewOrden(request):
     ordenes = Ordenes.objects.filter(estado = 'Entregado')
     historial = Ordenes.history.all()
-
    #----------------------------------------------- graficas----------------------------------
     totalprod = Ordenes.objects.values_list("producto__nombre").annotate(cantidad=Sum('cantidad_recibida')).order_by('producto')
     totalprodentregados = Ordenes.objects.values_list("producto__nombre").annotate(cantidad=Sum('cantidadEntregada')).order_by('producto')
-
     totalfechasentregadas = Ordenes.objects.values_list("fecha_entrega_real" ,'producto__nombre', 'cantidadEntregada').order_by('producto')
-
-
     listaTodos = []
     listaproductos = []
     listaEtiquetas = []
@@ -63,23 +59,18 @@ def ListViewOrden(request):
         listaEtiquetas.append(i[0])
     productos1 = []
     etiquetas = []
+
+
+
     for i in totalprod:
-        if totalprod[1] != None:
+        if totalprod[0] != None:
             productos1.append(i[1])
         else:
             productos1.append(0)
         etiquetas.append(i[0])
+    fuera = ("Completato","Entregado")
 
-    # -------------------------------ESTO ME SERVIA PARA RESTAR DOS LISTAS Y MOSTRARLAS CON NNUMPY ----------------------
-    #import numpy as np
-    #a = productos1
-    #b = listaproductos
-    #hola =  list(np.array(b) - np.array(a))
-  #-------------------------------------------fin graficas---------------------------------------------
-
-
-
-    Model_one = Ordenes.objects.exclude(estado='Entregado',ubicacion='Cliente').order_by('fecha_entrega_estimada')
+    Model_one = Ordenes.objects.exclude(estado__in=fuera).order_by('fecha_entrega_estimada')
     total = Model_one.count
     myFilter = OrdenesFilter(request.GET,queryset=Model_one)
     paginator = Paginator(myFilter.qs, 10)
@@ -92,8 +83,12 @@ def ListViewOrden(request):
         pub = paginator.page(paginator.num_pages)
 
     myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+    comparar = date.today()
+    fechasAcomparar = []
+    for i in Model_one:
+        fechasAcomparar.append(str(abs( comparar - i.fecha_entrega_estimada).days) + " dias" +" " + str(i.orden))
 
-
+    print(fechasAcomparar)
     context = {'pub':pub,'myFilter':myFilter,'listatodos':listaTodos,'listaproductos':listaproductos,'listaetiquetas':listaEtiquetas,'productos1':productos1,'etiquetas':etiquetas,'Total':total, 'Model_one': Model_one, 'Ordenes': ordenes,
                'History': historial}
     return render(request, 'ordenes/ListarOrden.html', context)
@@ -164,7 +159,7 @@ class UpdateOrdenView(UpdateView):
         else:
             formulario.telaio = formulario.cantidad_recibida / hola.telaio
 
-        if  formulario.estado == 'Completato' and formulario.ubicacion == 'Cliente':
+        if  formulario.estado == 'Completato':
             formulario.fecha_entrega_real = date.today()
             messages.success(self.request, '¡¡¡ La orden %s se ha entregado !!!' % (formulario.orden))
 

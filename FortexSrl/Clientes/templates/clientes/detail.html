@@ -1,127 +1,205 @@
-{%extends 'register/baseRegistro.html'%}
+{%extends 'register/index.html'%}
 {%load static%}
 {% load widget_tweaks %}
-
-
 {%block head%}
 
+
 <style>
-	.btn{
-	width:70%}
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
 
 
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
 
 </style>
 {%endblock%}
 
-{%block title%}Detalle{%endblock%}
-
-{%block jumbo%}DETALLE DE CLIENTE {{object.nombre_organizacion}}{%endblock%}
-
 {%block content%}
 
-<div class="row ">
-    <div class="col">
-        <div class="card m-2 text-center m-3 border" style="border-radius:30px; box-shadow:2px 2px 10px #666;">
-            <div class="card-title">
-                <h1 class="card-title" style="text-transform:uppercase;text-shadow:2px 2px 10px #666;">
-                    DETALLE DE {{object.nombre}}</h1>
-            </div>
-            <div class="card-body align-self-center">
-                <table class="table table-responsive ">
-                    <thead class="thead text-center ">
-
-                    <th>Rut</th>
-                    <th>Nombre de Organización</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Dirección 1</th>
-                    <th>Dirección 2</th>
-                    <th>Ciudad</th>
-                    <th>Teléfono</th>
-                    <th>Celular</th>
-                    <th>Email</th>
-                    <th>Tipo de cliente</th>
-                    <th>Creado por</th>
-                    </thead>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>CLIENTE  {{object.nombre_organizacion|upper }}</h3>
+    </div>
+    <hr>
+</div>
 
 
-                    <form method="POST" action="/Clientes/delete/{{object.rut}}">
-                        {% csrf_token %}
-                        <tr>
-                            <td>{{object.rut}}</td>
-                            <td>{{object.nombre_organizacion}}</td>
-                            <td>{{object.nombre}}</td>
-                            <td>{{object.apellido}}</td>
-                            <td>{{object.direccion1}}</td>
-                            <td>{{object.direccion2}}</td>
-                            <td>{{object.ciudad}}</td>
-                            <td>{{object.telefono}}</td>
-                            <td>{{object.celular}}</td>
-                            <td>{{object.email}}</td>
-                            <td>{{object.tipo_cliente}}</td>
-                            <td>{{object.usuarios}}</td>
-                        </tr>
+<table class="table-responsive  table-striped table-bordered" style="box-shadow:2px 2px 2px;">
+    <form method="post" action="{%url 'deleteClientes' object.rut%}">
+        {%csrf_token%}
+
+        <tbody>
+
+        <tr>
+            <th class="text-center" style="width:20rem">P.Iva</a></th>
+            <td class="text-center" style="width:50rem;">{{object.rut}}</td>
+        </tr>
+        <tr>
+
+            <th class="text-center" style="width:20rem">Nome organizzazione</th>
+            <td class="text-center" style="width:50rem">{{object.nombre_organizacion}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Nome</th>
+            <td class="text-center" style="width:50rem;">{{object.nombre}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Cognome</th>
+            <td class="text-center" style="width:50rem">{{object.apellido}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Indirizzo 1</th>
+            <td class="text-center" style="width:50rem">{{object.direccion1}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Indirizzo 2</th>
+            <td class="text-center" style="width:50rem">{{object.direccion2}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Città</th>
+            <td class="text-center" style="width:50rem">{{object.ciudad}}
+            </td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Telefono</th>
+            <td class="text-center" style="width:50rem">{{object.telefono}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Cellulare</th>
+            <td class="text-center"  style="width:50rem">{{object.celular}}</td>
+        </tr>
+        <tr>
+            <th class="text-center" style="width:20rem">Email</th>
+            <td class="text-center"  style="width:50rem">{{object.email}}</td>
+        </tr>
+
+        <tr>
+            <th class="text-center" style="width:20rem">Tipo di cliente</th>
+            <td class="text-center"  style="width:50rem">{{object.tipo_cliente}}</td>
+        </tr>
+
+        <tr>
+        <th class="text-center" style="width:20rem">Creato per</th>
+            <td class="text-center"  style="width:50rem">{{object.usuarios}}</td>
+        </tr>
 
 
-                    </form>
-
-                </table>
-
-                {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
-
-                <div class="row">
-                    <div class="col">
-                        <div class="col-md text-center mb-3">
-                            <a href="/Clientes/update/{{object.rut}}"
-                               class="btn btn-warning btn-xs rounded-pill border  m-3"><strong>EDITAR</strong></a>
-                        </div>
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">RIMUOVERE</h5>
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    {%endif%} {% if perms.Register.Administrador %}
-
-                    <div class="col">
-                        <div class="col-md text-center mb-3">
-                            <button class="btn btn-danger btn-xs rounded-pill border  m-3" data-toggle="modal"
-                                    data-target="#exampleModal"
-                                    type="submit"><strong>ELIMINAR</strong></button>
-                        </div>
+                    <div class="modal-body">
+                        Sicuro di rimuovere il cliente selezionato?
                     </div>
-                    {%endif%}
-                    <div class="col">
-                        <div class="col-md text-center mb-3">
-                            <a href="javascript:history.back(-1);"
-                               class="btn btn-secondary btn-xs rounded-pill border border  m-3"><strong>VOLVER</strong></a>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                            Chiudere
+                        </button>
+                        <button type="submit" class="btn btn-danger rounded-pill"><i class="fas fa-trash-alt"></i> Si, avanti</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+
+        </tbody>
+    </form>
+</table>
+
+<div class="container mt-2">
+    <a href="javascript:history.back(-1);" id="jamaica3"
+       class="btn btn-secondary"><i id="japon3" class="fa fa-reply"></i> Tornare</a>.
+    <a class="btn btn-secondary " id="jamaica2" href="{%url 'updateClientes' object.rut%}"><i id="japon2" class="fas fa-pen-square"></i> Modifica</a>
+    {% if perms.Register.Administrador %}
+
+    <button id="jamaica1" class="btn btn-danger " style="margin-bottom:2px;" data-toggle="modal"
+            data-target="#exampleModal1" type="button"><i id="japon1" class="fas fa-trash-alt"></i> Rimuovere</button>
+
+
+    {%endif%}
+        {%if perms.Register.Administrador or perms.Register.Secretaria or perms.Register.Encargado %}
+
+    <a href="{%url 'createClientes'%}" id="jamaica" class="btn btn-secondary"><i id="japon" class="fas fa-plus-circle"></i> Aggiungi cliente</a>
+{%endif%}
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exa mpleModalLabel">ELIMINAR</h5>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Seguro de eliminar este producto?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
-                    Cerrar
-                </button>
-                <button type="submit" class="btn btn-danger rounded-pill">Si, adelante</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+
+    var hola = document.getElementById("jamaica");
+    if (hola) {
+        hola.addEventListener("mouseenter", function (event) {
+
+            var japon = document.getElementById("japon").className = "fas fa-plus-circle fa-spin";
+
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "fas fa-plus-circle";
+        });
+    }
+
+    var hola2 = document.getElementById("jamaica1");
+if(hola2) {
+    hola2.addEventListener("mouseenter", function (event) {
+
+        var japon = document.getElementById("japon1").className = "fas fa-trash-alt fa-spin";
+
+    });
+    hola2.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon1").className = "fas fa-trash-alt";
+    });
+}
+    var hola3 = document.getElementById("jamaica2");
+if(hola3) {
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon2 = document.getElementById("japon2").className = "fas fa-pen-square fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon2 = document.getElementById("japon2").className = "fas fa-pen-square";
+    });
+}
+
+    var hola4 = document.getElementById("jamaica3");
+if(hola4) {
+    hola4.addEventListener("mouseenter", function (event) {
+
+        var japon = document.getElementById("japon3").className = "fa fa-reply fa-spin";
+
+    });
+    hola4.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon3").className = "fa fa-reply";
+    });
+}
+
+</script>
 
 {%endblock%}
+
 

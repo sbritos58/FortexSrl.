@@ -1,7 +1,7 @@
 from django.db import models
 from Register.models import Usuarios
 from simple_history.models import HistoricalRecords
-
+from django.conf import settings
 # Create your models here.
 
 class Clientes(models.Model):
@@ -10,18 +10,18 @@ class Clientes(models.Model):
 		('Plata','Plata'),
 		('Bronce','Bronce'),
 		)
-	rut = models.IntegerField(primary_key=True,blank=False,unique=True)
-	nombre_organizacion = models.CharField(max_length=50,blank=False)
-	nombre = models.CharField(max_length=50, blank=False)
-	apellido = models.CharField(max_length=50,blank=False)
-	direccion1 = models.CharField(max_length=150,blank=True)
-	direccion2 = models.CharField(max_length=150, blank=True)
-	ciudad = models.CharField(max_length=20,blank=True)
-	telefono = models.CharField(max_length=20,blank=True)
-	celular = models.CharField(max_length=20,blank=True)
-	email = models.EmailField(max_length=254, blank=True)
-	tipo_cliente = models.CharField(max_length=10,choices=TIPO_CLIENTE)
-	usuarios = models.ForeignKey("Register.Usuarios", verbose_name=("Creado por "),on_delete=models.CASCADE)
+	rut = models.IntegerField(primary_key=True,blank=False,null=False)
+	nombre_organizacion = models.CharField(max_length=50,blank=False,null=False)
+	nombre = models.CharField(max_length=50, blank=False,null=False)
+	apellido = models.CharField(max_length=50,blank=False,null=False)
+	direccion1 = models.CharField(max_length=150,blank=True,null=False)
+	direccion2 = models.CharField(max_length=150, blank=True,null=False)
+	ciudad = models.CharField(max_length=20,blank=True,null=False)
+	telefono = models.CharField(max_length=20,blank=True,null=False)
+	celular = models.CharField(max_length=20,blank=True,null=False)
+	email = models.EmailField(max_length=254, blank=True,null=False)
+	tipo_cliente = models.CharField(max_length=10,choices=TIPO_CLIENTE,null=False)
+	usuarios = models.ForeignKey(settings.AUTH_USER_MODEL,null=True, verbose_name=("Creado por "),on_delete=models.CASCADE)
 	history = HistoricalRecords()
 
 	def __str__(self):

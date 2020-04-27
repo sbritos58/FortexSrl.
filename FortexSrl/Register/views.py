@@ -9,41 +9,63 @@ from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import DeleteView
-
+from .filters import OrdenesFilter
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .forms import UsuariosForm
 
 # Create your views here.
 
 
 class CreateUserView(SuccessMessageMixin, CreateView):
-    model = Usuarios
+    form_class = UsuariosForm
     template_name = 'register/Registro.html'
-    fields = ['username', 'first_name', 'last_name', 'telefono', 'email', 'is_active', 'is_staff', 'groups', 'password']
-    success_message = 'Usuario creado correctamente!'
+    success_message = '¡¡ Utente creato con successo !!'
+
+
+    def form_valid(self, form):
+        form = super(CreateUserView, self).form_valid(form)
+
+        return form
+
+    def form_invalid(self, form):
+        form = super(CreateUserView, self).form_invalid(form)
+        print("algo no funciono")
+        return form
+
 
     def get_success_url(self):
         return reverse_lazy('listViewUsuario')
+
+
 
 
 class UpdateUserView(SuccessMessageMixin, UpdateView):
     model = Usuarios
     template_name = 'register/update.html'
     fields = ['username', 'first_name', 'last_name', 'telefono', 'email', 'is_active', 'is_staff', 'groups']
-    success_message = 'Usuario modificado correctamente!'
+    success_message = '¡¡ Utente modificato con successo !'
 
     def get_success_url(self):
         return reverse_lazy('listViewUsuario')
 
 
-class ListUserView(ListView):
-    model = Usuarios
-    ordering = '-first_name'
-    template_name = 'register/ListView.html'
-    paginate_by = 5
+def ListUserView(request):
+    Model_one = Usuarios.objects.all()
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ListUserView, self).get_context_data(**kwargs)
-        context["total"] = Usuarios.objects.all().count
-        return context
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+    paginator = Paginator(myFilter.qs, 10)
+    page = request.GET.get('page1')
+    try:
+        pub = paginator.page(page)
+    except PageNotAnInteger:
+        pub = paginator.page(1)
+    except EmptyPage:
+        pub = paginator.page(paginator.num_pages)
+
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+
+    context = {'Model_one': Model_one, 'pub': pub, "myFilter": myFilter}
+    return render(request, 'register/listView.html', context)
 
 
 class DetailUserView(DetailView):
@@ -55,6 +77,6 @@ class DeleteUserView(DeleteView):
     model = Usuarios
 
     def get_success_url(self):
-        success_message = '¡¡¡ Usuario eliminado correctamente !!!'
+        success_message = '¡¡ Utente cancelatto con successo !!'
         messages.success(self.request, (success_message))
         return reverse_lazy('listViewUsuario')

@@ -28,15 +28,6 @@ input[type=number] {
 	height: 4rem;
 	padding-top: 1.2rem;
 }
-
-
-
-
-
-
-
-
-
 </style>
 {%endblock%}
 
@@ -51,26 +42,26 @@ input[type=number] {
     </div>
     <hr>
 </div>
-
+<div class="container-fluid">
 <form method="POST">
     {%csrf_token%}
 
     <div class="row">
 
         <div class="col">
-            {{form.first_name|attr:"placeholder:Nombre"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+            {{form.first_name|attr:"placeholder:Nome"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
         </div>
         <div class="col">
-            {{form.last_name|attr:"placeholder:Apellido"|add_class:"form-control font-weight-bold rounded-pill m-2  text-center"}}
+            {{form.last_name|attr:"placeholder:Cognome"|add_class:"form-control font-weight-bold rounded-pill m-2  text-center"}}
         </div>
     </div>
     <div class="row">
         <div class="col">
-            {{form.username|attr:"placeholder:Nombre de usuario"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
+            {{form.username|attr:"placeholder:Nome di utente"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
         </div>
 
         <div class="col">
-            {{form.telefono|attr:"placeholder:Teléfono"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
+            {{form.telefono|attr:"placeholder:Cellulare"|add_class:"form-control font-weight-bold rounded-pill m-2            text-center"}}
 
         </div>
         <div class="col">
@@ -86,12 +77,12 @@ input[type=number] {
         </div>
         <div class="row">
             <div class="col">
-                <label for="is_active" class="mt-1 mb-4 ml-5"><h5><strong>Miembro activo</strong></h5></label>
+                <label for="is_active" class="mt-1 mb-4 ml-5"><h5><strong>Membro attivo?</strong></h5></label>
                 {{form.is_active|add_class:"form-control rounded-pill text-center"}}
             </div>
             <div class="col">
                 {% if perms.Register.Administrador %}
-                <label for="is_active" class="mt-1 ml-5"><h5><strong>¿Permitir ver administrador?</strong></h5>
+                <label for="is_active" class="mt-1 ml-5"><h5><strong>Consenti di visualizzare superutente?</strong></h5>
                 </label>
 
                 {{form.is_staff|add_class:"form-control text-center"}}
@@ -102,27 +93,74 @@ input[type=number] {
     </div>
 
 <div class="d-flex justify-content-center">
-    {{form.password|attr:'type:password'|add_class:" col-4 m-2 form-control text-center    font-weight-bold"|attr:"placeholder:Password"}}
+    {{form.password1|attr:'type:password'|add_class:" col-4 m-2 form-control text-center    font-weight-bold"|attr:"placeholder:Password"}}
+    {{form.password2|attr:'type:password'|add_class:" col-4 m-2 form-control text-center    font-weight-bold"|attr:"placeholder:Repetire Password"}}
+
 </div>
+
     <div class="d-flex justify-content-center">
 
-        <button type="submit" class="btn btn-primary m-2 rounded-pill border"><strong>ENVIAR</strong></button>
-        <a href="javascript:history.back(-1);"
-           class="btn btn-secondary border m-2 rounded-pill"><strong>VOLVER</strong></a>.
+        <a id="jamaica" href="javascript:history.back(-1);"
+           class="btn btn-secondary border m-2 rounded-pill"><strong><i id="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+        <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
     </div>
 
-</form>
+</form></div>
 
 
 {%else%}
 <div class="justify-content-center">
     <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
     <div class="d-flex justify-content-center">
-        <a href="javascript:history.back(-1);"
-           class="btn btn-secondary border m-2 rounded-pill text-center"><strong>VOLVER</strong></a>
+        <a href="javascript:history.back(-1);" id="jamaica3"
+           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i id="japon3" class="fas fa-chevron-circle-left"></i> VOLVER</strong></a>
     </div>
 </div>
 {%endif%}
+<script>
+    var hola = document.getElementById("jamaica");
+    if(hola) {
+        hola.addEventListener("mouseenter", function (event) {
 
+            var japon = document.getElementById("japon").className = "fa fa-reply fa-spin";
 
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "fas fa-reply";
+        });
+    }
+    var hola2 = document.getElementById("jamaica2");
+    if(hola2) {
+        hola2.addEventListener("mouseenter", function (event) {
+
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
+
+        });
+        hola2.addEventListener("mouseleave", function (event) {
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+        });
+    }
+    var hola3 = document.getElementById("jamaica3");
+if(hola3) {
+    hola3.addEventListener("mouseenter", function (event) {
+
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
+
+    });
+    hola3.addEventListener("mouseleave", function (event) {
+        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+    });
+}
+   var hola4 = document.getElementById("jamaica4");
+if(hola4) {
+    hola4.addEventListener("mouseenter", function (event) {
+
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle fa-spin";
+
+    });
+    hola4.addEventListener("mouseleave", function (event) {
+        var japon4 = document.getElementById("japon4").className = "fas fa-plus-circle";
+    });
+}
+</script>
 {%endblock%}

@@ -12,16 +12,11 @@ class Productos(models.Model):
     nombre = models.CharField(blank=False, max_length=50)
     rut = models.ForeignKey(Clientes, on_delete=models.CASCADE)
     material = models.CharField(blank=True, max_length=50)
-
     plasma = models.CharField(blank=True, max_length=50)
     preTratamiento = models.ManyToManyField(Stock,related_name='+',blank=True)
-
     fondo = models.ManyToManyField(Stock,related_name="+",blank=True)
     finitura = models.ManyToManyField(Stock,blank=True)
-
     deposito = models.CharField(blank=True, max_length=150)
-
-
     controlCalidad = models.CharField(blank=True, max_length=50)
     embalaje = models.CharField(blank=True, max_length=50)
     consideraciones = models.TextField(blank=True)
