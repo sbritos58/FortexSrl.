@@ -64,6 +64,11 @@
                 <label for="material" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Material</strong></h5></label></div>
             {{form.material|attr:"placeholder:Materiale"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
         </div>
+
+    </div>
+
+    <div class="row">
+
         <div class="col">
             <div class="container text-center">
                 <label for="tiempo_horno" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Tempo di Forno</strong></h5></label></div>
@@ -75,9 +80,6 @@
             </div>
         </div>
 
-    </div>
-    <hr>
-    <div class="row">
         <div class="col">
             <div class="container text-center">
                 <label for="temperatura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Temperatura</strong></h5></label></div>
@@ -95,7 +97,19 @@
             {{form.plasma|attr:"placeholder:Plasma"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
 
         </div>
+
+    </div>
+
+
+
+    <div class="row">
+
         <div class="col">
+                        <div class="container text-center">
+                            <label for="consideraciones" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Consideraciones</strong></h5></label></div>
+            {{form.consideraciones|attr:"rows:1"|attr:"id:consideraciones"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+        </div>
+                <div class="col">
             <div class="container text-center">
                 <label for="deposito" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Deposito</strong></h5></label></div>
             {{form.deposito|attr:"placeholder:Deposito"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
@@ -107,40 +121,8 @@
         </div>
 
     </div>
-    <hr>
-    <div class="row">
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="preTratamiento" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Pre Tratamiento</strong></h5></label></div>
-            {{form.preTratamiento|attr:"placeholder:Pre tratamento"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="fondo" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Fondo</strong></h5></label></div>
-            {{form.fondo|attr:"placeholder:Fondo"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="finitura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Finitura</strong></h5></label></div>
-            {{form.finitura|attr:"id:finitura"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-    </div>
-    <hr>
-    <div class="row">
 
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="consideraciones" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Consideraciones</strong></h5></label></div>
-            {{form.consideraciones|attr:"rows:1"|attr:"id:consideraciones"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="consideraciones" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Consideraciones</strong></h5></label></div>
-            {{form.consideraciones|attr:"rows:1"|attr:"id:consideraciones"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-    </div>
 
-    <hr>
     <div class="row">
         <div class="col">
                         <div class="container text-center">
@@ -169,7 +151,27 @@
 
 
     </div>
-    <hr>
+
+
+    <div class="row">
+        <div class="col">
+                        <div class="container text-center">
+                            <label for="preTratamiento" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Pre Tratamiento</strong></h5></label></div>
+            {{form.preTratamiento|attr:"placeholder:Pre tratamento"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        </div>
+        <div class="col">
+                        <div class="container text-center">
+                            <label for="fondo" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Fondo</strong></h5></label></div>
+            {{form.fondo|attr:"placeholder:Fondo"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+        </div>
+        <div class="col">
+                        <div class="container text-center">
+                            <label for="finitura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Finitura</strong></h5></label></div>
+            {{form.finitura|attr:"id:finitura"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
+        </div>
+    </div>
+
+
     <div class="d-flex justify-content-center">
 
         <a href="javascript:history.back(-1);"
@@ -189,6 +191,13 @@
 <script>
     document.getElementById("producto").options[0].innerText = "Selezionare un producto...";
     document.getElementById("producto").options[0].disabled = 'true';
+
+    jai = document.getElementById("id_rut").options[0].innerText;
+    console.log(jai)
+
+    document.getElementById("id_rut").options[0].innerText = "Selezionare Cliente...";
+
+    document.getElementById("id_rut").options[0].disabled = 'true';
 
     document.getElementById("asignado").options[0].innerText = "Selezionare chi assegnare...";
     document.getElementById("asignado").options[0].disabled = 'true';

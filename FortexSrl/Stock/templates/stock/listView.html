@@ -32,17 +32,6 @@
 
 {%block content%}
 
-{% if messages %}
-<ul class="messages list-group mb-3">
-    {% for message in messages %}
-    <li
-            {% if message.tags %}
-            class="{{ message.tags }} rounded list-group-item text-center list-group-item-success mr-1" {%endif %}
-            id='Mensaje'>{{ message }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
 
 
 <div class="container">

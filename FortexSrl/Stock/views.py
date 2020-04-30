@@ -76,7 +76,6 @@ def CreateView(request , pk):
                     orden = cd.get("orden")
 
                     producto = Stock.objects.get(id=producto.id)
-                    print(producto)
                     productoStock = producto.cantidad
                     movimiento = cd.get("tipo_de_movimiento")
                     if movimiento == True:
@@ -86,8 +85,12 @@ def CreateView(request , pk):
 
                     else:
                         resta = productoStock - cantidad
-                        Stock.objects.filter(id=producto.id).update(cantidad=resta)
-                        messages.success(request, "È stato registrato " + producto.nombre + ", quantità: " + str(cantidad) +" g.")
+                        print(resta)
+                        if resta < 1:
+                            messages.success(request,'Il valore deve essere piu di 0')
+                        else:
+                            Stock.objects.filter(id=producto.id).update(cantidad=resta)
+                            messages.success(request, "È stato registrato " + producto.nombre + ", quantità: " + str(cantidad) +" g.")
 
             formset.save()
 

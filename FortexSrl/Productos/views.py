@@ -55,7 +55,7 @@ def ListProductosView(request):
 class UpdateProductosView(SuccessMessageMixin,UpdateView):
     form_class = ProductosForm
     model = Productos
-    template_name = 'Productos/listProductos.html'
+    template_name = 'productos/updateProductos.html'
 
     def get_success_url(self):
         return reverse_lazy('listProductos')
@@ -78,4 +78,4 @@ class DeleteProductosView(DeleteView):
 class DetailProductosView(DetailView):
     form_class = ProductosForm
     model = Productos
-    template_name = 'Productos/detailProductos.html'
+    template_name = 'productos/detailProductos.html'
