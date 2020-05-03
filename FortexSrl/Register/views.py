@@ -13,6 +13,7 @@ from .filters import OrdenesFilter
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .forms import UsuariosForm
 
+
 # Create your views here.
 
 
@@ -21,22 +22,26 @@ class CreateUserView(SuccessMessageMixin, CreateView):
     template_name = 'register/Registro.html'
     success_message = '¡¡ Utente creato con successo !!'
 
-
     def form_valid(self, form):
-        form = super(CreateUserView, self).form_valid(form)
-
-        return form
+        print(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
-        form = super(CreateUserView, self).form_invalid(form)
-        print("algo no funciono")
-        return form
+        print(form)
+        return super().form_invalid(form)
 
+    # def form_valid(self, form):
+    #     form = super(CreateUserView, self).form_valid(form)
+    #
+    #     return form
+    #
+    # def form_invalid(self, form):
+    #     form = super(CreateUserView, self).form_invalid(form)
+    #     print("algo no funciono")
+    #     return form
 
     def get_success_url(self):
         return reverse_lazy('listViewUsuario')
-
-
 
 
 class UpdateUserView(SuccessMessageMixin, UpdateView):

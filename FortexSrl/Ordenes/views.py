@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from .models import Ordenes
-from .forms import OrdenesForm
+from .forms import OrdenesForm,UpdateOrdenesForm
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.views.generic.detail import DetailView
@@ -12,6 +12,27 @@ from django.contrib.messages.views import SuccessMessageMixin
 from datetime import date
 from .filters import OrdenesFilter,HistoryFilter
 from django.db.models import Sum, Max
+
+
+
+
+def dashboard(request):
+
+    hola = Ordenes.objects.all()
+    jamaica = []
+    japon = []
+    for i in hola:
+        if i.fecha_entrega_real != None:
+            jamaica.append(i.fecha_entrega_estimada)
+            japon.append(i.fecha_entrega_real)
+        else:
+            print(i.fecha_entrega_real)
+    print(jamaica)
+    print("---------------")
+    print (japon)
+
+    context = {"hola":hola}
+    return render(request, 'ordenes/dashboard.html',context)
 
 
 class CreateOrdenView(SuccessMessageMixin, CreateView):
@@ -136,21 +157,27 @@ class DeleteOrdenView(DeleteView):
 
 
 class UpdateOrdenView(UpdateView):
-    form_class = OrdenesForm
+    form_class = UpdateOrdenesForm
     model = Ordenes
     template_name = 'ordenes/updateOrden.html'
 
     def get_success_url(self):
         return reverse_lazy('listarOrden')
 
+    def form_invalid(self, form):
+        print("errrrrorororororo")
+        print(form)
+        return super().form_invalid(form)
+
     def form_valid(self, form):
-
-
         formulario = form.save(commit=False)
         from Productos.models import Productos
-        hola = Productos.objects.get(id=formulario.producto.id)
 
-        print(hola.telaio)
+        for i in formulario:
+            print(i[0])
+        hola = Productos.objects.all(id=formulario.producto.id)
+
+        print(hola)
         if(hola.telaio == None):
             Productos.objects.filter(id=formulario.producto.id).update(telaio=formulario.telaio)
 

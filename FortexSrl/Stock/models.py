@@ -28,7 +28,7 @@ class StockMovimientos(models.Model):
     fecha = models.DateTimeField(auto_now_add=True,blank=False,null=False)
     
     def __str__(self):
-        if tipo_de_movimiento == True:
-            return self.nombre + " Suma"
-        elif tipo_de_movimiento == False:
-            return self.nombre + " Resta"
+        if self.tipo_de_movimiento == True:
+            return str(self.nombre) + " Aggiungi"
+        elif self.tipo_de_movimiento == False:
+            return str(self.nombre) + " Sottrare"

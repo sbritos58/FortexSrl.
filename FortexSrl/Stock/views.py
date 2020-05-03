@@ -16,7 +16,7 @@ from django.db.models import Sum, Max
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.forms import inlineformset_factory
-from .filters import OrdenesFilter
+from .filters import OrdenesFilter,StockMovimientosFilter
 
 def ListViewStock(request):
     Model_one = Stock.objects.all()
@@ -37,6 +37,24 @@ def ListViewStock(request):
     context = {'Model_one':Model_one,'pub':pub,"myFilter":myFilter}
     return render(request,'stock/listView.html',context)
 
+def ListViewMovimientosStock(request):
+    Model_one = StockMovimientos.objects.all()
+
+    myFilter = StockMovimientosFilter(request.GET,queryset=Model_one)
+    paginator=Paginator(myFilter.qs,10)
+    page=request.GET.get('page1')
+    try:
+        pub=paginator.page(page)
+    except PageNotAnInteger:
+        pub=paginator.page(1)
+    except EmptyPage:
+        pub = paginator.page(paginator.num_pages)
+
+    myFilter = StockMovimientosFilter(request.GET, queryset=Model_one)
+
+
+    context = {'Model_one':Model_one,'pub':pub,"myFilter":myFilter}
+    return render(request,'stock/ListaCambios.html',context)
 
 def CreateViewStock(request):
     if request.method == 'POST':
