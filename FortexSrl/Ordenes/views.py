@@ -13,7 +13,24 @@ from datetime import date
 from .filters import OrdenesFilter,HistoryFilter
 from django.db.models import Sum, Max
 
+def ListarEntregadosView(request):
+    Model_one = Ordenes.objects.all().filter(estado='Completato')
+    
+    
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+    paginator = Paginator(myFilter.qs, 10)
+    page = request.GET.get('page1')
+    try:
+        pub = paginator.page(page)
+    except PageNotAnInteger:
+        pub = paginator.page(1)
+    except EmptyPage:
+        pub = paginator.page(paginator.num_pages)
 
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
+
+    context = {'Model_one': Model_one, 'pub': pub, "myFilter": myFilter}
+    return render(request, 'ordenes/listarEntregados.html', context)
 
 
 def dashboard(request):
@@ -173,11 +190,13 @@ class UpdateOrdenView(UpdateView):
         formulario = form.save(commit=False)
         from Productos.models import Productos
 
-        for i in formulario:
-            print(i[0])
-        hola = Productos.objects.all(id=formulario.producto.id)
+        print(formulario) #3
+        print (form)
+        
+        hola = Productos.objects.get(id=formulario.producto.id)
 
         print(hola)
+        
         if(hola.telaio == None):
             Productos.objects.filter(id=formulario.producto.id).update(telaio=formulario.telaio)
 

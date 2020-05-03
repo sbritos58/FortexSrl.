@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import CreateOrdenView,ListViewOrden,DetailOrdenView,DeleteOrdenView,UpdateOrdenView,dashboard,ListHistorialView
+from .views import CreateOrdenView,ListViewOrden,DetailOrdenView,DeleteOrdenView,UpdateOrdenView,dashboard,ListHistorialView,ListarEntregadosView
 from django.contrib.auth.decorators import login_required
 
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('Ordenes/history/', login_required(ListHistorialView), name='historialOrdenes'),
     path('Ordenes/delete/<int:pk>',login_required(DeleteOrdenView.as_view()), name = 'deleteOrden'),
     path('Ordenes/update/<int:pk>',login_required(UpdateOrdenView.as_view()), name = 'updateOrden'),
+    path('Ordenes/listEntregados',login_required(ListarEntregadosView), name = 'listEntregados'),
 ]

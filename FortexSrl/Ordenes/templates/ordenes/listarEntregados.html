@@ -1,0 +1,216 @@
+{%extends 'register/index.html'%}
+{%load static%}
+{% load widget_tweaks %}
+{%block head%}
+
+
+<style>
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+
+        -webkit-appearance: none;
+
+        margin: 0;
+
+    }
+
+
+    .select {
+        overflow: hidden;
+    }
+
+    input[type=number] {
+
+        -moz-appearance: textfield;
+
+    }
+
+</style>
+{%endblock%}
+
+{%block content%}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h3>LISTA DEGLI ORDINI</h3>
+    </div>
+    <hr>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <h4><i class="fas fa-filter"></i> Filtri</h4>
+    </div>
+
+    <form method="get">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm">
+                    <label for="orden" class="text-center container">n di ordine</label>
+                    {{myFilter.form.orden|attr:"placeholder:n di ordine"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col-sm">
+                    <label for="producto" class="text-center container">prodotto</label>
+                    {{myFilter.form.producto|attr:"placeholder:nombre de producto"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col-sm">
+                    <label for="estado" class="text-center container">stato</label>
+                    {{myFilter.form.estado|attr:"placeholder:nombre de producto"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col-sm">
+                    <label for="ubicacion" class="text-center container">ubicazione</label>
+                    {{myFilter.form.ubicacion|attr:"placeholder:nombre de producto"|add_class:"form-control font-weight-bold container text-center"}}
+                </div>
+                <div class="col-sm container text-center">
+                    <button class="btn mt-4  border" style="color:#fff ;background-color:#138496;" type="submit"><strong> CERCHI</strong></button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+
+    <table id="tabla" class="table table-responsive border table-striped table-bordered" style="box-shadow:2px 2px 2px;">
+
+
+        <thead style="background-color:#138496;color:#fff">
+        <th class="col-md text-center" style="width:5rem;">Nº Ordine</th>
+        <th class="col-md text-center" style="width:15rem;">Prodotto</th>
+        <th class="col-md text-center" style="width:5rem;">Quantità</th>
+        <th class="col-md text-center" style="width:25rem;">Quantità consegnata</th>
+        <th class="col-md text-center" style="width:5rem;">Quantità di telai</th>
+        <th class="col-md text-center" style="width:15rem;">Stato</th>
+        <th class="col-md text-center" style="width:15rem;">Ubicazione</th>
+        <th class="col-md text-center" style="width:25rem;">Consegna prevista</th>
+        <th class="col-md text-center" style="width:25rem;">Data di consegna</th>
+            
+        <th class="col-md text-center" style="width:50rem;">Azione</th>
+        </thead>
+
+        {%for producto in pub%}
+
+        <form method="POST" action="/Ordenes/delete/{{producto.orden}}">
+            {% csrf_token %}
+
+           
+
+            <tr>
+                <td class="col-md text-center" style="width:5rem;">{{producto.orden}}</td>
+                <td class="col-md text-center" style="width:15rem; color: blue"><a href="/Productos/detail/{{producto.producto.id}} ">{{producto.producto}}</a>
+                </td>
+                <td class="col-md text-center" style="width:5rem;">{{producto.cantidad_recibida}}</td>
+                
+                 <td class="col-md text-center" style="width:25rem;">{{producto.cantidadEntregada}}</td>
+                <td class="col-md text-center" style="width:5rem;">{{producto.telaio}}</td>
+
+                <td class="col-md text-center" style="width:15rem;">{{producto.estado}}</td>
+                <td class="col-md text-center" style="width:15rem;">{{producto.ubicacion}}</td>
+                <td class="col-md text-center" style="width:25rem;">{{producto.fecha_entrega_estimada}}</td>
+
+                <td class="col-md text-center" style="width:25rem;">{{producto.fecha_entrega_real}}</td>
+                
+               
+                <td class="col-md text-center" style="width:50rem;">
+
+                    <div class="dropup">
+
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown">
+                            <i class="fas fa-angle-double-up"></i> Opzioni
+                        </button>
+
+                        <div class="dropdown-menu text-center" style="position: unset;">
+                            <h6 class="dropdown-header">Ordine {{producto.orden}}</h6>
+                            <a class="dropdown-item btn-sm" href="/Ordenes/detail/{{producto.orden}}"><i class="fas fa-info-circle"></i> Dettaglio</a>
+                            <a class="dropdown-item btn-sm" href="/Ordenes/update/{{producto.orden}}"><i class="fas fa-pen-square"></i> Modifica</a>
+                            {% if perms.Register.Administrador %}
+
+                            <button class="btn btn-danger btn-sm" style="margin-bottom:2px;" data-toggle="modal"
+                                    data-target="#exampleModal1"
+                                    type="button"><strong><i class="fas fa-trash-alt"></i> Rimuovere</strong></button>
+                            <div class="dropdown-divider"></div>
+                            {%endif%}
+                    {%if perms.Register.Administrador or perms.Register.Stock or perms.Register.Encargado %}
+
+                            <a class="dropdown-item btn-sm" href="/Stock/crear2/{{producto.orden}}"><i class="fas fa-plus-circle"></i> Creare Vernice</a>
+                        </div>
+                    </div>
+{%endif%}
+                    
+
+
+                </td>
+            </tr>
+            <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">RIMUOVERE</h5>
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Sicuro di rimuovere la ordine {{producto.orden}}?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">
+                                Chiudere
+                            </button>
+                            <button type="submit" class="btn btn-danger rounded-pill"><i class="fas fa-trash-alt"></i> Si, avanti</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+
+        {%endfor%}
+
+
+    </table>
+
+    {%if perms.Register.Administrador or perms.Register.Secretaria or perms.Register.Encargado %}
+    <a href="{%url 'crearOrden'%}" id="jamaica" class="btn btn-secondary"><i id="japon" class="fas fa-plus-circle"></i> Aggiungi ordine</a>
+{%endif%}
+    <div class="container">
+        <div class="d-flex justify-content-center mt-2">
+            {%if pub.has_previous%}
+
+            <a href="?{{ request.get_full_path }}&page1={{pub.previous_page_number}}"
+               style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black mr-1 btn-sm rounded-pill border" type="submit">
+                <strong>Atras</strong></a>{%endif%}
+            {%if pub.has_next%}
+            <a href="?{{ request.get_full_path }}&page1={{pub.next_page_number}}&page=Myfilter"
+               style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+                <strong>Siguiente</strong></a>
+            {%endif%}
+        </div>
+        <hr>
+    </div>
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+<script>
+    var hola = document.getElementById("jamaica");
+
+    hola.addEventListener("mouseenter", function (event) {
+
+        var japon = document.getElementById("japon").className = "fas fa-plus-circle fa-spin";
+
+    });
+    hola.addEventListener("mouseleave", function (event) {
+        var japon = document.getElementById("japon").className = "fas fa-plus-circle";
+    });
+</script>
+
+
+
+    {%endblock%}
