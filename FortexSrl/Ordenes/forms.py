@@ -1,5 +1,8 @@
 from django import forms
+from Productos.models import Productos
+
 from .models import Ordenes
+
 
 class OrdenesForm(forms.ModelForm):
     class Meta:
@@ -62,3 +65,5 @@ class UpdateOrdenesForm(forms.ModelForm):
             'asignado': forms.Select(attrs={'class': 'form-control text-center','id':'asignado'}),
             'telaio': forms.NumberInput(attrs={'class': 'form-control text-center', 'id': 'telaio'}),
         }
+
+

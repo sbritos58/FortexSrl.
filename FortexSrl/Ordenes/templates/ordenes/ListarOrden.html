@@ -126,8 +126,7 @@
                             <a class="dropdown-item btn-sm" href="/Ordenes/update/{{producto.orden}}"><i class="fas fa-pen-square"></i> Modifica</a>
                             {% if perms.Register.Administrador %}
 
-                            <button class="btn btn-danger btn-sm" style="margin-bottom:2px;" data-toggle="modal"
-                                    data-target="#exampleModal1"
+                            <button class="btn btn-danger btn-sm" style="margin-bottom:2px;" onclick="return confirm('Sicuro di eliminare {{ producto.orden }}')"
                                     type="button"><strong><i class="fas fa-trash-alt"></i> Rimuovere</strong></button>
                             <div class="dropdown-divider"></div>
                             {%endif%}

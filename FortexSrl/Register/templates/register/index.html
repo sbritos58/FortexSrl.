@@ -315,17 +315,17 @@
                     <i class="fas fa-book"></i>
                     Ordini
                 </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="{%url 'listarOrden'%}">Vedi gli ordini</a>
-                    </li>
-                    <li>
-                        {%if perms.Register.Administrador or perms.Register.Secretaria or perms.Register.Encargado %}
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    {%if perms.Register.Administrador or perms.Register.Secretaria or perms.Register.Encargado %}
 
                         <a href="{%url 'crearOrden'%}">Creare ordini</a>
-                        {%endif%}
+                    {%endif%}
+                </li>
+                <li>
+                        <a href="{%url 'listarOrden'%}">Vedi gli ordini</a>
                     </li>
-                    
+
                      <li>
                         <a href="{%url 'listEntregados'%}">Vedi gli ordini completati</a>
                     </li>

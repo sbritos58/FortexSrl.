@@ -10,7 +10,6 @@
 {%endblock%}
 
 {%block content%}
-
 <div class="container">
     <div class="row text-center mb-2">
         <div class="col">
@@ -22,6 +21,9 @@
         </div>
         <div class="col">
             <div class="card">
+                <div class="card-head">
+                    <h5 class="card-title mt-2">Quantità di prodotti persi per prodotto</h5>
+                </div>
                 <div class="card-body" style="height: 20rem">
                     <canvas id="myChart" width="100px" height="100px"></canvas>
                 </div>
@@ -32,14 +34,17 @@
         <div class="col">
             <div class="card">
                 <div class="card-body" style="height: 20rem">
-                    Basic card
+                    {% for i in etiquetas %}
+                        {{i}}
+
+                    {% endfor %}
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="card">
                 <div class="card-body" style="height: 20rem">
-                    <canvas id="myChart" width="100px" height="100px"></canvas>
+                    <canvas id="myChart2" width="100px" height="100px"></canvas>
                 </div>
             </div>
         </div>
@@ -51,16 +56,16 @@
 $(document).ready(function(){
 
 var ctx = document.getElementById('myChart')
-ctx.height = 70;
+ctx.height = 60;
 
 var myChart = new Chart(ctx, {
 
     type: 'bar',
     data: {
-        labels: [     {%for item in etiquetas%} '{{item}}'  ,{%endfor%}],
+        labels: [ {% if etiquetas|length > 1 %}{%for i in etiquetas%} '{{ i }}', {% endfor %}{% else %}{{ etiquetas }}{% endif %}],
         datasets: [{
-            label: 'Cantidad productos enviados a realizar',
-            data: [ {%for item in productos1%}    {{item}},      {%endfor%} ],
+            label: 'Quantità di prodotti persi',
+            data: [ {% if total|length > 1  %}{% for i in total %} {{ i }}, {% endfor %} {% else %}{{ total }}{% endif %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -81,7 +86,6 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
-       responsive: true,
         scales: {
             yAxes: [{
                 ticks: {

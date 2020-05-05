@@ -36,7 +36,7 @@
     {{ form.errors }}
     <div class="container">
         <div class="d-flex justify-content-center">
-            <h3>CREARE ORDINI</h3>
+            <h3>MODIFICA ORDINI</h3>
         </div>
         <hr>
     </div>
@@ -47,28 +47,49 @@
         <div class="container">
             <div class="row">
                 {% if perms.Register.Administrador or perms.Register.Encargado or perms.Registro.Secretaria %}
-                <div class="col container text-center">
-                    <label for="asignado" class="mt-1"><h5><strong>Prodotto</strong></h5></label>
+                    <div class="col container text-center">
+                        <label for="asignado" class="mt-1"><h5><strong>Prodotto</strong></h5></label>
 
-                    {{ form.producto|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                        {{ form.producto|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
 
-                </div>
-                <div class="col container text-center">
+                    </div>
+                    <div class="col container text-center">
 
-                    <label for="asignado" class="mt-1"><h5><strong>Descrizione</strong></h5></label>
+                        <label for="asignado" class="mt-1"><h5><strong>Descrizione</strong></h5></label>
 
-                    {{ form.descripcion|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
-                </div>
-{% endif %}
+                        {{ form.descripcion|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                    </div>
+                {% else %}
+                    <div class="col container text-center">
+                        <label for="asignado" class="mt-1"><h5><strong>Prodotto</strong></h5></label>
+
+                        {{ form.producto|attr:"readonly"|attr:"placeholder:Prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+
+                    </div>
+                    <div class="col container text-center">
+
+                        <label for="asignado" class="mt-1"><h5><strong>Descrizione</strong></h5></label>
+
+                        {{ form.descripcion|attr:"readonly"|attr:"placeholder:Descrizione"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                    </div>
+
+
+                {% endif %}
             </div>
             <div class="row">
-                        {% if perms.Register.Administrador or perms.Register.Encargado or perms.Registro.Secretaria %}
-                <div class="col container text-center">
+                {% if perms.Register.Administrador or perms.Register.Encargado or perms.Registro.Secretaria %}
+                    <div class="col container text-center">
 
-                    <label for="asignado" class="mt-1"><h5><strong>Quantità ricevuta</strong></h5></label>
-                    {{ form.cantidad_recibida|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center" }}
-                </div>
-{% endif %}
+                        <label for="asignado" class="mt-1"><h5><strong>Quantità ricevuta</strong></h5></label>
+                        {{ form.cantidad_recibida|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center" }}
+                    </div>
+                {% else %}
+                    <div class="col container text-center">
+
+                        <label for="asignado" class="mt-1"><h5><strong>Quantità ricevuta</strong></h5></label>
+                        {{ form.cantidad_recibida|attr:"readonly"|attr:"placeholder:Quantità ricevuta"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center" }}
+                    </div>
+                {% endif %}
                 <div class="col container text-center">
                     <label for="estado" class="mt-1"><h5><strong>Stato</strong></h5></label>
                     {{ form.estado|attr:"placeholder:Stato"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
@@ -82,12 +103,18 @@
 
             <div class="row">
                 {% if perms.Register.Administrador or perms.Register.Encargado or perms.Registro.Secretaria %}
-                <div class="col container text-center">
-                    <label for="asignado" class="mt-1"><h5><strong>Data di consegna stimata</strong></h5></label>
+                    <div class="col container text-center">
+                        <label for="asignado" class="mt-1"><h5><strong>Data di consegna stimata</strong></h5></label>
 
-                    {{ form.fecha_entrega_estimada|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
-                </div>
-{% endif %}
+                        {{ form.fecha_entrega_estimada|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                    </div>
+                {% else %}
+                    <div class="col container text-center">
+                        <label for="asignado" class="mt-1"><h5><strong>Data di consegna stimata</strong></h5></label>
+
+                        {{ form.fecha_entrega_estimada|attr:"readonly"|attr:"placeholder:Data di consegna stimata YYYY-MM-DD"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                    </div>
+                {% endif %}
                 <div class="col container text-center">
                     <label for="asignado" class="mt-1"><h5><strong>Assegnato a</strong></h5></label>
                     {{ form.asignado|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
@@ -95,42 +122,69 @@
                 </div>
             </div>
             <div class="row">
-                {% if form.cantidadEntregada.value == None %}
-                    {% if perms.Register.Administrador or perms.Register.Calidad1 or perms.Register.Encargado %}
+
+                {% if form.cantidadEntregada.value != None %}
+                    {% if perms.Register.Administrador %}
                         <div class="col container text-center">
                             <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
                             {{ form.cantidadEntregada|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
                         </div>
+                    {% else %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
+                            {{ form.cantidadEntregada|attr:"readonly"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
+                            {{ form.cantidadEntregada|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
+                    {% else %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità consegnata</strong></h5></label>
+                            {{ form.cantidadEntregada|attr:"readonly"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
                     {% endif %}
                 {% endif %}
 
-                {% if form.telaio.value == None %}
-
-                    <div class="col container text-center">
-                        <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità per telaio</strong></h5></label>
-                        {{ form.telaio|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
-                    </div>
-                {% else %}
-                    {% if perms.Register.Administrador %}
+                {% if form.telaio.value != None %}
+                    {% if perms.Register.Administrador or perms.Register.Encargado %}
                         <div class="col container text-center">
                             <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità per telaio</strong></h5></label>
                             {{ form.telaio|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
                         </div>
                     {% else %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità per telaio</strong></h5></label>
+                            {{ form.telaio|attr:"readonly"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
+                    {% endif %}
+                {% else %}#si es none
+                    {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Montaje %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità per telaio</strong></h5></label>
+                            {{ form.telaio|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
+                    {% else %}
+                        <div class="col container text-center">
+                            <label for="cantidadEntregada" class="mt-1 "><h5><strong>Quantità per telaio</strong></h5></label>
+                            {{ form.telaio|attr:"readonly"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
                         </div>
                     {% endif %}
                 {% endif %}
-        </div>
-
-        <div class="row">
-
-            <div class="col cotainer text-center">
-
-                <a href="javascript:history.back(-1);"
-                   class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i ID="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
-                <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
             </div>
-        </div>
+
+            <div class="row">
+
+                <div class="col container text-center">
+
+                    <a href="javascript:history.back(-1);"
+                       class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i ID="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+                    <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
+                </div>
+            </div>
 
     </form>
 

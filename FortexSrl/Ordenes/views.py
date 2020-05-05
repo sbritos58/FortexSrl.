@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from .models import Ordenes
-from .forms import OrdenesForm,UpdateOrdenesForm
+from .forms import OrdenesForm, UpdateOrdenesForm
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.views.generic.detail import DetailView
@@ -10,13 +10,14 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from datetime import date
-from .filters import OrdenesFilter,HistoryFilter
+from .filters import OrdenesFilter, HistoryFilter
 from django.db.models import Sum, Max
+from operator import sub
+
 
 def ListarEntregadosView(request):
     Model_one = Ordenes.objects.all().filter(estado='Completato')
-    
-    
+
     myFilter = OrdenesFilter(request.GET, queryset=Model_one)
     paginator = Paginator(myFilter.qs, 10)
     page = request.GET.get('page1')
@@ -34,22 +35,34 @@ def ListarEntregadosView(request):
 
 
 def dashboard(request):
+    totalprod = Ordenes.objects.values_list("producto__nombre").exclude(cantidadEntregada=None).annotate(cantidad=Sum('cantidad_recibida')).order_by('producto')
+    totalprodentregados = Ordenes.objects.values_list("producto__nombre").exclude(cantidadEntregada=None).annotate(cantidad=Sum('cantidadEntregada')).order_by('producto')
 
-    hola = Ordenes.objects.all()
-    jamaica = []
-    japon = []
-    for i in hola:
-        if i.fecha_entrega_real != None:
-            jamaica.append(i.fecha_entrega_estimada)
-            japon.append(i.fecha_entrega_real)
+    productos1 = []
+    for i in totalprod:
+        if totalprod[0] != None:
+            productos1.append(i[1])
         else:
-            print(i.fecha_entrega_real)
-    print(jamaica)
-    print("---------------")
-    print (japon)
+            productos1.append(0)
 
-    context = {"hola":hola}
-    return render(request, 'ordenes/dashboard.html',context)
+    productos2 = []
+    listatitulos = []
+    for i in totalprodentregados:
+        if i[1] != None:
+            listatitulos.append(i[0])
+
+            productos2.append(i[1])
+        else:
+            listatitulos.append(i[0])
+
+            productos2.append(0)
+    print(len(productos2))
+    total = list(map(int.__sub__,productos2,productos1))
+
+    print(total)
+    print(listatitulos)
+    context = {"total": total,"etiquetas":listatitulos}
+    return render(request, 'ordenes/dashboard.html', context)
 
 
 class CreateOrdenView(SuccessMessageMixin, CreateView):
@@ -67,17 +80,17 @@ class CreateOrdenView(SuccessMessageMixin, CreateView):
         else:
             formulario.fecha_entrega_real = None
         formulario.usuarios = self.request.user
-        messages.success(self.request, '¡¡¡ Orden %s creada correctamente !!!' %(formulario.producto))
+        messages.success(self.request, '¡¡¡ Orden %s creada correctamente !!!' % (formulario.producto))
         return super().form_valid(form)
 
 
 def ListViewOrden(request):
-    ordenes = Ordenes.objects.filter(estado = 'Entregado')
+    ordenes = Ordenes.objects.filter(estado='Entregado')
     historial = Ordenes.history.all()
-   #----------------------------------------------- graficas----------------------------------
+    # ----------------------------------------------- graficas----------------------------------
     totalprod = Ordenes.objects.values_list("producto__nombre").annotate(cantidad=Sum('cantidad_recibida')).order_by('producto')
     totalprodentregados = Ordenes.objects.values_list("producto__nombre").annotate(cantidad=Sum('cantidadEntregada')).order_by('producto')
-    totalfechasentregadas = Ordenes.objects.values_list("fecha_entrega_real" ,'producto__nombre', 'cantidadEntregada').order_by('producto')
+    totalfechasentregadas = Ordenes.objects.values_list("fecha_entrega_real", 'producto__nombre', 'cantidadEntregada').order_by('producto')
     listaTodos = []
     listaproductos = []
     listaEtiquetas = []
@@ -98,19 +111,17 @@ def ListViewOrden(request):
     productos1 = []
     etiquetas = []
 
-
-
     for i in totalprod:
         if totalprod[0] != None:
             productos1.append(i[1])
         else:
             productos1.append(0)
         etiquetas.append(i[0])
-    fuera = ("Completato","Entregado")
+    fuera = ("Completato", "Entregado")
 
     Model_one = Ordenes.objects.exclude(estado__in=fuera).order_by('fecha_entrega_estimada')
     total = Model_one.count
-    myFilter = OrdenesFilter(request.GET,queryset=Model_one)
+    myFilter = OrdenesFilter(request.GET, queryset=Model_one)
     paginator = Paginator(myFilter.qs, 10)
     page = request.GET.get('page1')
     try:
@@ -124,16 +135,16 @@ def ListViewOrden(request):
     comparar = date.today()
     fechasAcomparar = []
     for i in Model_one:
-        fechasAcomparar.append(str(abs( comparar - i.fecha_entrega_estimada).days) + " dias" +" " + str(i.orden))
+        fechasAcomparar.append(str(abs(comparar - i.fecha_entrega_estimada).days) + " dias" + " " + str(i.orden))
 
     print(fechasAcomparar)
-    context = {'pub':pub,'myFilter':myFilter,'listatodos':listaTodos,'listaproductos':listaproductos,'listaetiquetas':listaEtiquetas,'productos1':productos1,'etiquetas':etiquetas,'Total':total, 'Model_one': Model_one, 'Ordenes': ordenes,
+    context = {'pub': pub, 'myFilter': myFilter, 'listatodos': listaTodos, 'listaproductos': listaproductos, 'listaetiquetas': listaEtiquetas, 'productos1': productos1, 'etiquetas': etiquetas, 'Total': total, 'Model_one': Model_one, 'Ordenes': ordenes,
                'History': historial}
     return render(request, 'ordenes/ListarOrden.html', context)
 
+
 def ListHistorialView(request):
     porOrden = Ordenes.history.values_list("orden").annotate(cantidad=Sum('history_id'))
-
 
     orden = []
     historial = []
@@ -152,10 +163,8 @@ def ListHistorialView(request):
     except EmptyPage:
         Model_one = paginator.page(paginator.num_pages)
 
-
-    context = {'Model_one':Model_one,'total':total,'orden':orden,'historial':historial}
+    context = {'Model_one': Model_one, 'total': total, 'orden': orden, 'historial': historial}
     return render(request, 'ordenes/history.html', context)
-
 
 
 class DetailOrdenView(DetailView):
@@ -178,6 +187,8 @@ class UpdateOrdenView(UpdateView):
     model = Ordenes
     template_name = 'ordenes/updateOrden.html'
 
+
+
     def get_success_url(self):
         return reverse_lazy('listarOrden')
 
@@ -190,34 +201,30 @@ class UpdateOrdenView(UpdateView):
         formulario = form.save(commit=False)
         from Productos.models import Productos
 
-        print(formulario) #3
-        print (form)
-        
+        print(formulario)  # 3
+        print(form)
+
         hola = Productos.objects.get(id=formulario.producto.id)
 
         print(hola)
-        
-        if(hola.telaio == None):
-            Productos.objects.filter(id=formulario.producto.id).update(telaio=formulario.telaio)
 
-            formulario.telaio = formulario.cantidad_recibida / hola.telaio
+        if (hola.telaio == None):
+            print("Aca estoy pero no tengo que hacer nada")
+            Productos.objects.filter(id=formulario.producto.id).update(telaio=formulario.telaio)
+            formulario.telaio = formulario.cantidad_recibida / formulario.telaio
 
         else:
-            formulario.telaio = formulario.cantidad_recibida / hola.telaio
+            pass
 
-        if  formulario.estado == 'Completato':
+        if formulario.estado == 'Completato':
             formulario.fecha_entrega_real = date.today()
-            messages.success(self.request, '¡¡¡ La orden %s se ha entregado !!!' % (formulario.orden))
+            messages.success(self.request, "¡¡¡ L'ordine %s è stato consegnato !!!" % (formulario.orden))
 
 
         else:
             formulario.fecha_entrega_real = None
-            messages.success(self.request, '¡¡¡ La orden %s se ha modificado correctamente !!!' % (formulario.orden))
+            messages.success(self.request, "¡¡¡ L'ordine %s è stato aggiornato correttamente !!!" % (formulario.orden))
 
         formulario.usuarios = self.request.user
 
-
-
         return super().form_valid(form)
-
-

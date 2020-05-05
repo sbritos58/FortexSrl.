@@ -1,257 +1,258 @@
-{%extends 'register/index.html'%}
-{%load static%}
+{% extends 'register/index.html' %}
+{% load static %}
 {% load widget_tweaks %}
-{%block head%}
+{% block head %}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style>
-
-
-    input[type=number]::-webkit-inner-spin-button {
-
-        -webkit-appearance: none;
-
-        margin: 0;
-
-    }
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
 
 
-    .select {
-        overflow: hidden;
-    }
+        input[type=number]::-webkit-inner-spin-button {
 
-    input[type=number] {
+            -webkit-appearance: none;
 
-        -moz-appearance: textfield;
+            margin: 0;
 
-    }
-
-</style>
-
-{%endblock%}
-
-{%block content%}
-
-{%if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria%}
-
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <h3>CREARE PRODOTTO</h3>
-    </div>
-    <hr>
-</div>
+        }
 
 
-<form method="POST">
-    {%csrf_token%}
+        .select {
+            overflow: hidden;
+        }
 
-    <div class="row">
+        input[type=number] {
 
-        <div class="col">
-            <div class="container text-center">
-                <label for="nombre" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Nome</strong></h5></label></div>
-            {{form.nombre|attr:"placeholder:Nome prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-            <div class="container text-center">
-                <label for="rut" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>P.Iva</strong></h5></label></div>
-            {{form.rut|attr:"placeholder:P.Iva"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-            <div class="container text-center">
-                <label for="material" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Material</strong></h5></label></div>
-            {{form.material|attr:"placeholder:Materiale"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center"}}
-        </div>
+            -moz-appearance: textfield;
 
-    </div>
+        }
 
-    <div class="row">
+    </style>
 
-        <div class="col">
-            <div class="container text-center">
-                <label for="tiempo_horno" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Tempo di Forno</strong></h5></label></div>
-            <div class="input-group m-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text form-control" id="china">ºC.</span>
-                </div>
-                {{form.tiempo_horno|attr:"placeholder:Tempo di forno"|add_class:"form-control rounded-pill font-weight-bold font-weight-bold text-center"}}
+{% endblock %}
+
+{% block content %}
+
+    {% if perms.Register.Administrador or perms.Register.Encargado or perms.Register.Secretaria %}
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h3>CREARE PRODOTTO</h3>
             </div>
+            <hr>
         </div>
 
-        <div class="col">
-            <div class="container text-center">
-                <label for="temperatura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Temperatura</strong></h5></label></div>
-            <div class="input-group m-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text form-control" id="china">ºC.</span>
-                </div>
-                {{form.temperatura|attr:"placeholder:Temperatura"|add_class:"form-control font-weight-bold rounded-pill text-center"}}
-            </div>
-        </div>
 
-        <div class="col">
-            <div class="container text-center">
-                <label for="plasma" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Plasma</strong></h5></label></div>
-            {{form.plasma|attr:"placeholder:Plasma"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
+        <form method="POST">
+            {% csrf_token %}
 
-        </div>
+            <div class="row">
 
-    </div>
-
-
-
-    <div class="row">
-
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="consideraciones" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Consideraciones</strong></h5></label></div>
-            {{form.consideraciones|attr:"rows:1"|attr:"id:consideraciones"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
                 <div class="col">
-            <div class="container text-center">
-                <label for="deposito" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Deposito</strong></h5></label></div>
-            {{form.deposito|attr:"placeholder:Deposito"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-            <div class="container text-center">
-                <label for="embalaje" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Imbalaggio</strong></h5></label></div>
-            {{form.embalaje|attr:"placeholder:Imbalaggio"|attr:"Imbalaggio"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="controlCalidad" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Controllo di Qualità</strong></h5></label></div>
-            {{form.controlCalidad|attr:"placeholder:Controllo di qualità"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-            <div class="container text-center">
-                <label for="telaio" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Quantità per telaio</strong></h5></label></div>
-            {{form.telaio|attr:"rows:1"|attr:"id:telaio"|attr:"placeholder:Quantità per telaio"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-        <div class="col">
-            <div class="custom-file">
-            <div class="container text-center">
-                    <label for="fotos" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Imagine</strong></h5></label>
+                    <div class="container text-center">
+                        <label for="nombre" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Nome</strong></h5></label></div>
+                    {{ form.nombre|attr:"placeholder:Nome prodotto"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
                 </div>
-                {{form.fotos|attr:"placeholder:File"|add_class:"custom-file-input"}}
-                <label class="custom-file-label mt-5" for="fotos">Scegliere il file</label>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="rut" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>P.Iva</strong></h5></label></div>
+                    {{ form.rut|attr:"placeholder:P.Iva"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="material" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Material</strong></h5></label></div>
+                    {{ form.material|attr:"placeholder:Materiale"|add_class:"form-control m-2 font-weight-bold rounded-pill text-center" }}
+                </div>
+
             </div>
-            <script>$("#id_fotos").on("change", function () {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="tiempo_horno" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Tempo di Forno</strong></h5></label></div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text form-control" id="china">M.</span>
+                        </div>
+                        {{ form.tiempo_horno|attr:"placeholder:Tempo di forno"|add_class:"form-control rounded-pill font-weight-bold font-weight-bold text-center" }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="temperatura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Temperatura</strong></h5></label></div>
+                    <div class="input-group m-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text form-control" id="china">ºC.</span>
+                        </div>
+                        {{ form.temperatura|attr:"placeholder:Temperatura"|add_class:"form-control font-weight-bold rounded-pill text-center" }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="plasma" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Plasma</strong></h5></label></div>
+                    {{ form.plasma|attr:"placeholder:Plasma"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="consideraciones" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Considerazioni</strong></h5></label></div>
+                    {{ form.consideraciones|attr:"rows:1"|attr:"id:consideraciones"|attr:"placeholder:Considerazioni"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="deposito" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Deposito</strong></h5></label></div>
+                    {{ form.deposito|attr:"placeholder:Deposito"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="embalaje" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Imbalaggio</strong></h5></label></div>
+                    {{ form.embalaje|attr:"placeholder:Imbalaggio"|attr:"Imbalaggio"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="controlCalidad" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Controllo di Qualità</strong></h5></label></div>
+                    {{ form.controlCalidad|attr:"placeholder:Controllo di qualità"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                </div>
+                <div class="col">
+                    {% if perms.Register.Administrador or perms.Register.Encargado %}
+                        <div class="container text-center">
+                            <label for="telaio" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Quantità per telaio</strong></h5></label></div>
+                        {{ form.telaio|attr:"rows:1"|attr:"id:telaio"|attr:"placeholder:Quantità per telaio"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                        </div>
+                    {% endif %}
+                <div class="col">
+                    <div class="custom-file">
+                        <div class="container text-center">
+                            <label for="fotos" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Imagine</strong></h5></label>
+                        </div>
+                        {{ form.fotos|attr:"placeholder:File"|add_class:"custom-file-input" }}
+                        <label class="custom-file-label mt-5" for="fotos">Scegliere il file</label>
+                    </div>
+                    <script>$("#id_fotos").on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                    });
+                    </script>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="preTratamiento" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Pre Tratamiento</strong></h5></label></div>
+                    {{ form.preTratamiento|attr:"placeholder:Pre tratamento"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center" }}
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="fondo" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Fondo</strong></h5></label></div>
+                    {{ form.fondo|attr:"placeholder:Fondo"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                </div>
+                <div class="col">
+                    <div class="container text-center">
+                        <label for="finitura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Finitura</strong></h5></label></div>
+                    {{ form.finitura|attr:"id:finitura"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center" }}
+                </div>
+            </div>
+
+
+            <div class="d-flex justify-content-center">
+
+                <a href="javascript:history.back(-1);"
+                   class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i id="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
+                <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
+            </div>
+
+        </form>
+
+
+        <script>
+
+            $("#fecha_entrega_estimada").datepicker({
+                dateFormat: "dd-mm-yy"
             });
-            </script>
+        </script>
+        <script>
+            document.getElementById("producto").options[0].innerText = "Selezionare un producto...";
+            document.getElementById("producto").options[0].disabled = 'true';
+
+            jai = document.getElementById("id_rut").options[0].innerText;
+            console.log(jai)
+
+            document.getElementById("id_rut").options[0].innerText = "Selezionare Cliente...";
+
+            document.getElementById("id_rut").options[0].disabled = 'true';
+
+            document.getElementById("asignado").options[0].innerText = "Selezionare chi assegnare...";
+            document.getElementById("asignado").options[0].disabled = 'true';
+
+            document.getElementById("estado").options[0].innerText = "Selezionare uno stato...";
+            document.getElementById("estado").options[0].disabled = 'true';
+
+            document.getElementById("ubicacion").options[0].innerText = "Selezionare una ubicazione..";
+            document.getElementById("ubicacion").options[0].disabled = 'true';
+
+
+        </script>
+
+    {% else %}
+        <div class="justify-content-center">
+            <h1 class="text-center">{{ user|upper }} no hai il permesso di accedere a questa pagina</h1>
+            <div class="d-flex justify-content-center">
+                <a href="javascript:history.back(-1);"
+                   class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>
+            </div>
         </div>
 
 
-    </div>
+    {% endif %}
+    <script>
+        var hola = document.getElementById("jamaica");
+        hola.addEventListener("mouseenter", function (event) {
 
+            var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
 
-    <div class="row">
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="preTratamiento" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong>Pre Tratamiento</strong></h5></label></div>
-            {{form.preTratamiento|attr:"placeholder:Pre tratamento"|add_class:"form-control font-weight-bold rounded-pill m-2 text-center"}}
-        </div>
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="fondo" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Fondo</strong></h5></label></div>
-            {{form.fondo|attr:"placeholder:Fondo"|attr:"id:fecha_entrega_estimada"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-        <div class="col">
-                        <div class="container text-center">
-                            <label for="finitura" style="margin-bottom:-5rem;margin-top:1rem"><h5><strong> Finitura</strong></h5></label></div>
-            {{form.finitura|attr:"id:finitura"|attr:"placeholder:Finitura"|add_class:"form-control rounded-pill m-2 font-weight-bold font-weight-bold text-center"}}
-        </div>
-    </div>
+        });
+        hola.addEventListener("mouseleave", function (event) {
+            var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
+        });
+        var hola2 = document.getElementById("jamaica2");
 
+        hola2.addEventListener("mouseenter", function (event) {
 
-    <div class="d-flex justify-content-center">
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
 
-        <a href="javascript:history.back(-1);"
-           class="btn btn-secondary border m-2 rounded-pill" id="jamaica"><strong><i id="japon" class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>.
-        <button type="submit" id="jamaica2" class="btn btn-primary m-2 rounded-pill border"><strong><i id="japon2" class="far fa-paper-plane"></i> INVIARE</strong></button>
-    </div>
+        });
+        hola2.addEventListener("mouseleave", function (event) {
+            var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
+        });
 
-</form>
+        var hola3 = document.getElementById("jamaica3");
 
+        hola3.addEventListener("mouseenter", function (event) {
 
-<script>
+            var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
 
-    $("#fecha_entrega_estimada").datepicker({
-        dateFormat: "dd-mm-yy"
-    });
-</script>
-<script>
-    document.getElementById("producto").options[0].innerText = "Selezionare un producto...";
-    document.getElementById("producto").options[0].disabled = 'true';
-
-    jai = document.getElementById("id_rut").options[0].innerText;
-    console.log(jai)
-
-    document.getElementById("id_rut").options[0].innerText = "Selezionare Cliente...";
-
-    document.getElementById("id_rut").options[0].disabled = 'true';
-
-    document.getElementById("asignado").options[0].innerText = "Selezionare chi assegnare...";
-    document.getElementById("asignado").options[0].disabled = 'true';
-
-    document.getElementById("estado").options[0].innerText = "Selezionare uno stato...";
-    document.getElementById("estado").options[0].disabled = 'true';
-
-    document.getElementById("ubicacion").options[0].innerText = "Selezionare una ubicazione..";
-    document.getElementById("ubicacion").options[0].disabled = 'true';
-
-
-</script>
-
-{%else%}
-<div class="justify-content-center">
-    <h1 class="text-center">{{user|upper}} no hai il permesso di accedere a questa pagina</h1>
-    <div class="d-flex justify-content-center">
-        <a href="javascript:history.back(-1);"
-           class="btn btn-secondary border m-2 rounded-pill text-center"><strong><i class="fas fa-chevron-circle-left"></i> RITORNARE</strong></a>
-    </div>
-</div>
-
-
-{%endif%}
-<script>
-    var hola = document.getElementById("jamaica");
-    hola.addEventListener("mouseenter", function (event) {
-
-        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left fa-spin";
-
-    });
-    hola.addEventListener("mouseleave", function (event) {
-        var japon = document.getElementById("japon").className = "fas fa-chevron-circle-left";
-    });
-    var hola2 = document.getElementById("jamaica2");
-
-    hola2.addEventListener("mouseenter", function (event) {
-
-        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane fa-spin";
-
-    });
-    hola2.addEventListener("mouseleave", function (event) {
-        var japon2 = document.getElementById("japon2").className = "far fa-paper-plane";
-    });
-
-    var hola3 = document.getElementById("jamaica3");
-
-    hola3.addEventListener("mouseenter", function (event) {
-
-        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left fa-spin";
-
-    });
-    hola3.addEventListener("mouseleave", function (event) {
-        var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
-    });
-</script>
-{%endblock%}
+        });
+        hola3.addEventListener("mouseleave", function (event) {
+            var japon3 = document.getElementById("japon3").className = "fas fa-chevron-circle-left";
+        });
+    </script>
+{% endblock %}
