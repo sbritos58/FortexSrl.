@@ -19,7 +19,7 @@ from django.forms import inlineformset_factory
 from .filters import OrdenesFilter,StockMovimientosFilter
 
 def ListViewStock(request):
-    Model_one = Stock.objects.all()
+    Model_one = Stock.objects.all().order_by("cantidad")
 
     myFilter = OrdenesFilter(request.GET,queryset=Model_one)
     paginator=Paginator(myFilter.qs,10)
