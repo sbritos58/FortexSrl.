@@ -63,14 +63,17 @@
                         {{ myFilter.form.fechaFinal|attr:"placeholder:Meno di"|add_class:"form-control font-weight-bold container text-center" }}
                     </div>
                     <div class="col-sm">
-                        <button class="btn border" style="width:182.8px;height:38px;margin-top:1.8rem ;color:#fff ;background-color:#138496;" type="submit"><strong>CERCHI</strong></button>
+                        <button class="btn border"
+                                style="width:182.8px;height:38px;margin-top:1.8rem ;color:#fff ;background-color:#138496;"
+                                type="submit"><strong>CERCHI</strong></button>
                     </div>
                 </div>
             </form>
         </div>
         <div class="d-flex justify-content-center">
 
-            <table class=" table-responsive-lg table-striped table-bordered table-hover" style="box-shadow:2px 2px 2px;">
+            <table class=" table-responsive-lg table-striped table-bordered table-hover"
+                   style="box-shadow:2px 2px 2px;">
 
 
                 <thead style="background-color:#138496;color:#fff">
@@ -86,9 +89,12 @@
                     {% csrf_token %}
                     <tr>
                     <td class="col-md text-center" style="width:5rem;">{{ i.id }}</td>
-                    <td class="col-md text-center" style="width:15rem; color: blue"><a href="{% url 'detailOrden' i.orden %} ">{{ i.orden }}</a></td>
-                    <td class="col-md text-center" style="color:blue;width:5rem;"><a href="{% url 'detailProductos' i.nombre.id %}">{{ i.nombre.nombre }}</a></td>
-                    <td class="col-md text-center" style="width:5rem;">{% if i.tipo_de_movimiento == True %}Aggiungi{% else %}Sottrare{% endif %}</td>
+                    <td class="col-md text-center" style="width:15rem; color: blue"><a
+                            href="{% url 'detailOrden' i.orden %} ">{{ i.orden }}</a></td>
+                    <td class="col-md text-center" style="color:blue;width:5rem;"><a
+                            href="{% url 'detailProductos' i.nombre.id %}">{{ i.nombre.nombre }}</a></td>
+                    <td class="col-md text-center" style="width:5rem;">{% if i.tipo_de_movimiento == True %}
+                        Aggiungi{% else %}Sottrare{% endif %}</td>
                     <td class="col-md text-center" style="width:5rem;">{{ i.cantidad }} Grs.</td>
                     <td class="col-md text-center" style="width:15rem;">{{ i.fecha }}</td>
 
@@ -100,21 +106,26 @@
                 {% if pub.has_previous %}
 
                     <a href="?{{ request.get_full_path }}&page1={{ pub.previous_page_number }}"
-                       style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black mr-1 btn-sm rounded-pill border" type="submit">
+                       style="box-shadow:2px 2px 2px;"
+                       class="btn btn-light fgcolor-black mr-1 btn-sm rounded-pill border" type="submit">
                         <strong>Atras</strong></a>{% endif %}
                 {% if pub.has_next %}
                     <a href="?{{ request.get_full_path }}&page1={{ pub.next_page_number }}&page=Myfilter"
-                       style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black btn-sm rounded-pill border" type="submit">
+                       style="box-shadow:2px 2px 2px;" class="btn btn-light fgcolor-black btn-sm rounded-pill border"
+                       type="submit">
                         <strong>Siguiente</strong></a>
                 {% endif %}
             </div>
             <hr>
         </div>
         </div>
+
         <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+                type="text/javascript"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                type="text/javascript"></script>
 
 
         <script>

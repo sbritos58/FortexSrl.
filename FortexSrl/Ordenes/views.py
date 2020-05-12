@@ -39,18 +39,18 @@ def dashboard(request):
     # todo crear entregados por mes
 
     # variables globales para pasar a dashboard
-    totalUsado = StockMovimientos.objects.filter(tipo_de_movimiento=False).annotate(Sum("cantidad"))
+    totalUsado = StockMovimientos.objects.values("nombre__nombre").filter(tipo_de_movimiento=False).annotate(Sum("cantidad"))
     totalprod = Ordenes.objects.values_list("producto__nombre").exclude(cantidadEntregada=None).annotate(cantidad=Sum('cantidad_recibida')).order_by('producto')
     totalprodentregados = Ordenes.objects.values_list("producto__nombre").exclude(cantidadEntregada=None).annotate(cantidad=Sum('cantidadEntregada')).order_by('producto')
     totalprodentregados2 = Ordenes.objects.all().exclude(cantidadEntregada=None).annotate(cantidad=Sum("cantidadEntregada"))
-
     #funciones para recuperar datos a mostrar
 
-    totalUsadoCant = []
-    totalUsadoEtiq = []
+
+    totalUsadoetiq = []
+    totalUsadocant = []
     for i in totalUsado:
-        totalUsadoEtiq.append(i.nombre)
-        totalUsadoCant.append(i.cantidad)
+        totalUsadoetiq.append(i["nombre__nombre"])
+        totalUsadocant.append(i["cantidad__sum"])
 
     productos1 = []
     for i in totalprod:
@@ -72,7 +72,7 @@ def dashboard(request):
 
     total = list(map(int.__sub__,productos2,productos1))
 
-    context = {"total": total,"etiquetas":listatitulos,"totalProdEntr":totalprodentregados2,"totalUsadoEtiq":totalUsadoEtiq,'totalUsadoCant':totalUsadoCant}
+    context = {"total": total,"etiquetas":listatitulos,"totalProdEntr":totalprodentregados2,"totalUsadoEtiq":totalUsadoetiq,"totalUsadoCant":totalUsadocant}
     return render(request, 'ordenes/dashboard.html', context)
 
 

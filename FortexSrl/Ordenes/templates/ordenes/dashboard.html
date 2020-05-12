@@ -3,8 +3,10 @@
 {% load widget_tweaks %}
 
 {% block head %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+          integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 {% endblock %}
@@ -12,193 +14,197 @@
 {% block content %}
 
 
-<div class="container">
-    <div class="row text-center mb-2">
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-head">
-                    <h5 class="card-title mt-2">Quantità di prodotti consegnati</h5>
-                    <hr class="ml-2 mr-2">
+    <div class="container">
+        <div class="row text-center mb-2">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-head">
+                        <h5 class="card-title mt-2">Quantità di prodotti consegnati</h5>
+                        <hr class="ml-2 mr-2">
+                    </div>
+                    <div class="card-body" style="height: 20rem">
+                        <div class="chart-container" style="position: relative; height:45vh; width:33vw">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body" style="height: 20rem">
-                    <canvas id="myChart" width="100px" height="100px"></canvas>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-head">
+                        <h5 class="card-title mt-2">Quantità di prodotti persi</h5>
+                        <hr class="ml-2 mr-2">
+                    </div>
+                    <div class="card-body" style="height: 20rem">
+                        <div class="chart-container" style="position: relative; height:45vh; width:33vw">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center mb-2">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <h5 class="card-title mt-2">Quantità di vernice utilizzata</h5>
+                    <hr class="ml-2 mr-2">
+                    <div class="card-body" style="height: 20rem">
+                        <div class="chart-container" style="position: relative; height:45vh; width:33vw">
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body" style="height: 20rem">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-head">
-                    <h5 class="card-title mt-2">Quantità di prodotti persi</h5>
-                    <hr class="ml-2 mr-2">
-                </div>
-                <div class="card-body" style="height: 20rem">
-                    <canvas id="myChart2" width="100px" height="100px"></canvas>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row text-center mb-2">
-        <div class="col">
-            <div class="card shadow-sm">
-                <h5 class="card-title mt-2">Quantità di vernice utilizzata</h5>
-                    <hr class="ml-2 mr-2">
-                <div class="card-body" style="height: 20rem">
-                    <canvas id="myChart3" width="100px" height="100px"></canvas>
 
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-body" style="height: 20rem">
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        $(document).ready(function () {
 
-</div>
+            var ctx = document.getElementById('myChart3').getContext('2d');
 
-<script>
-    $(document).ready(function () {
+            var myChart = new Chart(ctx, {
 
-        var ctx = document.getElementById('myChart3').getContext('2d');
-
-        var myChart = new Chart(ctx, {
-
-            type: 'bar',
-            data: {
-                labels: [{% if totalUsadoEtiq|length > 1 %}{%for i in totalUsadoEtiq%} '{{ i }}', {% endfor %}{% else %}{{ totalUsadoEtiq }}{% endif %}],
-                datasets: [{
-                    label: 'Quantità di vernice utilizzata',
-                    data: [{% if totalUsadoCant|length > 1  %}{% for i in totalUsadoCant %} {{ i }}, {% endfor %} {% else %}{{ totalUsadoCant }}{% endif %}],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                type: 'bar',
+                data: {
+                    labels: [{% if totalUsadoEtiq|length > 1 %}{%for i in totalUsadoEtiq%} '{{ i }}', {% endfor %}{% else %}{{ totalUsadoEtiq }}{% endif %}],
+                    datasets: [{
+                        label: 'Quantità di vernice utilizzata in G.',
+                        data: [{% if totalUsadoCant|length > 1  %}{% for i in totalUsadoCant %} {{ i }}, {% endfor %} {% else %}{{ totalUsadoCant }}{% endif %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 
 
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
-        var ctx = document.getElementById('myChart2').getContext('2d');
+            var ctx = document.getElementById('myChart2').getContext('2d');
 
-        var myChart = new Chart(ctx, {
+            var myChart = new Chart(ctx, {
 
-            type: 'bar',
-            data: {
-                labels: [{% if etiquetas|length > 1 %}{%for i in etiquetas%} '{{ i }}', {% endfor %}{% else %}{{ etiquetas }}{% endif %}],
-                datasets: [{
-                    label: 'Quantità di prodotti persi',
-                    data: [{% if total|length > 1  %}{% for i in total %} {{ i }}, {% endfor %} {% else %}{{ total }}{% endif %}],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                type: 'bar',
+                data: {
+                    labels: [{% if etiquetas|length > 1 %}{%for i in etiquetas%} '{{ i }}', {% endfor %}{% else %}{{ etiquetas }}{% endif %}],
+                    datasets: [{
+                        label: 'Quantità di prodotti persi',
+                        data: [{% if total|length > 1  %}{% for i in total %} {{ i }}, {% endfor %} {% else %}{{ total }}{% endif %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
-<script>
-    $(document).ready(function () {
+    </script>
+    <script>
+        $(document).ready(function () {
 
-        var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('myChart').getContext('2d');
 
-        var myChart = new Chart(ctx, {
+            var myChart = new Chart(ctx, {
 
-            type: 'bar',
-            data: {
-                labels: [{% if totalProdEntr|length > 1 %}{%for i in totalProdEntr%} '{{ i.producto }}', {% endfor %}{% else %}{{ totalProdEntr.producto }}{% endif %}],
-                datasets: [{
-                    label: 'Quantità di prodotti consegnati',
-                    data: [{% if totalProdEntr|length > 1  %}{% for i in totalProdEntr %} {{ i.cantidadEntregada }}, {% endfor %} {% else %}{{ totalProdEntr.cantidadEntregada }}{% endif %}],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+                type: 'bar',
+                data: {
+                    labels: [{% if totalProdEntr|length > 1 %}{%for i in totalProdEntr%} '{{ i.producto }}', {% endfor %}{% else %}{{ totalProdEntr.producto }}{% endif %}],
+                    datasets: [{
+                        label: 'Quantità di prodotti consegnati',
+                        data: [{% if totalProdEntr|length > 1  %}{% for i in totalProdEntr %} {{ i.cantidadEntregada }}, {% endfor %} {% else %}{{ totalProdEntr.cantidadEntregada }}{% endif %}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
                     }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 
 {% endblock %}
 
